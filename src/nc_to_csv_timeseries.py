@@ -1,9 +1,10 @@
 import json
 import logging
 from argparse import ArgumentParser
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 from netCDF4 import Dataset     # type: ignore
 import numpy as np
@@ -169,18 +170,22 @@ def extract_precipitation(
 def filter_by_date(
         data_series: Sequence,
         start_date: datetime,
-        end_date: datetime) -> Sequence[tuple[datetime, float]]:
-    """_summary_
+        end_date: datetime) -> Iterator[tuple[datetime, Any]]:
+    """
+    Filter a data series using a reference time period, returning an iterator.
 
     Args:
-        data_series (Sequence): _description_
-        start_date (datetime): _description_
-        end_date (datetime): _description_
+        data_series (Sequence): Data series.
+        start_date (datetime): Start of the time period.
+        end_date (datetime): End of the time period.
 
     Returns:
-        Sequence[tuple[datetime, float]]: _description_
+        Iterator[tuple[datetime, Any]]: Iterator which yields the value with its datetime if
+            within the specified period.
     """
-    return [(date, value) for date, value in data_series if start_date <= date <= end_date]
+    for date, value in data_series:
+        if start_date <= date <= end_date:
+            yield (date, value)
 
 
 def generate_csv_files(
