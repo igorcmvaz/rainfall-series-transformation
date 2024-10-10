@@ -32,16 +32,49 @@ CLIMATE_MODELS: list[str] = [
     "UKESM1-0-LL",
     ]
 
-SCENARIOS: dict[str, tuple[str, str]] = {
-    'Histórico': ('1980-01-01', '2000-01-01'),
-    'SSP245_2015_2035': ('2015-01-01', '2035-01-01'),
-    'SSP245_2024_2074': ('2024-01-01', '2074-01-01'),
-    'SSP245_2040_2060': ('2040-01-01', '2060-01-01'),
-    'SSP245_2060_2080': ('2060-01-01', '2080-01-01'),
-    'SSP585_2015_2035': ('2015-01-01', '2035-01-01'),
-    'SSP585_2024_2074': ('2024-01-01', '2074-01-01'),
-    'SSP585_2040_2060': ('2040-01-01', '2060-01-01'),
-    'SSP585_2060_2080': ('2060-01-01', '2080-01-01'),
+SCENARIOS: dict[str, list[dict[str, str | tuple[str, str]]]] = {
+    "Histórico": [
+        {
+            "label": "Histórico",
+            "period": ("1980-01-01", "2000-01-01")
+        }
+    ],
+    "SSP245": [
+        {
+            "label": "SSP245_2015_2035",
+            "period": ("2015-01-01", "2035-01-01")
+        },
+        {
+            "label": "SSP245_2024_2074",
+            "period": ("2024-01-01", "2074-01-01")
+        },
+        {
+            "label": "SSP245_2040_2060",
+            "period": ("2040-01-01", "2060-01-01")
+        },
+        {
+            "label": "SSP245_2060_2080",
+            "period": ("2060-01-01", "2080-01-01")
+        },
+    ],
+    "SSP585": [
+        {
+            "label": "SSP585_2015_2035",
+            "period": ("2015-01-01", "2035-01-01")
+        },
+        {
+            "label": "SSP585_2024_2074",
+            "period": ("2024-01-01", "2074-01-01")
+        },
+        {
+            "label": "SSP585_2040_2060",
+            "period": ("2040-01-01", "2060-01-01")
+        },
+        {
+            "label": "SSP585_2060_2080",
+            "period": ("2060-01-01", "2080-01-01")
+        },
+    ]
     }
 
 INPUT_FILENAME_FORMAT: dict[str, str] = {
@@ -92,8 +125,6 @@ def extract_precipitation(
     Returns:
         Sequence[tuple[datetime, float]] | None: _description_
     """
-    # TODO: This function does not need to be called at all iterations from the same model
-    # it only the period is changing. Dataset can be loaded just once per location
     try:
         dataset = Dataset(source_path)
     except Exception as e:
@@ -170,10 +201,13 @@ def generate_csv_files(
     logging.info(
         f"Starting extraction of data from model '{model}', for the city of '{city_name}' "
         f"with coordinates ({latitude}, {longitude})")
-    for scenario_label, (start_date, end_date) in SCENARIOS.items():
-        source_file = INPUT_FILENAME_FORMAT[
-            scenario_label.split("_")[0]].format(model=model)
-        logging.debug(f"Source file name: {source_file}")
+    for scenario_name, time_periods in SCENARIOS.items():
+        logging.debug(
+            f"Found {len(time_periods)} time period(s) for scenario '{scenario_name}'")
+        source_file = INPUT_FILENAME_FORMAT[scenario_name].format(model=model)
+        logging.debug(
+            f"Source file name for model '{model}' and scenario '{scenario_name}': "
+            f"{source_file}")
 
         source_path = Path(input_path, source_file)
         if not source_path.is_file():
@@ -186,14 +220,17 @@ def generate_csv_files(
                 f"No data could be extracted from source file at '{source_path.resolve()}'")
             continue
 
-        filtered_series = filter_by_date(
-            data_series,
-            datetime.strptime(start_date, "%Y-%m-%d"),
-            datetime.strptime(end_date, "%Y-%m-%d"))
-        df = pd.DataFrame(filtered_series, columns=["date", "precipitation"])
-        df.to_csv(
-            Path(output_path, f"{city_name}_{model}_{scenario_label}").with_suffix(".csv"),
-            index=False)
+        for details in time_periods:
+            filtered_series = filter_by_date(
+                data_series,
+                datetime.strptime(details["period"][0], "%Y-%m-%d"),
+                datetime.strptime(details["period"][1], "%Y-%m-%d"))
+
+            df = pd.DataFrame(filtered_series, columns=["date", "precipitation"])
+            df.to_csv(Path(
+                output_path,
+                f"{city_name}_{model}_{details['label']}"
+                ).with_suffix(".csv"), index=False)
 
 
 def main(args):
