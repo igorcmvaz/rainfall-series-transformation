@@ -130,7 +130,7 @@ def extract_precipitation(
     except Exception as e:
         logging.exception(f"Error while processing file, details below:\n{e}")
         return None
-    logging.debug(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
+    logging.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
 
     latitudes: Sequence[float] = dataset.variables["lat"][:]
     longitudes: Sequence[float] = dataset.variables["lon"][:]
@@ -146,7 +146,9 @@ def extract_precipitation(
 
     latitude_index: int = np.where(latitudes == target_latitude)[0][0]
     longitude_index: int = np.where(longitudes == target_longitude)[0][0]
-    logging.debug(f"Found {int(latitude_index)=} and {int(longitude_index)=}")
+    logging.debug(
+        f"Found latitude index={int(latitude_index)} and "
+        f"longitude index={int(longitude_index)}")
 
     reference_date = datetime.strptime(
         dataset.variables["time"].units.split("since")[1].strip(), "%Y-%m-%dT%H:%M:%S")
