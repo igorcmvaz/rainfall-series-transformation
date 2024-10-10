@@ -11,25 +11,25 @@ import pandas as pd
 
 
 CLIMATE_MODELS: list[str] = [
-    'ACCESS-CM2',
-    'ACCESS-ESM1-5',
-    'CMCC-ESM2',
-    'EC-EARTH3',
-    'GFDL-CM4',
-    'GFDL-ESM4',
-    'HadGEM3-GC31-LL',
-    'INM-CM4_8',
-    'INM-CM5',
-    'IPSL-CM6A-LR',
-    'KACE',
-    'KIOST',
-    'MIROC6',
-    'MPI-ESM1-2',
-    'MRI-ESM2',
-    'NESM3',
-    'NorESM2-MM',
-    'TaiESM1',
-    'UKESM1-0-LL',
+    "ACCESS-CM2",
+    "ACCESS-ESM1-5",
+    "CMCC-ESM2",
+    "EC-EARTH3",
+    "GFDL-CM4",
+    "GFDL-ESM4",
+    "HadGEM3-GC31-LL",
+    "INM-CM4_8",
+    "INM-CM5",
+    "IPSL-CM6A-LR",
+    "KACE",
+    "KIOST",
+    "MIROC6",
+    "MPI-ESM1-2",
+    "MRI-ESM2",
+    "NESM3",
+    "NorESM2-MM",
+    "TaiESM1",
+    "UKESM1-0-LL",
     ]
 
 SCENARIOS: dict[str, tuple[str, str]] = {
@@ -45,9 +45,9 @@ SCENARIOS: dict[str, tuple[str, str]] = {
     }
 
 INPUT_FILENAME_FORMAT: dict[str, str] = {
-        'Histórico': '{model}-pr-hist.nc',
-        'SSP245': '{model}-pr-ssp245.nc',
-        'SSP585': '{model}-pr-ssp585.nc'
+        "Histórico": "{model}-pr-hist.nc",
+        "SSP245": "{model}-pr-ssp245.nc",
+        "SSP585": "{model}-pr-ssp585.nc"
     }
 
 
@@ -101,10 +101,10 @@ def extract_precipitation(
         return None
     logging.debug(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
 
-    latitudes: Sequence[float] = dataset.variables['lat'][:]
-    longitudes: Sequence[float] = dataset.variables['lon'][:]
-    timestamps: Sequence[str] = dataset.variables['time'][:]
-    precipitation: Dataset = dataset.variables['pr'][:]
+    latitudes: Sequence[float] = dataset.variables["lat"][:]
+    longitudes: Sequence[float] = dataset.variables["lon"][:]
+    timestamps: Sequence[str] = dataset.variables["time"][:]
+    precipitation: Dataset = dataset.variables["pr"][:]
 
     if (target_latitude not in latitudes) or (target_longitude not in longitudes):
         logging.error(
@@ -118,7 +118,7 @@ def extract_precipitation(
     logging.debug(f"Found {int(latitude_index)=} and {int(longitude_index)=}")
 
     reference_date = datetime.strptime(
-        dataset.variables['time'].units.split('since')[1].strip(), "%Y-%m-%dT%H:%M:%S")
+        dataset.variables["time"].units.split("since")[1].strip(), "%Y-%m-%dT%H:%M:%S")
     dates: list[datetime] = [reference_date + timedelta(days=float(t)) for t in timestamps]
     logging.debug(f"Found {len(dates)} time indices for precipitation data")
 
