@@ -90,16 +90,22 @@ def validate_data_point(
         time_index: int,
         latitude_index: int,
         longitude_index: int) -> float | None:
-    """_summary_
+    """
+    Retrieves the value of a data point given indices for time, latitude and longitude, if
+    it is a number.
 
     Args:
-        data_series (Dataset): _description_
-        time_index (int): _description_
-        latitude_index (int): _description_
-        longitude_index (int): _description_
+        data_series (Dataset): Data series containing time, latitude and longitude marks.
+        time_index (int): Index for the time mark.
+        latitude_index (int): Index for the latitude mark.
+        longitude_index (int): Index for the longitude mark.
+
+    Raises:
+        IndexError: if there is no point in the data series that simultaneously corresponds
+            to the time, latitude and longitude marks.
 
     Returns:
-        float: _description_
+        float | None: Value of the data point converted to float or None, if unavailable.
     """
     try:
         value = data_series[time_index, latitude_index, longitude_index]
@@ -116,15 +122,19 @@ def extract_precipitation(
         source_path: Path,
         target_latitude: float,
         target_longitude: float) -> Sequence[tuple[datetime, float]] | None:
-    """_summary_
+    """
+    Loads a NetCDF4 file from specified path and extracts the precipitation data for the
+    desired coordinates.
 
     Args:
-        source_path (Path): _description_
-        target_latitude (float): _description_
-        target_longitude (float): _description_
+        source_path (Path): Path to the NetCDF4 file containing the data.
+        target_latitude (float): Latitude corresponding to the data points to be extracted.
+        target_longitude (float): Longitude corresponding to the data points to be
+            extracted.
 
     Returns:
-        Sequence[tuple[datetime, float]] | None: _description_
+        Sequence[tuple[datetime, float]] | None: Precipitation data series, with each value
+            mapped to a datetime.
     """
     try:
         dataset = Dataset(source_path)
@@ -135,7 +145,7 @@ def extract_precipitation(
 
     latitudes: Sequence[float] = dataset.variables["lat"][:]
     longitudes: Sequence[float] = dataset.variables["lon"][:]
-    timestamps: Sequence[str] = dataset.variables["time"][:]
+    timestamps: Sequence[float] = dataset.variables["time"][:]
     precipitation: Dataset = dataset.variables["pr"][:]
 
     if (target_latitude not in latitudes) or (target_longitude not in longitudes):
@@ -195,15 +205,17 @@ def generate_csv_files(
         longitude: float,
         input_path: Path,
         output_path: Path) -> None:
-    """_summary_
+    """
+    Generates CSV files with precipitation data from specified climate models for given
+    periods of time based on a set of NetCDF4 files and a specified location.
 
     Args:
-        model (str): _description_
-        city_name (str): _description_
-        latitude (float): _description_
-        longitude (float): _description_
-        input_path (Path): _description_
-        output_path (Path): _description_
+        model (str): Climate model to be used for data extraction.
+        city_name (str): Name of the city to which the data is related.
+        latitude (float): Latitude of the location in the NetCDF4 file.
+        longitude (float): Longitude of the location in the NetCDF4 file.
+        input_path (Path): Path to the directory containing the NetCDF4 files.
+        output_path (Path): Path to the directory where the CSV files should be saved.
     """
     logging.info(
         f"Starting extraction of data from model '{model}', for the city of '{city_name}' "
@@ -284,7 +296,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument(
         "input", type=str, metavar="path/to/input",
-        help="path to a directory where the input NC files are stored")
+        help="path to a directory where the input NetCDF4 files are stored")
     parser.add_argument(
         "-o", "--output", type=str, metavar="path/to/output", default="output",
         help="path to a directory where the output files will be saved. "
