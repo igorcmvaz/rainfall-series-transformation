@@ -234,10 +234,13 @@ def generate_csv_files(
                 datetime.strptime(details["period"][1], "%Y-%m-%d"))
 
             df = pd.DataFrame(filtered_series, columns=["date", "precipitation"])
-            df.to_csv(Path(
-                output_path,
-                f"{city_name}_{model}_{details['label']}"
-                ).with_suffix(".csv"), index=False)
+            complete_file_path = Path(
+                output_path, f"{city_name}_{model}_{details['label']}").with_suffix(".csv")
+            df.to_csv(complete_file_path, index=False)
+            logging.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
+        logging.info(
+            f"Successfully completed file generation for model '{model}', "
+            f"city '{city_name}'")
 
 
 def main(args):
