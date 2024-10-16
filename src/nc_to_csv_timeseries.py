@@ -1,15 +1,15 @@
 import json
 import logging
+import time
 from argparse import ArgumentParser
 from collections.abc import Iterator, Sequence
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from netCDF4 import Dataset     # type: ignore
 import numpy as np
 import pandas as pd
-
+from netCDF4 import Dataset  # type: ignore
 
 CLIMATE_MODELS: list[str] = [
     "ACCESS-CM2",
