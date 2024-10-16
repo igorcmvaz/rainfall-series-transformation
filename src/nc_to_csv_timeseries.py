@@ -148,15 +148,15 @@ def extract_precipitation(
     timestamps: Sequence[float] = dataset.variables["time"][:]
     precipitation: Dataset = dataset.variables["pr"][:]
 
-    if (target_latitude not in latitudes) or (target_longitude not in longitudes):
+    try:
+        latitude_index: int = np.argwhere(latitudes == target_latitude)[0][0]
+        longitude_index: int = np.argwhere(longitudes == target_longitude)[0][0]
+    except IndexError:
         logging.error(
             f"Could not find target coordinates ({target_latitude}, {target_longitude}) "
             f"in file '{source_path}'")
         dataset.close()
         return None
-
-    latitude_index: int = np.where(latitudes == target_latitude)[0][0]
-    longitude_index: int = np.where(longitudes == target_longitude)[0][0]
     logging.debug(
         f"Found latitude index={int(latitude_index)} and "
         f"longitude index={int(longitude_index)}")
