@@ -136,12 +136,15 @@ def extract_precipitation(
         Sequence[tuple[datetime, float]] | None: Precipitation data series, with each value
             mapped to a datetime.
     """
+    start_time: float = time.perf_counter()
     try:
         dataset = Dataset(source_path)
     except Exception as e:
         logging.exception(f"Error while processing file, details below:\n{e}")
         return None
-    logging.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
+    logging.info(
+        f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}' in "
+        f"{round(1000*(time.perf_counter() - start_time))}ms")
 
     latitudes: Sequence[float] = dataset.variables["lat"][:]
     longitudes: Sequence[float] = dataset.variables["lon"][:]
@@ -166,12 +169,16 @@ def extract_precipitation(
     dates: list[datetime] = [reference_date + timedelta(days=float(t)) for t in timestamps]
     logging.debug(f"Found {len(dates)} time indices for precipitation data")
 
+    start_time = time.perf_counter()
     precipitation_series: Sequence[tuple[datetime, float]] = []
     for time_index in range(len(dates)):
         mean_precipitation = validate_data_point(
             precipitation, time_index, latitude_index, longitude_index)
         if mean_precipitation is not None:
             precipitation_series.append((dates[time_index], mean_precipitation))
+    logging.info(
+        f"Successfully validated {len(precipitation_series)} data points in "
+        f"{round(1000*(time.perf_counter() - start_time))}ms")
 
     dataset.close()
     return precipitation_series
@@ -217,6 +224,8 @@ def generate_csv_files(
         input_path (Path): Path to the directory containing the NetCDF4 files.
         output_path (Path): Path to the directory where the CSV files should be saved.
     """
+    start_time: float = time.perf_counter()
+    file_counter: int = 0
     logging.info(
         f"Starting extraction of data from model '{model}', for the city of '{city_name}' "
         f"with coordinates ({latitude}, {longitude})")
@@ -249,13 +258,16 @@ def generate_csv_files(
             complete_file_path = Path(
                 output_path, f"{city_name}_{model}_{details['label']}").with_suffix(".csv")
             df.to_csv(complete_file_path, index=False)
+            file_counter += 1
             logging.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
+
         logging.info(
-            f"Successfully completed file generation for model '{model}', "
-            f"city '{city_name}'")
+            f"Successfully generated {file_counter} file(s) for model '{model}', "
+            f"city '{city_name}' in {time.perf_counter() - start_time:.3f}s")
 
 
 def main(args):
+    setup_start: float = time.perf_counter()
     logging.basicConfig(
         format="%(asctime)s    %(levelname)-8.8s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
@@ -268,28 +280,33 @@ def main(args):
     elif args.quiet >= 3:
         logging.getLogger().setLevel(logging.ERROR)
 
-    input_path = Path(args.input)
+    input_path: Path = Path(args.input)
     if not input_path.is_dir():
         logging.critical(f"Input path '{input_path.resolve()}' is not a directory")
         return None
     logging.info(f"Input path set to '{input_path.resolve()}'")
 
-    coordinates_path = Path(args.coordinates)
+    coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
         logging.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
         return None
 
-    output_path = Path(args.output)
+    output_path: Path = Path(args.output)
     output_path.mkdir(exist_ok=True)
     logging.info(f"Output path set to '{output_path.resolve()}'")
 
     with open(coordinates_path) as file:
         city_coordinates: dict[str, Sequence[float]] = json.load(file)
 
+    logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
+    operation_start = time.perf_counter()
     for city, (latitude, longitude) in city_coordinates.items():
         for model in CLIMATE_MODELS:
             generate_csv_files(model, city, latitude, longitude, input_path, output_path)
+
+    logging.info(
+        f"Completed all operations in {time.perf_counter() - operation_start:.3f}s")
 
 
 if __name__ == "__main__":
