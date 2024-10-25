@@ -1,0 +1,272 @@
+{
+  "Aracaju": {
+    "Target Coordinates": [
+      -10.9472,
+      -37.0731
+    ],
+    "Nearest Coordinates": [
+      -10.875,
+      -37.125
+    ]
+  },
+  "Belém": {
+    "Target Coordinates": [
+      -1.4558,
+      -48.5039
+    ],
+    "Nearest Coordinates": [
+      -1.375,
+      -48.875
+    ]
+  },
+  "Belo Horizonte": {
+    "Target Coordinates": [
+      -19.9167,
+      -43.9345
+    ],
+    "Nearest Coordinates": [
+      -19.875,
+      -43.875
+    ]
+  },
+  "Boa Vista": {
+    "Target Coordinates": [
+      2.8194,
+      -60.6738
+    ],
+    "Nearest Coordinates": [
+      2.875,
+      -60.625
+    ]
+  },
+  "Brasília": {
+    "Target Coordinates": [
+      -15.7801,
+      -47.9292
+    ],
+    "Nearest Coordinates": [
+      -15.875,
+      -47.875
+    ]
+  },
+  "Campo Grande": {
+    "Target Coordinates": [
+      -20.4697,
+      -54.6201
+    ],
+    "Nearest Coordinates": [
+      -20.375,
+      -54.625
+    ]
+  },
+  "Cuiabá": {
+    "Target Coordinates": [
+      -15.601,
+      -56.0979
+    ],
+    "Nearest Coordinates": [
+      -15.625,
+      -56.125
+    ]
+  },
+  "Curitiba": {
+    "Target Coordinates": [
+      -25.4284,
+      -49.2733
+    ],
+    "Nearest Coordinates": [
+      -25.375,
+      -49.375
+    ]
+  },
+  "Florianópolis": {
+    "Target Coordinates": [
+      -27.5954,
+      -48.548
+    ],
+    "Nearest Coordinates": [
+      -27.625,
+      -49.375
+    ]
+  },
+  "Fortaleza": {
+    "Target Coordinates": [
+      -3.7172,
+      -38.5434
+    ],
+    "Nearest Coordinates": [
+      -3.625,
+      -39.375
+    ]
+  },
+  "Goiânia": {
+    "Target Coordinates": [
+      -16.6869,
+      -49.2648
+    ],
+    "Nearest Coordinates": [
+      -16.625,
+      -49.375
+    ]
+  },
+  "João Pessoa": {
+    "Target Coordinates": [
+      -7.1195,
+      -34.845
+    ],
+    "Nearest Coordinates": [
+      -7.125,
+      -34.875
+    ]
+  },
+  "Macapá": {
+    "Target Coordinates": [
+      0.0349,
+      -51.0694
+    ],
+    "Nearest Coordinates": [
+      0.125,
+      -51.125
+    ]
+  },
+  "Maceió": {
+    "Target Coordinates": [
+      -9.6659,
+      -35.735
+    ],
+    "Nearest Coordinates": [
+      -9.375,
+      -36.125
+    ]
+  },
+  "Manaus": {
+    "Target Coordinates": [
+      -3.1019,
+      -60.025
+    ],
+    "Nearest Coordinates": [
+      -3.125,
+      -60.125
+    ]
+  },
+  "Natal": {
+    "Target Coordinates": [
+      -5.7945,
+      -35.211
+    ],
+    "Nearest Coordinates": [
+      -5.875,
+      -35.875
+    ]
+  },
+  "Palmas": {
+    "Target Coordinates": [
+      -10.1675,
+      -48.3277
+    ],
+    "Nearest Coordinates": [
+      -10.125,
+      -48.375
+    ]
+  },
+  "Porto Alegre": {
+    "Target Coordinates": [
+      -30.0346,
+      -51.2177
+    ],
+    "Nearest Coordinates": [
+      -30.125,
+      -51.125
+    ]
+  },
+  "Porto Velho": {
+    "Target Coordinates": [
+      -8.7612,
+      -63.9004
+    ],
+    "Nearest Coordinates": [
+      -8.875,
+      -63.875
+    ]
+  },
+  "Recife": {
+    "Target Coordinates": [
+      -8.0476,
+      -34.877
+    ],
+    "Nearest Coordinates": [
+      -8.125,
+      -35.625
+    ]
+  },
+  "Rio Branco": {
+    "Target Coordinates": [
+      -9.974,
+      -67.8243
+    ],
+    "Nearest Coordinates": [
+      -9.875,
+      -67.875
+    ]
+  },
+  "Rio de Janeiro": {
+    "Target Coordinates": [
+      -22.9068,
+      -43.1729
+    ],
+    "Nearest Coordinates": [
+      -22.625,
+      -43.625
+    ]
+  },
+  "Salvador": {
+    "Target Coordinates": [
+      -12.9714,
+      -38.5014
+    ],
+    "Nearest Coordinates": [
+      -12.875,
+      -39.375
+    ]
+  },
+  "São Luís": {
+    "Target Coordinates": [
+      -2.5387,
+      -44.2829
+    ],
+    "Nearest Coordinates": [
+      -2.625,
+      -44.375
+    ]
+  },
+  "São Paulo": {
+    "Target Coordinates": [
+      -23.5505,
+      -46.6333
+    ],
+    "Nearest Coordinates": [
+      -23.625,
+      -46.625
+    ]
+  },
+  "Teresina": {
+    "Target Coordinates": [
+      -5.0892,
+      -42.8019
+    ],
+    "Nearest Coordinates": [
+      -5.125,
+      -42.875
+    ]
+  },
+  "Vitória": {
+    "Target Coordinates": [
+      -20.3155,
+      -40.3128
+    ],
+    "Nearest Coordinates": [
+      -20.375,
+      -40.375
+    ]
+  }
+}
