@@ -297,11 +297,13 @@ def main(args):
     logging.info(f"Output path set to '{output_path.resolve()}'")
 
     with open(coordinates_path) as file:
-        city_coordinates: dict[str, Sequence[float]] = json.load(file)
+        city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
 
     logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
     operation_start = time.perf_counter()
-    for city, (latitude, longitude) in city_coordinates.items():
+    for city, details in city_coordinates.items():
+        latitude = details["Nearest Coordinates"][0]
+        longitude = details["Nearest Coordinates"][1]
         for model in CLIMATE_MODELS:
             generate_csv_files(model, city, latitude, longitude, input_path, output_path)
 
