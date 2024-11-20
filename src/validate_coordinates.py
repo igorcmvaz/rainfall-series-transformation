@@ -1,126 +1,163 @@
-import netCDF4 as nc
+import json
+import logging
+import time
+from argparse import ArgumentParser
+from collections.abc import Sequence
+from pathlib import Path
+
 import numpy as np
-import pandas as pd
+from netCDF4 import Dataset  # type: ignore
 
-# Função para verificar se há dados de precipitação na coordenada fornecida
-def has_precipitation_data(precipitation, lat_index, lon_index):
-    # Verifica se todos os dados ao longo do tempo estão mascarados (sem dados)
-    return not np.all(np.ma.getmaskarray(precipitation[:, lat_index, lon_index]))
 
-# Função para encontrar a coordenada válida mais próxima
-def find_nearest_valid_coordinate(latitudes, longitudes, precipitation, target_lat, target_lon):
-    lat_index = np.abs(latitudes - target_lat).argmin()
-    lon_index = np.abs(longitudes - target_lon).argmin()
+# TODO: Write all docstrings
+def generate_valid_coordinates_csv(
+        source_path: Path,
+        original_coordinates: dict[str, Sequence[float]],
+        output_file_path: Path) -> None:
+    """_summary_
 
-    # Inicializa a variável found como False
-    found = False
+    Args:
+        source_path (Path): _description_
+        original_coordinates (dict[str, Sequence[float]]): _description_
+        output_file_path (Path): _description_
 
-    # Se a coordenada inicial não tiver dados, procuramos pela mais próxima que tenha
-    if not has_precipitation_data(precipitation, lat_index, lon_index):
-        distance = 1  # Começa a procurar em torno da coordenada inicial
-        max_distance = 15  # Define um limite de quantas posições ao redor podem ser verificadas
-
-        while distance <= max_distance and not found:
-            for lat_shift in range(-distance, distance + 1):
-                for lon_shift in range(-distance, distance + 1):
-                    new_lat_index = lat_index + lat_shift
-                    new_lon_index = lon_index + lon_shift
-                    if 0 <= new_lat_index < len(latitudes) and 0 <= new_lon_index < len(longitudes):
-                        if has_precipitation_data(precipitation, new_lat_index, new_lon_index):
-                            lat_index, lon_index = new_lat_index, new_lon_index
-                            found = True
-                            break
-                if found:
-                    break
-            distance += 1
-
-    # Verifica se encontrou uma coordenada válida
-    if found or has_precipitation_data(precipitation, lat_index, lon_index):
-        return lat_index, lon_index, latitudes[lat_index], longitudes[lon_index]
-    else:
-        # Caso não encontre uma coordenada válida dentro do limite, retorna None
-        return None, None, None, None
-
-# Função para gerar o CSV com as coordenadas válidas
-def generate_valid_coordinates_csv(file_path, capitals_coords, output_csv):
-    # Tentar abrir o arquivo NetCDF
+    Returns:
+        _type_: _description_
+    """
+    start_time: float = time.perf_counter()
     try:
-        dataset = nc.Dataset(file_path, 'r')
-    except OSError as e:
-        print(f"Erro ao abrir o arquivo: {e}")
-        return
+        dataset: Dataset = Dataset(source_path)
+    except Exception as e:
+        logging.exception(f"Error while processing file, details below:\n{e}")
+        return None
+    logging.info(
+        f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}' in "
+        f"{round(1000*(time.perf_counter() - start_time))}ms")
 
-    # Obter latitudes, longitudes e precipitação do arquivo NetCDF
-    latitudes = dataset.variables['lat'][:]
-    longitudes = dataset.variables['lon'][:]
-    precipitation = dataset.variables['pr'][:]
-
-    # Lista para armazenar as coordenadas válidas
-    valid_coords = []
-
-    # Loop sobre todas as capitais
-    for city, (target_lat, target_lon) in capitals_coords.items():
-        # Encontrar a coordenada válida mais próxima
-        lat_index, lon_index, valid_lat, valid_lon = find_nearest_valid_coordinate(latitudes, longitudes, precipitation, target_lat, target_lon)
-        
-        # Verifica se uma coordenada válida foi encontrada
-        if valid_lat is not None and valid_lon is not None:
-            valid_coords.append({
-                "Capital": city,
-                "Target Latitude": target_lat,
-                "Target Longitude": target_lon,
-                "Nearest Latitude": valid_lat,
-                "Nearest Longitude": valid_lon
-            })
-        else:
-            print(f"Não foi possível encontrar uma coordenada válida para {city}")
-
-    # Converter a lista de coordenadas válidas em um DataFrame
-    df_valid_coords = pd.DataFrame(valid_coords)
-
-    # Salvar o DataFrame em um arquivo CSV
-    df_valid_coords.to_csv(output_csv, index=False)
-    print(f"CSV gerado: {output_csv}")
-
-    # Fechar o dataset
+    latitudes: Sequence[float] = dataset.variables["lat"][:]
+    longitudes: Sequence[float] = dataset.variables["lon"][:]
+    precipitation: Dataset = dataset.variables["pr"][:]
     dataset.close()
 
-# Coordenadas das 27 capitais brasileiras
-capitals_coords = {
-    "Brasília": (-15.7801, -47.9292),
-    "Rio de Janeiro": (-22.9068, -43.1729),
-    "São Paulo": (-23.5505, -46.6333),
-    "Salvador": (-12.9714, -38.5014),
-    "Fortaleza": (-3.7172, -38.5434),
-    "Belo Horizonte": (-19.9167, -43.9345),
-    "Manaus": (-3.1019, -60.0250),
-    "Curitiba": (-25.4284, -49.2733),
-    "Recife": (-8.0476, -34.8770),
-    "Porto Alegre": (-30.0346, -51.2177),
-    "Belém": (-1.4558, -48.5039),
-    "Goiânia": (-16.6869, -49.2648),
-    "São Luís": (-2.5387, -44.2829),
-    "Maceió": (-9.6659, -35.7350),
-    "Natal": (-5.7945, -35.2110),
-    "Teresina": (-5.0892, -42.8019),
-    "Campo Grande": (-20.4697, -54.6201),
-    "João Pessoa": (-7.1195, -34.8450),
-    "Aracaju": (-10.9472, -37.0731),
-    "Cuiabá": (-15.6010, -56.0979),
-    "Palmas": (-10.1675, -48.3277),
-    "Boa Vista": (2.8194, -60.6738),
-    "Macapá": (0.0349, -51.0694),
-    "Porto Velho": (-8.7612, -63.9004),
-    "Rio Branco": (-9.974, -67.8243),
-    "Florianópolis": (-27.5954, -48.5480),
-    "Vitória": (-20.3155, -40.3128)
-}
+    valid_coordinates: dict[str, dict[str, tuple[float, float]]] = {}
 
-# Caminho do arquivo NetCDF (substitua pelo caminho correto)
-file_path = 'TaiESM1-pr-ssp585.nc'
+    for city_name, (target_latitude, target_longitude) in original_coordinates.items():
+        valid_latitude, valid_longitude = find_nearest_valid_coordinate(
+            latitudes, longitudes, precipitation, target_latitude, target_longitude)
 
-# Nome do arquivo CSV de saída
-output_csv = 'coordenadas_capitais_validas.csv'
+        if valid_latitude is not None and valid_longitude is not None:
+            valid_coordinates[city_name] = {
+                "Target Coordinates": (target_latitude, target_longitude),
+                "Nearest Coordinates": (valid_latitude, valid_longitude)
+            }
+        else:
+            logging.error(
+                f"Could not find valid coordinates for city '{city_name}' in file at "
+                f"'{source_path.resolve()}'")
 
-# Gerar o CSV com as coordenadas válidas
-generate_valid_coordinates_csv(file_path, capitals_coords, output_csv)
+    with open(output_file_path, "w") as file:
+        json.dump(valid_coordinates, file, indent=2, ensure_ascii=False)
+    logging.info(
+        f"Successfully generated coordinates file at '{output_file_path.resolve()}'")
+
+
+def has_precipitation_data(
+        precipitation: Dataset,
+        latitude_index: int,
+        longitude_index: int) -> bool:
+    """_summary_
+
+    Args:
+        precipitation (Dataset): _description_
+        latitude_index (int): _description_
+        longitude_index (int): _description_
+
+    Returns:
+        bool: _description_
+    """
+    return not np.all(np.ma.getmaskarray(precipitation[:, latitude_index, longitude_index]))
+
+
+def find_nearest_valid_coordinate(
+        latitudes,
+        longitudes,
+        precipitation: Dataset,
+        target_latitude: float,
+        target_longitude: float) -> tuple[float | None, float | None]:
+
+    latitude_index: int = np.abs(latitudes - target_latitude).argmin()
+    longitude_index: int = np.abs(longitudes - target_longitude).argmin()
+    found = True
+    MAX_DISTANCE = 15
+    if not has_precipitation_data(precipitation, latitude_index, longitude_index):
+        found = False
+        distance = 1
+        while distance <= MAX_DISTANCE and not found:
+            for latitude_offset in range(-distance, distance + 1):
+                for longitude_offset in range(-distance, distance + 1):
+                    new_latitude_index = latitude_index + latitude_offset
+                    new_longitude_index = longitude_index + longitude_offset
+
+                    if has_precipitation_data(
+                            precipitation,
+                            new_latitude_index,
+                            new_longitude_index):
+                        latitude_index = new_latitude_index
+                        longitude_index = new_longitude_index
+                        found = True
+                        break
+            distance += 1
+
+    if found:
+        return latitudes[latitude_index], longitudes[longitude_index]
+    return None, None
+
+
+def main(args):
+    setup_start: float = time.perf_counter()
+    logging.basicConfig(
+        format="%(asctime)s    %(levelname)-8.8s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        level=logging.DEBUG,
+    )
+    if args.quiet == 1:
+        logging.getLogger().setLevel(logging.INFO)
+    elif args.quiet == 2:
+        logging.getLogger().setLevel(logging.WARNING)
+    elif args.quiet >= 3:
+        logging.getLogger().setLevel(logging.ERROR)
+
+    coordinates_path: Path = Path(args.coordinates)
+    if not coordinates_path.is_file():
+        logging.critical(
+            f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
+        return None
+    output_file_path = Path(f"validated_{coordinates_path.stem}").with_suffix(".json")
+
+    reference_path: Path = Path(args.reference)
+    if not reference_path.is_file():
+        logging.critical(
+            f"File with geo-located references not found at '{reference_path.resolve()}'")
+        return None
+
+    with open(coordinates_path) as file:
+        original_coordinates: dict[str, Sequence[float]] = json.load(file)
+
+    logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
+    generate_valid_coordinates_csv(reference_path, original_coordinates, output_file_path)
+    return None
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        "coordinates", type=str, metavar="path/to/coordinates.json",
+        help="path to a JSON file containing city names and their coordinates")
+    parser.add_argument(
+        "reference", type=str, metavar="path/to/reference.nc",
+        help="path to a NetCDF4 file containing geo-located precipitation data")
+    parser.add_argument(
+        "-q", "--quiet", action="count", default=0,
+        help="turn on quiet mode (cumulative), which hides log entries of levels lower "
+        "than INFO/WARNING")
+    main(parser.parse_args())
