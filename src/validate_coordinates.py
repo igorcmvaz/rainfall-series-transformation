@@ -9,6 +9,24 @@ from numpy.ma import MaskedArray
 from netCDF4 import Dataset, Variable
 
 
+def load_precipitation_dataset(source_path: Path) -> tuple[
+        MaskedArray, MaskedArray, MaskedArray]:
+    """
+    Loads latitude, longitude, and precipitation data from a NetCDF4 dataset.
+
+    Args:
+        source_path (Path): Path to the NetCDF4 precipitation dataset file.
+
+    Returns:
+        tuple[MaskedArray, MaskedArray, MaskedArray]: Tuple containing the corresponding
+        latitude, longitude, and precipitation data as masked arrays.
+    """
+    with Dataset(source_path) as dataset:
+        latitudes: MaskedArray = dataset.variables["lat"][:]
+        longitudes: MaskedArray = dataset.variables["lon"][:]
+        precipitation: MaskedArray = dataset.variables["pr"][:]
+    return latitudes, longitudes, precipitation
+
 
 def generate_valid_coordinates_json(
         source_path: Path,
@@ -25,9 +43,10 @@ def generate_valid_coordinates_json(
         output_file_path (Path): Path where the generated JSON file containing valid
             coordinates should be saved.
     """
+    latitudes, longitudes, precipitation = load_precipitation_dataset(source_path)
+    logging.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
 
     valid_coordinates: dict[str, dict[str, tuple[float, float]]] = {}
-
     for city_name, (target_latitude, target_longitude) in original_coordinates.items():
         valid_latitude, valid_longitude = find_nearest_valid_coordinate(
             latitudes, longitudes, precipitation, target_latitude, target_longitude)
@@ -134,6 +153,7 @@ def find_nearest_valid_coordinate(
     return None, None
 
 
+# TODO: get logger per file and don't use 'logging' directly for each log entry
 def main(args):
     logging.basicConfig(
         format="%(asctime)s    %(levelname)-8.8s: %(message)s",
