@@ -1,6 +1,5 @@
 import json
 import logging
-import time
 from argparse import ArgumentParser
 from collections.abc import Sequence
 from pathlib import Path
@@ -123,7 +122,6 @@ def find_nearest_valid_coordinate(
 
 
 def main(args):
-    setup_start: float = time.perf_counter()
     logging.basicConfig(
         format="%(asctime)s    %(levelname)-8.8s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
@@ -140,13 +138,14 @@ def main(args):
     if not coordinates_path.is_file():
         logging.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
-        return None
-    output_file_path = Path(f"validated_{coordinates_path.stem}").with_suffix(".json")
+        return
 
     reference_path: Path = Path(args.reference)
     if not reference_path.is_file():
         logging.critical(
             f"File with geo-located references not found at '{reference_path.resolve()}'")
+        return
+
     output_dir: Path = Path(args.output)
     try:
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -155,6 +154,7 @@ def main(args):
             f"Could not create directory at '{output_dir.resolve()}', default output "
             f"directory will be used. Details: {e}")
         output_dir = Path("sample_output")
+
     output_dir.mkdir(exist_ok=True)
     logging.debug(f"Output directory set to '{output_dir.resolve()}'")
     output_file_path = Path(
@@ -163,9 +163,8 @@ def main(args):
     with open(coordinates_path) as file:
         original_coordinates: dict[str, Sequence[float]] = json.load(file)
 
-    logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
     generate_valid_coordinates_json(reference_path, original_coordinates, output_file_path)
-    return None
+    return
 
 
 if __name__ == "__main__":
