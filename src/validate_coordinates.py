@@ -42,7 +42,7 @@ def generate_valid_coordinates_json(
                 f"Could not find valid coordinates for city '{city_name}' in file at "
                 f"'{source_path.resolve()}'")
 
-    with open(output_file_path, "w") as file:
+    with open(output_file_path, "w", encoding="utf-8") as file:
         json.dump(valid_coordinates, file, indent=2, ensure_ascii=False)
     logging.info(
         f"Successfully generated coordinates file at '{output_file_path.resolve()}'")
