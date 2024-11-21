@@ -1,5 +1,5 @@
 # Rainfall Series Transformation
-Transformation of Brazilian '.nc' precipitation files into location and model specific output files.
+Transformation of Brazilian '.nc' precipitation files (such as the ones found at [CLIMBra - Climate Change Dataset for Brazil](https://www.scidb.cn/en/detail?dataSetId=609b7ff93f0d4d1a9ba6eb709027c6ad), under `Gridded data/pr`") into location and model specific output files.
 
 ## Setup
 ```bash
