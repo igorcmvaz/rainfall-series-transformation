@@ -6,5 +6,6 @@ exclude =
     .vscode,
     build,
     dist,
+    .venv,
     venv
 max-complexity = 12
