@@ -13,6 +13,7 @@ sdist/
 var/
 wheels/
 share/python-wheels/
+*.nc
 *.egg-info/
 .installed.cfg
 *.egg
