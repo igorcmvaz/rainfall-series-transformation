@@ -14,30 +14,17 @@ def generate_valid_coordinates_json(
         source_path: Path,
         original_coordinates: dict[str, Sequence[float]],
         output_file_path: Path) -> None:
-    """_summary_
+    """
+    Generate a JSON file with coordinates of cities corresponding to data available from a
+    precipitation dataset.
 
     Args:
-        source_path (Path): _description_
-        original_coordinates (dict[str, Sequence[float]]): _description_
-        output_file_path (Path): _description_
-
-    Returns:
-        _type_: _description_
+        source_path (Path): Path to the NetCDF4 precipitation dataset file.
+        original_coordinates (dict[str, Sequence[float]]): Dictionary mapping city names to
+            target latitude and longitude.
+        output_file_path (Path): Path where the generated JSON file containing valid
+            coordinates should be saved.
     """
-    start_time: float = time.perf_counter()
-    try:
-        dataset: Dataset = Dataset(source_path)
-    except Exception as e:
-        logging.exception(f"Error while processing file, details below:\n{e}")
-        return None
-    logging.info(
-        f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}' in "
-        f"{round(1000*(time.perf_counter() - start_time))}ms")
-
-    latitudes: Sequence[float] = dataset.variables["lat"][:]
-    longitudes: Sequence[float] = dataset.variables["lon"][:]
-    precipitation: Dataset = dataset.variables["pr"][:]
-    dataset.close()
 
     valid_coordinates: dict[str, dict[str, tuple[float, float]]] = {}
 
@@ -62,18 +49,24 @@ def generate_valid_coordinates_json(
 
 
 def has_precipitation_data(
-        precipitation: Dataset,
+        precipitation: Variable,
         latitude_index: int,
         longitude_index: int) -> bool:
-    """_summary_
+    """
+    Checks if there are any valid (non-missing) precipitation data points in the dataset for
+    given coordinates.
 
     Args:
-        precipitation (Dataset): _description_
-        latitude_index (int): _description_
-        longitude_index (int): _description_
+        precipitation (Variable): Multidimensional array representing precipitation data
+            (including time and coordinates).
+        latitude_index (int): Index of the desired latitude dimension in the precipitation
+            dataset.
+        longitude_index (int): Index of the desired longitude  dimension in the
+            precipitation dataset.
 
     Returns:
-        bool: _description_
+        bool: True if there is at least one valid data point for the specified coordinates,
+        False otherwise.
     """
     return not np.all(np.ma.getmaskarray(precipitation[:, latitude_index, longitude_index]))
 
@@ -84,6 +77,26 @@ def find_nearest_valid_coordinate(
         precipitation: Dataset,
         target_latitude: float,
         target_longitude: float) -> tuple[float | None, float | None]:
+    """
+    Finds the nearest valid coordinates that contain precipitation data in a given dataset.
+
+    Uses an expanding spiral pattern until a maximum 'distance' from the original coordinate
+    indices is reached.
+
+    Args:
+        latitudes (Variable): 1D array containing the latitude values in the dataset.
+        longitudes (Variable): 1D array containing the longitude values in the dataset.
+        precipitation (Dataset): Multidimensional array representing precipitation data
+            (including time and coordinates).
+        target_latitude (float): Latitude component for which to find the nearest valid
+            coordindates.
+        target_longitude (float): Longitude component for which to find the nearest valid
+            coordindates.
+
+    Returns:
+        tuple[float | None, float | None]: A tuple containing the nearest coordinates that
+        contain valid precipitation data, if found. Else, a tuple of (None, None).
+    """
 
     latitude_index: int = np.abs(latitudes - target_latitude).argmin()
     longitude_index: int = np.abs(longitudes - target_longitude).argmin()
