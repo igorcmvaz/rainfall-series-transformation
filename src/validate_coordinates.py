@@ -32,7 +32,7 @@ def generate_valid_coordinates_json(
         valid_latitude, valid_longitude = find_nearest_valid_coordinate(
             latitudes, longitudes, precipitation, target_latitude, target_longitude)
 
-        if valid_latitude is not None and valid_longitude is not None:
+        if all((valid_latitude, valid_longitude)):
             valid_coordinates[city_name] = {
                 "Target Coordinates": (target_latitude, target_longitude),
                 "Nearest Coordinates": (valid_latitude, valid_longitude)
