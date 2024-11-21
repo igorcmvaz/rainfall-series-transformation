@@ -6,11 +6,12 @@ from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
-from netCDF4 import Dataset, Variable  # type: ignore
+from numpy.ma import MaskedArray
+from netCDF4 import Dataset, Variable
 
 
-# TODO: Write all docstrings
-def generate_valid_coordinates_csv(
+
+def generate_valid_coordinates_json(
         source_path: Path,
         original_coordinates: dict[str, Sequence[float]],
         output_file_path: Path) -> None:
@@ -146,13 +147,24 @@ def main(args):
     if not reference_path.is_file():
         logging.critical(
             f"File with geo-located references not found at '{reference_path.resolve()}'")
-        return None
+    output_dir: Path = Path(args.output)
+    try:
+        output_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        logging.exception(
+            f"Could not create directory at '{output_dir.resolve()}', default output "
+            f"directory will be used. Details: {e}")
+        output_dir = Path("sample_output")
+    output_dir.mkdir(exist_ok=True)
+    logging.debug(f"Output directory set to '{output_dir.resolve()}'")
+    output_file_path = Path(
+        output_dir, f"validated_{coordinates_path.stem}").with_suffix(".json")
 
     with open(coordinates_path) as file:
         original_coordinates: dict[str, Sequence[float]] = json.load(file)
 
     logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
-    generate_valid_coordinates_csv(reference_path, original_coordinates, output_file_path)
+    generate_valid_coordinates_json(reference_path, original_coordinates, output_file_path)
     return None
 
 
@@ -164,6 +176,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "reference", type=str, metavar="path/to/reference.nc",
         help="path to a NetCDF4 file containing geo-located precipitation data")
+    parser.add_argument(
+        "-o", "--output", metavar="path/to/output", default="sample_output",
+        help="path to the directory where the output JSON file will be saved. Creates it "
+        "if it doesn't exist. Defaults to './sample_output'")
     parser.add_argument(
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
