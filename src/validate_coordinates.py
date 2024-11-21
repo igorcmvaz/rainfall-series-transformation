@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
-from netCDF4 import Dataset  # type: ignore
+from netCDF4 import Dataset, Variable  # type: ignore
 
 
 # TODO: Write all docstrings
@@ -79,37 +79,45 @@ def has_precipitation_data(
 
 
 def find_nearest_valid_coordinate(
-        latitudes,
-        longitudes,
+        latitudes: Variable,
+        longitudes: Variable,
         precipitation: Dataset,
         target_latitude: float,
         target_longitude: float) -> tuple[float | None, float | None]:
 
     latitude_index: int = np.abs(latitudes - target_latitude).argmin()
     longitude_index: int = np.abs(longitudes - target_longitude).argmin()
-    found = True
-    MAX_DISTANCE = 15
-    if not has_precipitation_data(precipitation, latitude_index, longitude_index):
-        found = False
-        distance = 1
-        while distance <= MAX_DISTANCE and not found:
-            for latitude_offset in range(-distance, distance + 1):
-                for longitude_offset in range(-distance, distance + 1):
-                    new_latitude_index = latitude_index + latitude_offset
-                    new_longitude_index = longitude_index + longitude_offset
-
-                    if has_precipitation_data(
-                            precipitation,
-                            new_latitude_index,
-                            new_longitude_index):
-                        latitude_index = new_latitude_index
-                        longitude_index = new_longitude_index
-                        found = True
-                        break
-            distance += 1
-
-    if found:
+    if has_precipitation_data(precipitation, latitude_index, longitude_index):
+        logging.debug(
+            f"Found precipitation data at coordinates "
+            f"({latitudes[latitude_index]}, {longitudes[longitude_index]})")
         return latitudes[latitude_index], longitudes[longitude_index]
+
+    offset = 1
+    checked_offsets = {(0, 0)}
+    MAX_OFFSET = 15
+    while offset <= MAX_OFFSET:
+        for latitude_offset in (limits := sorted(range(-offset, offset + 1), key=abs)):
+            for longitude_offset in limits:
+                if (latitude_offset, longitude_offset) in checked_offsets:
+                    continue
+                checked_offsets.add((latitude_offset, longitude_offset))
+
+                new_latitude_index = latitude_index + latitude_offset
+                new_longitude_index = longitude_index + longitude_offset
+                if has_precipitation_data(
+                        precipitation, new_latitude_index, new_longitude_index):
+                    logging.debug(
+                        f"Found precipitation data at coordinates "
+                        f"({latitudes[new_latitude_index]}, "
+                        f"{longitudes[new_longitude_index]})")
+                    return latitudes[new_latitude_index], longitudes[new_longitude_index]
+        offset += 1
+
+    logging.warning(
+        f"Could not find valid precipitation data at or around initial coordinates "
+        f"({target_latitude}, {target_longitude}). Max index offset from target "
+        f"coordinates: {MAX_OFFSET}.")
     return None, None
 
 
