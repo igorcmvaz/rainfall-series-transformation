@@ -293,9 +293,17 @@ def main(args: Namespace) -> None:
         return
     logger.debug(f"Using coordinates from file at '{coordinates_path.resolve()}'")
 
-    output_path: Path = Path(args.output)
-    output_path.mkdir(exist_ok=True)
-    logger.info(f"Output path set to '{output_path.resolve()}'")
+    output_dir: Path = Path(args.output)
+    try:
+        output_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        logger.exception(
+            f"Could not create directory at '{output_dir.resolve()}', default output "
+            f"directory will be used. Details: {e}")
+        output_dir = Path("output")
+
+    output_dir.mkdir(exist_ok=True)
+    logger.debug(f"Output directory set to '{output_dir.resolve()}'")
 
     with open(coordinates_path) as file:
         city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
@@ -305,7 +313,8 @@ def main(args: Namespace) -> None:
         latitude = details["Nearest Coordinates"][0]
         longitude = details["Nearest Coordinates"][1]
         for model in CLIMATE_MODELS:
-            generate_csv_files(model, city, latitude, longitude, input_path, output_path)
+            # TODO: use asyncio for CSV file generation
+            generate_csv_files(model, city, latitude, longitude, input_path, output_dir)
 
     logger.info(f"Completed all operations in {time.perf_counter() - operation_start:.3f}s")
 
