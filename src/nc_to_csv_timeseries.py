@@ -122,6 +122,27 @@ def validate_data_point(
     return float(value)
 
 
+def get_reference_date(
+        time_values: Variable, datetime_format: str = "%Y-%m-%dT%H:%M:%S") -> datetime:
+    """
+    Return a reference date from the time variable in a NetCDF4 dataset.
+
+    Args:
+        time_values (Variable): Time variable from a NetCDF4 dataset.
+        datetime_format (str, optional): Format string used to parse the reference date
+            from the dataset's time variable unit. Defaults to "%Y-%m-%dT%H:%M:%S".
+
+    Returns:
+        datetime: A reference date extracted from the unit information in the dataset's
+        time variable.
+
+    Notes:
+        The function assumes that the time variable's unit follows the format:
+            "days since YYYY-mm-ddTHH:MM:SS"
+    """
+    return datetime.strptime(time_values.units.split("since")[-1].strip(), datetime_format)
+
+
 def extract_precipitation(
         source_path: Path,
         target_latitude: float,
