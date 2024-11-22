@@ -5,8 +5,10 @@ from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
-from numpy.ma import MaskedArray
 from netCDF4 import Dataset, Variable
+from numpy.ma import MaskedArray
+
+import app_logging
 
 logger = logging.getLogger("rainfall_transformation")
 
@@ -155,20 +157,6 @@ def find_nearest_valid_coordinate(
     return None, None
 
 
-def setup_logging(log_level: int):
-    """
-    Configure logging for the module, defining format and log level.
-
-    Args:
-        log_level (int): Enum corresponding to the desired log level.
-    """
-    logging.basicConfig(
-        format="%(asctime)s    %(levelname)-8.8s[L%(lineno)3d]: %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S%z",
-        level=log_level,
-    )
-
-
 def main(args: Namespace) -> None:
     log_level = logging.DEBUG
     if args.quiet == 1:
@@ -177,7 +165,7 @@ def main(args: Namespace) -> None:
         log_level = logging.WARNING
     elif args.quiet >= 3:
         log_level = logging.ERROR
-    setup_logging(log_level)
+    app_logging.setup(log_level)
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
