@@ -97,7 +97,7 @@ def has_precipitation_data(
         bool: True if there is at least one valid data point for the specified coordinates,
         False otherwise.
     """
-    return not np.all(np.ma.getmaskarray(precipitation[:, latitude_index, longitude_index]))
+    return not np.all(np.ma.getmask(precipitation[:, latitude_index, longitude_index]))
 
 
 def find_nearest_valid_coordinate(
