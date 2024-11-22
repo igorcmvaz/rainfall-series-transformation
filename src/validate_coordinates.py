@@ -135,9 +135,9 @@ def find_nearest_valid_coordinate(
             f"({latitudes[latitude_index]}, {longitudes[longitude_index]})")
         return latitudes[latitude_index], longitudes[longitude_index]
 
-    offset = 1
-    checked_offsets = {(0, 0)}
-    MAX_OFFSET = 15
+    offset: int = 1
+    checked_offsets: set[tuple[int, int]] = {(0, 0)}
+    MAX_OFFSET: int = 15
     while offset <= MAX_OFFSET:
         for latitude_offset in (limits := sorted(range(-offset, offset + 1), key=abs)):
             for longitude_offset in limits:
@@ -145,8 +145,8 @@ def find_nearest_valid_coordinate(
                     continue
                 checked_offsets.add((latitude_offset, longitude_offset))
 
-                new_latitude_index = latitude_index + latitude_offset
-                new_longitude_index = longitude_index + longitude_offset
+                new_latitude_index: int = latitude_index + latitude_offset
+                new_longitude_index: int = longitude_index + longitude_offset
                 if has_precipitation_data(
                         precipitation, new_latitude_index, new_longitude_index):
                     logger.debug(
