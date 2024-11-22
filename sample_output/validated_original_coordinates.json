@@ -1,272 +1,272 @@
 {
   "Aracaju": {
-    "Target Coordinates": [
-      -10.9472,
-      -37.0731
-    ],
-    "Nearest Coordinates": [
-      -10.875,
-      -37.125
-    ]
+    "target": {
+      "lat": -10.9472,
+      "lon": -37.0731
+    },
+    "nearest": {
+      "lat": -10.875,
+      "lon": -37.125
+    }
   },
   "Belém": {
-    "Target Coordinates": [
-      -1.4558,
-      -48.5039
-    ],
-    "Nearest Coordinates": [
-      -1.375,
-      -48.875
-    ]
+    "target": {
+      "lat": -1.4558,
+      "lon": -48.5039
+    },
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.875
+    }
   },
   "Belo Horizonte": {
-    "Target Coordinates": [
-      -19.9167,
-      -43.9345
-    ],
-    "Nearest Coordinates": [
-      -19.875,
-      -43.875
-    ]
+    "target": {
+      "lat": -19.9167,
+      "lon": -43.9345
+    },
+    "nearest": {
+      "lat": -19.875,
+      "lon": -43.875
+    }
   },
   "Boa Vista": {
-    "Target Coordinates": [
-      2.8194,
-      -60.6738
-    ],
-    "Nearest Coordinates": [
-      2.875,
-      -60.625
-    ]
+    "target": {
+      "lat": 2.8194,
+      "lon": -60.6738
+    },
+    "nearest": {
+      "lat": 2.875,
+      "lon": -60.625
+    }
   },
   "Brasília": {
-    "Target Coordinates": [
-      -15.7801,
-      -47.9292
-    ],
-    "Nearest Coordinates": [
-      -15.875,
-      -47.875
-    ]
+    "target": {
+      "lat": -15.7801,
+      "lon": -47.9292
+    },
+    "nearest": {
+      "lat": -15.875,
+      "lon": -47.875
+    }
   },
   "Campo Grande": {
-    "Target Coordinates": [
-      -20.4697,
-      -54.6201
-    ],
-    "Nearest Coordinates": [
-      -20.375,
-      -54.625
-    ]
+    "target": {
+      "lat": -20.4697,
+      "lon": -54.6201
+    },
+    "nearest": {
+      "lat": -20.375,
+      "lon": -54.625
+    }
   },
   "Cuiabá": {
-    "Target Coordinates": [
-      -15.601,
-      -56.0979
-    ],
-    "Nearest Coordinates": [
-      -15.625,
-      -56.125
-    ]
+    "target": {
+      "lat": -15.601,
+      "lon": -56.0979
+    },
+    "nearest": {
+      "lat": -15.625,
+      "lon": -56.125
+    }
   },
   "Curitiba": {
-    "Target Coordinates": [
-      -25.4284,
-      -49.2733
-    ],
-    "Nearest Coordinates": [
-      -25.375,
-      -49.375
-    ]
+    "target": {
+      "lat": -25.4284,
+      "lon": -49.2733
+    },
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.375
+    }
   },
   "Florianópolis": {
-    "Target Coordinates": [
-      -27.5954,
-      -48.548
-    ],
-    "Nearest Coordinates": [
-      -27.625,
-      -48.875
-    ]
+    "target": {
+      "lat": -27.5954,
+      "lon": -48.548
+    },
+    "nearest": {
+      "lat": -27.625,
+      "lon": -48.875
+    }
   },
   "Fortaleza": {
-    "Target Coordinates": [
-      -3.7172,
-      -38.5434
-    ],
-    "Nearest Coordinates": [
-      -3.625,
-      -38.875
-    ]
+    "target": {
+      "lat": -3.7172,
+      "lon": -38.5434
+    },
+    "nearest": {
+      "lat": -3.625,
+      "lon": -38.875
+    }
   },
   "Goiânia": {
-    "Target Coordinates": [
-      -16.6869,
-      -49.2648
-    ],
-    "Nearest Coordinates": [
-      -16.625,
-      -49.375
-    ]
+    "target": {
+      "lat": -16.6869,
+      "lon": -49.2648
+    },
+    "nearest": {
+      "lat": -16.625,
+      "lon": -49.375
+    }
   },
   "João Pessoa": {
-    "Target Coordinates": [
-      -7.1195,
-      -34.845
-    ],
-    "Nearest Coordinates": [
-      -7.125,
-      -34.875
-    ]
+    "target": {
+      "lat": -7.1195,
+      "lon": -34.845
+    },
+    "nearest": {
+      "lat": -7.125,
+      "lon": -34.875
+    }
   },
   "Macapá": {
-    "Target Coordinates": [
-      0.0349,
-      -51.0694
-    ],
-    "Nearest Coordinates": [
-      0.125,
-      -51.125
-    ]
+    "target": {
+      "lat": 0.0349,
+      "lon": -51.0694
+    },
+    "nearest": {
+      "lat": 0.125,
+      "lon": -51.125
+    }
   },
   "Maceió": {
-    "Target Coordinates": [
-      -9.6659,
-      -35.735
-    ],
-    "Nearest Coordinates": [
-      -9.625,
-      -35.875
-    ]
+    "target": {
+      "lat": -9.6659,
+      "lon": -35.735
+    },
+    "nearest": {
+      "lat": -9.625,
+      "lon": -35.875
+    }
   },
   "Manaus": {
-    "Target Coordinates": [
-      -3.1019,
-      -60.025
-    ],
-    "Nearest Coordinates": [
-      -3.125,
-      -60.125
-    ]
+    "target": {
+      "lat": -3.1019,
+      "lon": -60.025
+    },
+    "nearest": {
+      "lat": -3.125,
+      "lon": -60.125
+    }
   },
   "Natal": {
-    "Target Coordinates": [
-      -5.7945,
-      -35.211
-    ],
-    "Nearest Coordinates": [
-      -5.875,
-      -35.375
-    ]
+    "target": {
+      "lat": -5.7945,
+      "lon": -35.211
+    },
+    "nearest": {
+      "lat": -5.875,
+      "lon": -35.375
+    }
   },
   "Palmas": {
-    "Target Coordinates": [
-      -10.1675,
-      -48.3277
-    ],
-    "Nearest Coordinates": [
-      -10.125,
-      -48.375
-    ]
+    "target": {
+      "lat": -10.1675,
+      "lon": -48.3277
+    },
+    "nearest": {
+      "lat": -10.125,
+      "lon": -48.375
+    }
   },
   "Porto Alegre": {
-    "Target Coordinates": [
-      -30.0346,
-      -51.2177
-    ],
-    "Nearest Coordinates": [
-      -30.125,
-      -51.125
-    ]
+    "target": {
+      "lat": -30.0346,
+      "lon": -51.2177
+    },
+    "nearest": {
+      "lat": -30.125,
+      "lon": -51.125
+    }
   },
   "Porto Velho": {
-    "Target Coordinates": [
-      -8.7612,
-      -63.9004
-    ],
-    "Nearest Coordinates": [
-      -8.875,
-      -63.875
-    ]
+    "target": {
+      "lat": -8.7612,
+      "lon": -63.9004
+    },
+    "nearest": {
+      "lat": -8.875,
+      "lon": -63.875
+    }
   },
   "Recife": {
-    "Target Coordinates": [
-      -8.0476,
-      -34.877
-    ],
-    "Nearest Coordinates": [
-      -8.125,
-      -35.125
-    ]
+    "target": {
+      "lat": -8.0476,
+      "lon": -34.877
+    },
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    }
   },
   "Rio Branco": {
-    "Target Coordinates": [
-      -9.974,
-      -67.8243
-    ],
-    "Nearest Coordinates": [
-      -9.875,
-      -67.875
-    ]
+    "target": {
+      "lat": -9.974,
+      "lon": -67.8243
+    },
+    "nearest": {
+      "lat": -9.875,
+      "lon": -67.875
+    }
   },
   "Rio de Janeiro": {
-    "Target Coordinates": [
-      -22.9068,
-      -43.1729
-    ],
-    "Nearest Coordinates": [
-      -22.875,
-      -43.375
-    ]
+    "target": {
+      "lat": -22.9068,
+      "lon": -43.1729
+    },
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    }
   },
   "Salvador": {
-    "Target Coordinates": [
-      -12.9714,
-      -38.5014
-    ],
-    "Nearest Coordinates": [
-      -12.875,
-      -38.875
-    ]
+    "target": {
+      "lat": -12.9714,
+      "lon": -38.5014
+    },
+    "nearest": {
+      "lat": -12.875,
+      "lon": -38.875
+    }
   },
   "São Luís": {
-    "Target Coordinates": [
-      -2.5387,
-      -44.2829
-    ],
-    "Nearest Coordinates": [
-      -2.625,
-      -44.375
-    ]
+    "target": {
+      "lat": -2.5387,
+      "lon": -44.2829
+    },
+    "nearest": {
+      "lat": -2.625,
+      "lon": -44.375
+    }
   },
   "São Paulo": {
-    "Target Coordinates": [
-      -23.5505,
-      -46.6333
-    ],
-    "Nearest Coordinates": [
-      -23.625,
-      -46.625
-    ]
+    "target": {
+      "lat": -23.5505,
+      "lon": -46.6333
+    },
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    }
   },
   "Teresina": {
-    "Target Coordinates": [
-      -5.0892,
-      -42.8019
-    ],
-    "Nearest Coordinates": [
-      -5.125,
-      -42.875
-    ]
+    "target": {
+      "lat": -5.0892,
+      "lon": -42.8019
+    },
+    "nearest": {
+      "lat": -5.125,
+      "lon": -42.875
+    }
   },
   "Vitória": {
-    "Target Coordinates": [
-      -20.3155,
-      -40.3128
-    ],
-    "Nearest Coordinates": [
-      -20.375,
-      -40.375
-    ]
+    "target": {
+      "lat": -20.3155,
+      "lon": -40.3128
+    },
+    "nearest": {
+      "lat": -20.375,
+      "lon": -40.375
+    }
   }
 }

@@ -57,8 +57,14 @@ def generate_valid_coordinates_json(
 
         if all((valid_latitude, valid_longitude)):
             valid_coordinates[city_name] = {
-                "Target Coordinates": (target_latitude, target_longitude),
-                "Nearest Coordinates": (valid_latitude, valid_longitude)
+                "target": {
+                    "lat": target_latitude,
+                    "lon": target_longitude,
+                },
+                "nearest": {
+                    "lat": valid_latitude,
+                    "lon": valid_longitude
+                }
             }
         else:
             logger.error(
