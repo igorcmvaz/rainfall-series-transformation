@@ -317,6 +317,9 @@ if __name__ == "__main__":
         "input", type=str, metavar="path/to/input",
         help="path to a directory where the input NetCDF4 files are stored")
     parser.add_argument(
+        "coordinates", type=str, metavar="path/to/coordinates.json",
+        help="path to a JSON file containing coordinates of the desired cities")
+    parser.add_argument(
         "-o", "--output", type=str, metavar="path/to/output", default="output",
         help="path to a directory where the output files will be saved. "
         "Defaults to 'output'")
@@ -324,7 +327,4 @@ if __name__ == "__main__":
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
         "than INFO/WARNING")
-    parser.add_argument(
-        "-c", "--coordinates", type=str, metavar="path/to/coordinates.json",
-        help="path to a JSON file containing coordinates of the desired cities")
     main(parser.parse_args())
