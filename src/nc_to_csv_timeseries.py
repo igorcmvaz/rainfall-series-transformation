@@ -143,6 +143,29 @@ def get_reference_date(
     return datetime.strptime(time_values.units.split("since")[-1].strip(), datetime_format)
 
 
+def get_coordinate_indices(
+        dataset: Dataset, target_latitude: int, target_longitude: int) -> tuple[int, int]:
+    """
+    Returns the indices of given latitude and longitude coordinates from a NetCDF4 dataset.
+
+    Args:
+        dataset (Dataset): A NetCDF4 dataset containing latitude and longitude variables.
+        target_latitude (int): Target latitude coordinate.
+        target_longitude (int): Target longitude coordinate.
+
+    Returns:
+        tuple[int, int]: Tuple containing the indices of the latitude and longitude
+        coordinates in the dataset, if present.
+
+    Raises:
+        IndexError: If either target latitude or longitude are not found in the dataset.
+    """
+    return (
+        np.argwhere(dataset.variables["lat"][:] == target_latitude)[0][0],
+        np.argwhere(dataset.variables["lon"][:] == target_longitude)[0][0]
+        )
+
+
 def extract_precipitation(
         source_path: Path,
         target_latitude: float,
