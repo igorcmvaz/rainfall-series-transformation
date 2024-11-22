@@ -186,51 +186,31 @@ def extract_precipitation(
         Sequence[tuple[datetime, float]] | None: Precipitation data series, with each value
             mapped to a datetime.
     """
-    start_time: float = time.perf_counter()
-    try:
-        dataset = Dataset(source_path)
-    except Exception as e:
-        logger.exception(f"Error while processing file, details below:\n{e}")
-        return None
-    logger.info(
-        f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}' in "
-        f"{round(1000*(time.perf_counter() - start_time))}ms")
+    with Dataset(source_path) as dataset:
+        time_values: Variable = dataset.variables["time"]
+        dates: list[datetime] = [
+            get_reference_date(time_values) + timedelta(days=float(t))
+            for t in time_values[:]]
 
-    latitudes: Variable = dataset.variables["lat"][:]
-    longitudes: Variable = dataset.variables["lon"][:]
-    timestamps: Variable = dataset.variables["time"][:]
-    precipitation: Variable = dataset.variables["pr"][:]
+        try:
+            latitude_index, longitude_index = get_coordinate_indices(
+                dataset, target_latitude, target_longitude)
+        except IndexError:
+            logger.exception(
+                f"Could not find target coordinates ({target_latitude}, {target_longitude})"
+                f" in file '{source_path}'")
+            return None
 
-    try:
-        latitude_index: int = np.argwhere(latitudes == target_latitude)[0][0]
-        longitude_index: int = np.argwhere(longitudes == target_longitude)[0][0]
-    except IndexError:
-        logger.error(
-            f"Could not find target coordinates ({target_latitude}, {target_longitude}) "
-            f"in file '{source_path}'")
-        dataset.close()
-        return None
-    logger.debug(
-        f"Found latitude index={int(latitude_index)} and "
-        f"longitude index={int(longitude_index)}")
-
-    reference_date = datetime.strptime(
-        dataset.variables["time"].units.split("since")[1].strip(), "%Y-%m-%dT%H:%M:%S")
-    dates: list[datetime] = [reference_date + timedelta(days=float(t)) for t in timestamps]
-    logger.debug(f"Found {len(dates)} time indices for precipitation data")
-
-    start_time = time.perf_counter()
-    precipitation_series: Sequence[tuple[datetime, float]] = []
-    for time_index in range(len(dates)):
-        mean_precipitation = validate_data_point(
-            precipitation, time_index, latitude_index, longitude_index)
-        if mean_precipitation is not None:
-            precipitation_series.append((dates[time_index], mean_precipitation))
+        precipitation: MaskedArray = dataset.variables["pr"][:]
+        start_time = time.perf_counter()
+        precipitation_series: Sequence[tuple[datetime, float]] = [
+            (dates[time_index], data_point)
+            for time_index in range(len(dates))
+            if (data_point := validate_data_point(
+                precipitation, time_index, latitude_index, longitude_index))]
     logger.info(
         f"Successfully validated {len(precipitation_series)} data points in "
         f"{round(1000*(time.perf_counter() - start_time))}ms")
-
-    dataset.close()
     return precipitation_series
 
 
