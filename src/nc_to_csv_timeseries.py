@@ -10,6 +10,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 from netCDF4 import Dataset, Variable
+from numpy.ma import MaskedArray
 
 import app_logging
 
@@ -90,7 +91,7 @@ INPUT_FILENAME_FORMAT: dict[str, str] = {
 
 
 def validate_data_point(
-        data_series: Dataset,
+        data_series: MaskedArray,
         time_index: int,
         latitude_index: int,
         longitude_index: int) -> float | None:
@@ -99,17 +100,18 @@ def validate_data_point(
     it is a number.
 
     Args:
-        data_series (Dataset): Data series containing time, latitude and longitude marks.
-        time_index (int): Index for the time mark.
-        latitude_index (int): Index for the latitude mark.
-        longitude_index (int): Index for the longitude mark.
+        data_series (MaskedArray): Multidimensional array representing geo-referenced data
+            (including time and coordinates).
+        time_index (int): Index of the desired time dimension in the dataset.
+        latitude_index (int): Index of the desired latitude dimension in the dataset.
+        longitude_index (int): Index of the desired longitude dimension in the dataset.
 
     Raises:
         IndexError: if there is no point in the data series that simultaneously corresponds
             to the time, latitude and longitude marks.
 
     Returns:
-        float | None: Value of the data point converted to float or None, if unavailable.
+        float | None: Value of the data point converted to float, if available, else None.
     """
     try:
         value = data_series[time_index, latitude_index, longitude_index]
