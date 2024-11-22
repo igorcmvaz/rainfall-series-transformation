@@ -283,14 +283,15 @@ def main(args: Namespace) -> None:
     input_path: Path = Path(args.input)
     if not input_path.is_dir():
         logger.critical(f"Input path '{input_path.resolve()}' is not a directory")
-        return None
+        return
     logger.info(f"Input path set to '{input_path.resolve()}'")
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
         logger.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
-        return None
+        return
+    logger.debug(f"Using coordinates from file at '{coordinates_path.resolve()}'")
 
     output_path: Path = Path(args.output)
     output_path.mkdir(exist_ok=True)
