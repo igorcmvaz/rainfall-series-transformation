@@ -1,7 +1,7 @@
 import json
 import logging
 import time
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections.abc import Iterator, Sequence
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -266,7 +266,7 @@ def generate_csv_files(
             f"city '{city_name}' in {time.perf_counter() - start_time:.3f}s")
 
 
-def main(args):
+def main(args: Namespace) -> None:
     setup_start: float = time.perf_counter()
     logging.basicConfig(
         format="%(asctime)s    %(levelname)-8.8s: %(message)s",

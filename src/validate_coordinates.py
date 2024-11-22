@@ -1,6 +1,6 @@
 import json
 import logging
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -156,10 +156,7 @@ def find_nearest_valid_coordinate(
 # TODO: get logger per file and don't use 'logging' directly for each log entry
 def main(args):
     logging.basicConfig(
-        format="%(asctime)s    %(levelname)-8.8s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        level=logging.DEBUG,
-    )
+def main(args: Namespace) -> None:
     if args.quiet == 1:
         logging.getLogger().setLevel(logging.INFO)
     elif args.quiet == 2:

@@ -1,7 +1,7 @@
 import json
 import logging
 import time
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -57,7 +57,7 @@ def calculate_indices(df: pd.DataFrame):
     return result_df
 
 
-def main(args):
+def main(args: Namespace) -> None:
     setup_start: float = time.perf_counter()
     logging.basicConfig(
         format="%(asctime)s    %(levelname)-8.8s: %(message)s",
