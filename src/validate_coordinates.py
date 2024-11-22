@@ -8,6 +8,8 @@ import numpy as np
 from numpy.ma import MaskedArray
 from netCDF4 import Dataset, Variable
 
+logger = logging.getLogger("rainfall_transformation")
+
 
 def load_precipitation_dataset(source_path: Path) -> tuple[
         MaskedArray, MaskedArray, MaskedArray]:
@@ -44,7 +46,7 @@ def generate_valid_coordinates_json(
             coordinates should be saved.
     """
     latitudes, longitudes, precipitation = load_precipitation_dataset(source_path)
-    logging.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
+    logger.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
 
     valid_coordinates: dict[str, dict[str, tuple[float, float]]] = {}
     for city_name, (target_latitude, target_longitude) in original_coordinates.items():
@@ -57,13 +59,13 @@ def generate_valid_coordinates_json(
                 "Nearest Coordinates": (valid_latitude, valid_longitude)
             }
         else:
-            logging.error(
+            logger.error(
                 f"Could not find valid coordinates for city '{city_name}' in file at "
                 f"'{source_path.resolve()}'")
 
     with open(output_file_path, "w", encoding="utf-8") as file:
         json.dump(valid_coordinates, file, indent=2, ensure_ascii=False)
-    logging.info(
+    logger.info(
         f"Successfully generated coordinates file at '{output_file_path.resolve()}'")
 
 
@@ -120,7 +122,7 @@ def find_nearest_valid_coordinate(
     latitude_index: int = np.abs(latitudes - target_latitude).argmin()
     longitude_index: int = np.abs(longitudes - target_longitude).argmin()
     if has_precipitation_data(precipitation, latitude_index, longitude_index):
-        logging.debug(
+        logger.debug(
             f"Found precipitation data at coordinates "
             f"({latitudes[latitude_index]}, {longitudes[longitude_index]})")
         return latitudes[latitude_index], longitudes[longitude_index]
@@ -139,40 +141,53 @@ def find_nearest_valid_coordinate(
                 new_longitude_index = longitude_index + longitude_offset
                 if has_precipitation_data(
                         precipitation, new_latitude_index, new_longitude_index):
-                    logging.debug(
+                    logger.debug(
                         f"Found precipitation data at coordinates "
                         f"({latitudes[new_latitude_index]}, "
                         f"{longitudes[new_longitude_index]})")
                     return latitudes[new_latitude_index], longitudes[new_longitude_index]
         offset += 1
 
-    logging.warning(
+    logger.warning(
         f"Could not find valid precipitation data at or around initial coordinates "
         f"({target_latitude}, {target_longitude}). Max index offset from target "
         f"coordinates: {MAX_OFFSET}.")
     return None, None
 
 
-# TODO: get logger per file and don't use 'logging' directly for each log entry
-def main(args):
+def setup_logging(log_level: int):
+    """
+    Configure logging for the module, defining format and log level.
+
+    Args:
+        log_level (int): Enum corresponding to the desired log level.
+    """
     logging.basicConfig(
+        format="%(asctime)s    %(levelname)-8.8s[L%(lineno)3d]: %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S%z",
+        level=log_level,
+    )
+
+
 def main(args: Namespace) -> None:
+    log_level = logging.DEBUG
     if args.quiet == 1:
-        logging.getLogger().setLevel(logging.INFO)
+        log_level = logging.INFO
     elif args.quiet == 2:
-        logging.getLogger().setLevel(logging.WARNING)
+        log_level = logging.WARNING
     elif args.quiet >= 3:
-        logging.getLogger().setLevel(logging.ERROR)
+        log_level = logging.ERROR
+    setup_logging(log_level)
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
-        logging.critical(
+        logger.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
         return
 
     reference_path: Path = Path(args.reference)
     if not reference_path.is_file():
-        logging.critical(
+        logger.critical(
             f"File with geo-located references not found at '{reference_path.resolve()}'")
         return
 
@@ -180,13 +195,13 @@ def main(args: Namespace) -> None:
     try:
         output_dir.mkdir(parents=True, exist_ok=True)
     except OSError as e:
-        logging.exception(
+        logger.exception(
             f"Could not create directory at '{output_dir.resolve()}', default output "
             f"directory will be used. Details: {e}")
         output_dir = Path("sample_output")
 
     output_dir.mkdir(exist_ok=True)
-    logging.debug(f"Output directory set to '{output_dir.resolve()}'")
+    logger.debug(f"Output directory set to '{output_dir.resolve()}'")
     output_file_path = Path(
         output_dir, f"validated_{coordinates_path.stem}").with_suffix(".json")
 
