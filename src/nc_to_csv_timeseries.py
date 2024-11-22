@@ -38,47 +38,56 @@ CLIMATE_MODELS: list[str] = [
     "UKESM1-0-LL",
     ]
 
-SCENARIOS: dict[str, list[dict[str, str | tuple[str, str]]]] = {
+SCENARIOS: dict[str, list[dict[str, str]]] = {
     "Histórico": [
         {
             "label": "Histórico",
-            "period": ("1980-01-01", "2000-01-01")
+            "start_date": "1980-01-01",
+            "end_date": "2000-01-01"
         }
     ],
     "SSP245": [
         {
             "label": "SSP245_2015_2035",
-            "period": ("2015-01-01", "2035-01-01")
+            "start_date": "2015-01-01",
+            "end_date": "2035-01-01"
         },
         {
             "label": "SSP245_2024_2074",
-            "period": ("2024-01-01", "2074-01-01")
+            "start_date": "2024-01-01",
+            "end_date": "2074-01-01"
         },
         {
             "label": "SSP245_2040_2060",
-            "period": ("2040-01-01", "2060-01-01")
+            "start_date": "2040-01-01",
+            "end_date": "2060-01-01"
         },
         {
             "label": "SSP245_2060_2080",
-            "period": ("2060-01-01", "2080-01-01")
+            "start_date": "2060-01-01",
+            "end_date": "2080-01-01"
         },
     ],
     "SSP585": [
         {
             "label": "SSP585_2015_2035",
-            "period": ("2015-01-01", "2035-01-01")
+            "start_date": "2015-01-01",
+            "end_date": "2035-01-01",
         },
         {
             "label": "SSP585_2024_2074",
-            "period": ("2024-01-01", "2074-01-01")
+            "start_date": "2024-01-01",
+            "end_date": "2074-01-01"
         },
         {
             "label": "SSP585_2040_2060",
-            "period": ("2040-01-01", "2060-01-01")
+            "start_date": "2040-01-01",
+            "end_date": "2060-01-01"
         },
         {
             "label": "SSP585_2060_2080",
-            "period": ("2060-01-01", "2080-01-01")
+            "start_date": "2060-01-01",
+            "end_date": "2080-01-01"
         },
     ]
     }
@@ -279,8 +288,8 @@ def generate_csv_files(
         for details in time_periods:
             filtered_series = filter_by_date(
                 data_series,
-                datetime.strptime(details["period"][0], "%Y-%m-%d"),
-                datetime.strptime(details["period"][1], "%Y-%m-%d"))
+                datetime.strptime(details["start_date"], "%Y-%m-%d"),
+                datetime.strptime(details["end_date"], "%Y-%m-%d"))
 
             df = pd.DataFrame(filtered_series, columns=["date", "precipitation"])
             complete_file_path = Path(
