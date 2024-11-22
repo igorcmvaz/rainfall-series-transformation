@@ -271,7 +271,6 @@ def generate_csv_files(
 
 
 def main(args: Namespace) -> None:
-    setup_start: float = time.perf_counter()
     log_level = logging.DEBUG
     if args.quiet == 1:
         log_level = logging.INFO
@@ -300,7 +299,6 @@ def main(args: Namespace) -> None:
     with open(coordinates_path) as file:
         city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
 
-    logger.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
     operation_start = time.perf_counter()
     for city, details in city_coordinates.items():
         latitude = details["Nearest Coordinates"][0]
