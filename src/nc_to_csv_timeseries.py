@@ -9,7 +9,11 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from netCDF4 import Dataset  # type: ignore
+from netCDF4 import Dataset, Variable
+
+import app_logging
+
+logger = logging.getLogger("rainfall_transformation")
 
 CLIMATE_MODELS: list[str] = [
     "ACCESS-CM2",
@@ -110,7 +114,7 @@ def validate_data_point(
     try:
         value = data_series[time_index, latitude_index, longitude_index]
     except IndexError:
-        logging.exception(
+        logger.exception(
             f"Index error at {time_index=}, {latitude_index=}, {longitude_index=}")
         return None
     if np.isnan(value):
@@ -140,34 +144,34 @@ def extract_precipitation(
     try:
         dataset = Dataset(source_path)
     except Exception as e:
-        logging.exception(f"Error while processing file, details below:\n{e}")
+        logger.exception(f"Error while processing file, details below:\n{e}")
         return None
-    logging.info(
+    logger.info(
         f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}' in "
         f"{round(1000*(time.perf_counter() - start_time))}ms")
 
-    latitudes: Sequence[float] = dataset.variables["lat"][:]
-    longitudes: Sequence[float] = dataset.variables["lon"][:]
-    timestamps: Sequence[float] = dataset.variables["time"][:]
-    precipitation: Dataset = dataset.variables["pr"][:]
+    latitudes: Variable = dataset.variables["lat"][:]
+    longitudes: Variable = dataset.variables["lon"][:]
+    timestamps: Variable = dataset.variables["time"][:]
+    precipitation: Variable = dataset.variables["pr"][:]
 
     try:
         latitude_index: int = np.argwhere(latitudes == target_latitude)[0][0]
         longitude_index: int = np.argwhere(longitudes == target_longitude)[0][0]
     except IndexError:
-        logging.error(
+        logger.error(
             f"Could not find target coordinates ({target_latitude}, {target_longitude}) "
             f"in file '{source_path}'")
         dataset.close()
         return None
-    logging.debug(
+    logger.debug(
         f"Found latitude index={int(latitude_index)} and "
         f"longitude index={int(longitude_index)}")
 
     reference_date = datetime.strptime(
         dataset.variables["time"].units.split("since")[1].strip(), "%Y-%m-%dT%H:%M:%S")
     dates: list[datetime] = [reference_date + timedelta(days=float(t)) for t in timestamps]
-    logging.debug(f"Found {len(dates)} time indices for precipitation data")
+    logger.debug(f"Found {len(dates)} time indices for precipitation data")
 
     start_time = time.perf_counter()
     precipitation_series: Sequence[tuple[datetime, float]] = []
@@ -176,7 +180,7 @@ def extract_precipitation(
             precipitation, time_index, latitude_index, longitude_index)
         if mean_precipitation is not None:
             precipitation_series.append((dates[time_index], mean_precipitation))
-    logging.info(
+    logger.info(
         f"Successfully validated {len(precipitation_series)} data points in "
         f"{round(1000*(time.perf_counter() - start_time))}ms")
 
@@ -226,25 +230,25 @@ def generate_csv_files(
     """
     start_time: float = time.perf_counter()
     file_counter: int = 0
-    logging.info(
+    logger.info(
         f"Starting extraction of data from model '{model}', for the city of '{city_name}' "
         f"with coordinates ({latitude}, {longitude})")
     for scenario_name, time_periods in SCENARIOS.items():
-        logging.debug(
+        logger.debug(
             f"Found {len(time_periods)} time period(s) for scenario '{scenario_name}'")
         source_file = INPUT_FILENAME_FORMAT[scenario_name].format(model=model)
-        logging.debug(
+        logger.debug(
             f"Source file name for model '{model}' and scenario '{scenario_name}': "
             f"{source_file}")
 
         source_path = Path(input_path, source_file)
         if not source_path.is_file():
-            logging.error(f"Could not find source file at '{source_path.resolve()}'")
+            logger.error(f"Could not find source file at '{source_path.resolve()}'")
             continue
 
         data_series = extract_precipitation(source_path, latitude, longitude)
         if not data_series:
-            logging.error(
+            logger.error(
                 f"No data could be extracted from source file at '{source_path.resolve()}'")
             continue
 
@@ -259,47 +263,44 @@ def generate_csv_files(
                 output_path, f"{city_name}_{model}_{details['label']}").with_suffix(".csv")
             df.to_csv(complete_file_path, index=False)
             file_counter += 1
-            logging.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
+            logger.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
 
-        logging.info(
+        logger.info(
             f"Successfully generated {file_counter} file(s) for model '{model}', "
             f"city '{city_name}' in {time.perf_counter() - start_time:.3f}s")
 
 
 def main(args: Namespace) -> None:
     setup_start: float = time.perf_counter()
-    logging.basicConfig(
-        format="%(asctime)s    %(levelname)-8.8s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        level=logging.DEBUG,
-    )
+    log_level = logging.DEBUG
     if args.quiet == 1:
-        logging.getLogger().setLevel(logging.INFO)
+        log_level = logging.INFO
     elif args.quiet == 2:
-        logging.getLogger().setLevel(logging.WARNING)
+        log_level = logging.WARNING
     elif args.quiet >= 3:
-        logging.getLogger().setLevel(logging.ERROR)
+        log_level = logging.ERROR
+    app_logging.setup(log_level)
 
     input_path: Path = Path(args.input)
     if not input_path.is_dir():
-        logging.critical(f"Input path '{input_path.resolve()}' is not a directory")
+        logger.critical(f"Input path '{input_path.resolve()}' is not a directory")
         return None
-    logging.info(f"Input path set to '{input_path.resolve()}'")
+    logger.info(f"Input path set to '{input_path.resolve()}'")
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
-        logging.critical(
+        logger.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
         return None
 
     output_path: Path = Path(args.output)
     output_path.mkdir(exist_ok=True)
-    logging.info(f"Output path set to '{output_path.resolve()}'")
+    logger.info(f"Output path set to '{output_path.resolve()}'")
 
     with open(coordinates_path) as file:
         city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
 
-    logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
+    logger.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
     operation_start = time.perf_counter()
     for city, details in city_coordinates.items():
         latitude = details["Nearest Coordinates"][0]
@@ -307,8 +308,7 @@ def main(args: Namespace) -> None:
         for model in CLIMATE_MODELS:
             generate_csv_files(model, city, latitude, longitude, input_path, output_path)
 
-    logging.info(
-        f"Completed all operations in {time.perf_counter() - operation_start:.3f}s")
+    logger.info(f"Completed all operations in {time.perf_counter() - operation_start:.3f}s")
 
 
 if __name__ == "__main__":
