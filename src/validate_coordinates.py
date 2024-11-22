@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
-from netCDF4 import Dataset, Variable
+from netCDF4 import Dataset
 from numpy.ma import MaskedArray
 
 import app_logging
@@ -78,7 +78,7 @@ def generate_valid_coordinates_json(
 
 
 def has_precipitation_data(
-        precipitation: Variable,
+        precipitation: MaskedArray,
         latitude_index: int,
         longitude_index: int) -> bool:
     """
@@ -86,7 +86,7 @@ def has_precipitation_data(
     given coordinates.
 
     Args:
-        precipitation (Variable): Multidimensional array representing precipitation data
+        precipitation (MaskedArray): Multidimensional array representing precipitation data
             (including time and coordinates).
         latitude_index (int): Index of the desired latitude dimension in the precipitation
             dataset.
@@ -101,9 +101,9 @@ def has_precipitation_data(
 
 
 def find_nearest_valid_coordinate(
-        latitudes: Variable,
-        longitudes: Variable,
-        precipitation: Dataset,
+        latitudes: MaskedArray,
+        longitudes: MaskedArray,
+        precipitation: MaskedArray,
         target_latitude: float,
         target_longitude: float) -> tuple[float | None, float | None]:
     """
@@ -113,9 +113,9 @@ def find_nearest_valid_coordinate(
     indices is reached.
 
     Args:
-        latitudes (Variable): 1D array containing the latitude values in the dataset.
-        longitudes (Variable): 1D array containing the longitude values in the dataset.
-        precipitation (Dataset): Multidimensional array representing precipitation data
+        latitudes (MaskedArray): 1D array containing the latitude values in the dataset.
+        longitudes (MaskedArray): 1D array containing the longitude values in the dataset.
+        precipitation (MaskedArray): Multidimensional array representing precipitation data
             (including time and coordinates).
         target_latitude (float): Latitude component for which to find the nearest valid
             coordindates.
