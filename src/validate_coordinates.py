@@ -197,7 +197,6 @@ def main(args: Namespace) -> None:
         original_coordinates: dict[str, Sequence[float]] = json.load(file)
 
     generate_valid_coordinates_json(reference_path, original_coordinates, output_file_path)
-    return
 
 
 if __name__ == "__main__":
