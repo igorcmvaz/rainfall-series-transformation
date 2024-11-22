@@ -248,8 +248,6 @@ def generate_csv_files(
 
         data_series = extract_precipitation(source_path, latitude, longitude)
         if not data_series:
-            logger.error(
-                f"No data could be extracted from source file at '{source_path.resolve()}'")
             continue
 
         for details in time_periods:
