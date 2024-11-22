@@ -184,7 +184,7 @@ def extract_precipitation(
 
     Returns:
         Sequence[tuple[datetime, float]] | None: Precipitation data series, with each value
-            mapped to a datetime.
+        mapped to a datetime.
     """
     with Dataset(source_path) as dataset:
         time_values: Variable = dataset.variables["time"]
@@ -228,7 +228,7 @@ def filter_by_date(
 
     Returns:
         Iterator[tuple[datetime, Any]]: Iterator which yields the value with its datetime if
-            within the specified period.
+        within the specified period.
     """
     for date, value in data_series:
         if start_date <= date <= end_date:
