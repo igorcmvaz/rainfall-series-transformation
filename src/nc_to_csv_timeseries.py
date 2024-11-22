@@ -310,8 +310,11 @@ def main(args: Namespace) -> None:
 
     operation_start = time.perf_counter()
     for city, details in city_coordinates.items():
-        latitude = details["Nearest Coordinates"][0]
-        longitude = details["Nearest Coordinates"][1]
+        latitude = details.get("nearest", {}).get("lat")
+        longitude = details.get("nearest", {}).get("lon")
+        if not all((latitude, longitude)):
+            logger.warning(f"Skipping city '{city}', coordinates not available")
+            continue
         for model in CLIMATE_MODELS:
             # TODO: use asyncio for CSV file generation
             generate_csv_files(model, city, latitude, longitude, input_path, output_dir)
