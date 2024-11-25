@@ -14,6 +14,7 @@ var/
 wheels/
 share/python-wheels/
 *.nc
+*.csv
 *.egg-info/
 .installed.cfg
 *.egg
