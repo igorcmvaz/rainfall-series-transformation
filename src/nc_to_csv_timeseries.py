@@ -261,7 +261,7 @@ def generate_csv_files(
     periods of time based on a set of NetCDF4 files and a specified location.
 
     Args:
-        model (str): Climate model to be used for data extraction.
+        model (str): Name of the climate model to be used for data extraction.
         city_name (str): Name of the city to which the data is related.
         latitude (float): Latitude of the location in the NetCDF4 file.
         longitude (float): Longitude of the location in the NetCDF4 file.
@@ -283,29 +283,34 @@ def generate_csv_files(
 
         source_path = Path(input_path, source_file)
         if not source_path.is_file():
-            logger.error(f"Could not find source file at '{source_path.resolve()}'")
+            logger.error(
+                f"Could not find source file for '{model}' and '{scenario_name}' at "
+                f"'{source_path.resolve()}'")
             continue
 
         data_series = extract_precipitation(source_path, latitude, longitude)
         if not data_series:
+            logger.error(
+                f"No valid precipitation data found in file at '{source_path.resolve()}'")
             continue
 
-        for details in time_periods:
-            filtered_series = filter_by_date(
+        for period_details in time_periods:
+            df = pd.DataFrame(filter_by_date(
                 data_series,
-                datetime.strptime(details["start_date"], "%Y-%m-%d"),
-                datetime.strptime(details["end_date"], "%Y-%m-%d"))
+                datetime.strptime(period_details["start_date"], "%Y-%m-%d"),
+                datetime.strptime(period_details["end_date"], "%Y-%m-%d")
+                ), columns=["date", "precipitation"])
 
-            df = pd.DataFrame(filtered_series, columns=["date", "precipitation"])
             complete_file_path = Path(
-                output_path, f"{city_name}_{model}_{details['label']}").with_suffix(".csv")
+                output_path, f"{city_name}_{model}_{period_details['label']}"
+                ).with_suffix(".csv")
             df.to_csv(complete_file_path, index=False)
             file_counter += 1
             logger.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
 
         logger.info(
-            f"Successfully generated {file_counter} file(s) for model '{model}', "
-            f"city '{city_name}' in {time.perf_counter() - start_time:.3f}s")
+            f"Successfully generated {file_counter} file(s) for model '{model}' and city "
+            f"'{city_name}' in {time.perf_counter() - start_time:.3f}s")
 
 
 def main(args: Namespace) -> None:
