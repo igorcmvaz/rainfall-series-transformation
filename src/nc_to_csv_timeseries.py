@@ -301,7 +301,7 @@ def generate_csv_files(
             complete_file_path = Path(
                 output_path, f"{city_name}_{model}_{period_details['label']}"
                 ).with_suffix(".csv")
-            df.to_csv(complete_file_path, index=False)
+            df.to_csv(complete_file_path, index=False, encoding="utf-8")
             generated_file_count += 1
             logger.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
 
