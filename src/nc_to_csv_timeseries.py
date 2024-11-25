@@ -196,6 +196,7 @@ def extract_precipitation(
         mapped to a datetime.
     """
     with Dataset(source_path) as dataset:
+        load_start_time = time.perf_counter()
         time_values: Variable = dataset.variables["time"]
         dates: list[datetime] = [
             get_reference_date(time_values) + timedelta(days=float(t))
@@ -211,6 +212,10 @@ def extract_precipitation(
             return None
 
         precipitation: MaskedArray = dataset.variables["pr"][:]
+        logging.debug(
+            f"Loaded variables from NetCDF4 file and found coordinate indices in "
+            f"{time.perf_counter() - load_start_time:.3f}s")
+
         start_time = time.perf_counter()
         precipitation_series: Sequence[tuple[datetime, float]] = [
             (dates[time_index], data_point)
