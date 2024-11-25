@@ -38,7 +38,7 @@ CLIMATE_MODELS: list[str] = [
     "UKESM1-0-LL",
     ]
 
-SCENARIOS: dict[str, list[dict[str, str]]] = {
+SSP_SCENARIOS: dict[str, list[dict[str, str]]] = {
     "Histórico": [
         {
             "label": "Histórico",
@@ -93,10 +93,10 @@ SCENARIOS: dict[str, list[dict[str, str]]] = {
     }
 
 INPUT_FILENAME_FORMAT: dict[str, str] = {
-        "Histórico": "{model}-pr-hist.nc",
-        "SSP245": "{model}-pr-ssp245.nc",
-        "SSP585": "{model}-pr-ssp585.nc"
-    }
+    "Histórico": "{model}-pr-hist.nc",
+    "SSP245": "{model}-pr-ssp245.nc",
+    "SSP585": "{model}-pr-ssp585.nc"
+}
 
 
 def validate_data_point(
@@ -269,17 +269,14 @@ def generate_csv_files(
         output_path (Path): Path to the directory where the CSV files should be saved.
     """
     start_time: float = time.perf_counter()
-    file_counter: int = 0
+    generated_file_count: int = 0
     logger.info(
         f"Starting extraction of data from model '{model}', for the city of '{city_name}' "
         f"with coordinates ({latitude}, {longitude})")
-    for scenario_name, time_periods in SCENARIOS.items():
+    for scenario_name, time_periods in SSP_SCENARIOS.items():
         logger.debug(
             f"Found {len(time_periods)} time period(s) for scenario '{scenario_name}'")
         source_file = INPUT_FILENAME_FORMAT[scenario_name].format(model=model)
-        logger.debug(
-            f"Source file name for model '{model}' and scenario '{scenario_name}': "
-            f"{source_file}")
 
         source_path = Path(input_path, source_file)
         if not source_path.is_file():
@@ -305,12 +302,12 @@ def generate_csv_files(
                 output_path, f"{city_name}_{model}_{period_details['label']}"
                 ).with_suffix(".csv")
             df.to_csv(complete_file_path, index=False)
-            file_counter += 1
+            generated_file_count += 1
             logger.info(f"Successfully saved file at '{complete_file_path.resolve()}'")
 
         logger.info(
-            f"Successfully generated {file_counter} file(s) for model '{model}' and city "
-            f"'{city_name}' in {time.perf_counter() - start_time:.3f}s")
+            f"Successfully generated {generated_file_count} file(s) for model '{model}' "
+            f"and city '{city_name}' in {time.perf_counter() - start_time:.3f}s")
 
 
 def main(args: Namespace) -> None:
