@@ -222,7 +222,7 @@ def extract_precipitation(
             for time_index in range(len(dates))
             if (data_point := validate_data_point(
                 precipitation, time_index, latitude_index, longitude_index))]
-    logger.info(
+    logger.debug(
         f"Successfully validated {len(precipitation_series)} data points in "
         f"{round(1000*(time.perf_counter() - start_time))}ms")
     return precipitation_series
