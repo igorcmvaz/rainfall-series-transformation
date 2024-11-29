@@ -164,14 +164,7 @@ def find_nearest_valid_coordinate(
 
 
 def main(args: Namespace) -> None:
-    log_level = logging.DEBUG
-    if args.quiet == 1:
-        log_level = logging.INFO
-    elif args.quiet == 2:
-        log_level = logging.WARNING
-    elif args.quiet >= 3:
-        log_level = logging.ERROR
-    app_logging.setup(log_level)
+    app_logging.setup(args.quiet)
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():

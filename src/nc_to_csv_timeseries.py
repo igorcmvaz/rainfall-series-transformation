@@ -230,14 +230,7 @@ def generate_csv_files(
 
 
 def main(args: Namespace) -> None:
-    log_level = logging.DEBUG
-    if args.quiet == 1:
-        log_level = logging.INFO
-    elif args.quiet == 2:
-        log_level = logging.WARNING
-    elif args.quiet >= 3:
-        log_level = logging.ERROR
-    app_logging.setup(log_level)
+    app_logging.setup(args.quiet)
 
     input_path: Path = Path(args.input)
     if not input_path.is_dir():
