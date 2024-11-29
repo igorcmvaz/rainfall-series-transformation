@@ -1,3 +1,9 @@
+PARQUET_CONF = {
+    "engine": "pyarrow",
+    "compression": "lz4",
+    "compression_level": 11
+}
+
 CLIMATE_MODELS: list[str] = [
     "ACCESS-CM2",
     "ACCESS-ESM1-5",

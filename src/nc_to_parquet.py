@@ -4,136 +4,275 @@ import time
 from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from pathlib import Path
+from typing import Iterable
 
-import numpy as np
 import pandas as pd
 
-from nc_to_csv_timeseries import CLIMATE_MODELS, extract_precipitation
+import app_logging
+from constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS, PARQUET_CONF
+from nc_to_csv_timeseries import extract_precipitation
+
+logger = logging.getLogger("rainfall_transformation")
 
 
-def calculate_indices(df: pd.DataFrame):
-    # Reference: http://etccdi.pacificclimate.org/list_27_indices.shtml
-    df['year'] = df['date'].dt.year
-    df['month'] = df['date'].dt.month
-    df_wet_days = df[df['precipitation'] >= 1]
+def compute_seasonality_index(df: pd.DataFrame) -> float:
+    """
+    Computes the seasonality index for the data frame of a given year of precipitation data.
 
-    prcptot = df_wet_days.groupby('year')['precipitation'].sum()
-    r95_threshold = df['precipitation'].quantile(0.95)
-    r95p = df[df['precipitation'] > r95_threshold].groupby('year')['precipitation'].sum()
-    rx1day = df.groupby('year')['precipitation'].max()
-    df['rolling_5day'] = df['precipitation'].rolling(window=5, min_periods=1).sum()
-    rx5day = df.groupby('year')['rolling_5day'].max()
-    sdii = df_wet_days.groupby('year')['precipitation'].mean()
-    r20mm = df[df['precipitation'] > 20].groupby('year').size()
-    df['dry'] = df['precipitation'] < 1
-    cdd = df.groupby('year')['dry'].apply(lambda x: x.astype(int).groupby((x != x.shift()).cumsum()).sum().max())
-    df['wet'] = df['precipitation'] >= 1
-    cwd = df.groupby('year')['wet'].apply(lambda x: x.astype(int).groupby((x != x.shift()).cumsum()).sum().max())
+    The Seasonality Index is a non-dimensional metric that quantifies the seasonal variation
+    in rainfall patterns. It is calculated as the sum of the absolute differences between
+    the monthly average precipitation and the monthly average precipitation if the yearly
+    precipitation were distributed evenly throughout the year, divided by the yearly
+    precipitation. # TODO: add reference!
 
-    # Cálculo do índice de sazonalidade (S)
-    Ai = df.groupby('year')['precipitation'].sum()  # Precipitação total anual
-    Mi = df.groupby(['year', 'month'])['precipitation'].mean()  # Precipitação média mensal
+    Args:
+        df (pd.DataFrame): Data frame containing columns "month" and "precipitation", with
+        data corresponding to a **single** year.
 
-    # Cálculo do índice de sazonalidade S para cada ano
-    seasonality_index = Ai.copy()
-    for year in Ai.index:
-        total_precip = Ai[year]
-        monthly_precip = Mi.loc[year]
-        S = (1 / total_precip) * np.sum(np.abs(monthly_precip - (total_precip / 12)))
-        seasonality_index[year] = S
+    Returns:
+        float: Seasonality index for the given data from a particular year.
+    """
+    yearly_precipitation: float = df["precipitation"].sum()
+    monthly_averages: pd.Series[float] = df.groupby("month")["precipitation"].mean()
+    return (1 / yearly_precipitation) * (
+        monthly_averages - (yearly_precipitation / 12)).abs().sum()
 
-    result_df = pd.DataFrame({
-        'PRCPTOT': prcptot,
-        'R95p': r95p,
-        'RX1day': rx1day,
-        'RX5day': rx5day,
-        'SDII': sdii,
-        'R20mm': r20mm,
-        'CDD': cdd,
-        'CWD': cwd,
-        'Seasonality_Index': seasonality_index  # Índice de sazonalidade adicionado
-    }).reset_index()
 
-    return result_df
+def find_max_consecutive_run_length(series: pd.Series) -> int:
+    """
+    Finds the maximum length of consecutive runs of Truthy values in a Pandas Series.
+
+    This function groups the input Series based on consecutive runs of Truthy values
+    (meaning they result in True if bool() is applied to them), computes the length (sum)
+    of each consecutive run, and returns the maximum length among all of them.
+
+    Args:
+        series (pd.Series): Pandas Series containing numeric values.
+
+    Returns:
+        int: Maximum length of all consecutive runs in the given Series. Returns 0 for an
+        empty Series.
+
+    Notes:
+        - Numeric values are not strictly required, values are compared for equality
+        regardless of type.
+        - Values are only considered for consecutive runs if they are 'Truthy', meaning a
+        consecutive run of 0's (or 'False', 'None', '', etc) is not counted.
+        - An increase in a consecutive run is only considered when the values are equal
+        (according to their definition of __eq__).
+
+    Examples:
+        >>> import pandas as pd
+        >>> data = [1, 1, 0, 0, 0, 1, 1, 1, 1, 0]
+        >>> find_max_consecutive_run_length(pd.Series(data))
+        4
+        >>> data = [0, 0, 0, 0, 2, 2, 2]
+        >>> find_max_consecutive_run_length(pd.Series(data))
+        3
+        >>> data = ["", "", "", "", "", "", None, -1, -1, -1, "foo", "foo", "foo", "foo"]
+        >>> find_max_consecutive_run_length(pd.Series(data))
+        4
+    """
+    if not any(series):
+        return 0
+    return series.astype(bool).groupby((series != series.shift()).cumsum()).sum().max()
+
+
+def compute_indices(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Computes various climate indices related to precipitation data from a given data frame.
+
+    This function takes a data frame containing precipitation and time data and computes
+    several climate indices commonly used to analyze precipitation patterns. The computed
+    indices* are:
+
+        - RX1day: Monthly maximum 1-day precipitation.
+        - RX5day: Monthly maximum consecutive 5-day precipitation.
+        - SDII: Simple pricipitation intensity index (mean precipitation on wet days).
+        - R20mm: Annual count of days when precipitation ≥ 20mm.
+        - CDD: Maximum length of dry spell, maximum number of consecutive days with
+            precipitation < 1mm.
+        - CWD: Maximum length of wet spell, maximum number of consecutive days with
+            precipitation ≥ 1mm.
+        - R95p: Annual total precipitation from days exceeding the 95th percentile for the
+            entire period.
+        - PRCPTOT: Annual total precipitation in wet days.
+        - Seasonality Index: Seasonality index quantifying seasonal variation within a year.
+
+    *Most indices are computed according to
+    (https://etccdi.pacificclimate.org/list_27_indices.shtml), and seasonality index is
+    computed as derived by Walsh and Lawler (1981).
+
+    Args:
+        df (pd.DataFrame): Data frame containing columns "date" (datetime) and
+        "precipitation" (numeric).
+
+    Returns:
+        pd.DataFrame: Data frame containing the computed climate indices, with each
+        index as a column and the corresponding values for each year as rows.
+
+    Note:
+        Additional columns are created in the input data frame for intermediate
+        calculations, such as "year", "month", "dry_days", "wet_days", and "rolling_5day".
+    """
+    df["year"] = df["date"].dt.year
+    df["month"] = df["date"].dt.month
+    df["dry_days"] = df["precipitation"] < 1
+    df["wet_days"] = df["precipitation"] >= 1
+    df["rolling_5day"] = df["precipitation"].rolling(window=5, min_periods=1).sum()
+
+    rx1day: pd.Series = df.groupby("year")["precipitation"].max()
+    rx5day: pd.Series = df.groupby("year")["rolling_5day"].max()
+    sdii: pd.Series = df[df["wet_days"]].groupby("year")["precipitation"].mean()
+    r20mm: pd.Series = df[df["precipitation"] >= 20].groupby("year").size()
+    cdd: pd.Series = df.groupby("year")["dry_days"].apply(find_max_consecutive_run_length)
+    cwd: pd.Series = df.groupby("year")["wet_days"].apply(find_max_consecutive_run_length)
+    r95p: pd.Series = df[
+        df["precipitation"] > df["precipitation"].quantile(0.95)
+        ].groupby("year")["precipitation"].sum()
+    prcptot: pd.Series = df[df["wet_days"]].groupby("year")["precipitation"].sum()
+    seasonality_indices: pd.Series = df.groupby("year")[["month", "precipitation"]].apply(
+        compute_seasonality_index)
+
+    precipitation_indices = pd.DataFrame({
+        "PRCPTOT": prcptot,
+        "R95p": r95p,
+        "RX1day": rx1day,
+        "RX5day": rx5day,
+        "SDII": sdii,
+        "R20mm": r20mm,
+        "CDD": cdd,
+        "CWD": cwd,
+        "Seasonality_Index": seasonality_indices
+        })
+    precipitation_indices.reset_index(inplace=True)
+    return precipitation_indices
+
+
+def consolidate_precipitation_data(
+        input_path: Path,
+        city_coordinates: dict[str, dict[str, Sequence[float]]]
+        ) -> Iterable[pd.DataFrame]:
+    """
+    Generates data frames containing precipitation data and climate indices for multiple
+    cities, climate models and scenarios.
+
+    This function takes an input path of directory containing NetCDF4 files and a dictionary
+    of city coordinates, then retrieves precipitation data from existing files for each
+    city, climate model, and scenario combination. It then computes various climate indices
+    related to the precipitation data and yields a data frame.
+
+    Args:
+        input_path (Path): Path to the directory containing NetCDF4 files.
+        city_coordinates (dict[str, dict[str, Sequence[float]]]): Dictionary where keys are
+            city names and values are dictionaries containing the nearest valid latitude
+            and longitude coordinates.
+
+    Yields:
+        Iterable[pd.DataFrame]: Data frame containing the computed climate indices for a
+        specific combination of city, climate model, and scenario combination.
+
+    Notes:
+        - In case of invalid coordinates or no valid precipitation data, the function skips
+        that combination and continues with the next one.
+    """
+    for model in CLIMATE_MODELS:
+        for scenario_name in SSP_SCENARIOS.keys():
+            source_path = Path(
+                input_path, INPUT_FILENAME_FORMAT[scenario_name].format(model=model))
+            if not source_path.is_file():
+                logger.debug(
+                    f"Could not find source file for '{model}' and '{scenario_name}' at"
+                    f" '{source_path.resolve()}', skipping")
+                continue
+
+            for city_name, details in city_coordinates.items():
+                latitude: float | None = details.get("nearest", {}).get("lat")
+                longitude: float | None = details.get("nearest", {}).get("lon")
+                if not all((latitude, longitude)):
+                    logger.warning(
+                        f"Coordinates not available for city '{city_name}', skipping")
+                    continue
+
+                start_time = time.perf_counter()
+                data_series = extract_precipitation(source_path, latitude, longitude)
+                if not data_series:
+                    logger.error(
+                        f"No valid precipitation data found in file at "
+                        f"'{source_path.resolve()}'")
+                    continue
+
+                indices = compute_indices(
+                    pd.DataFrame(data_series, columns=["date", "precipitation"]))
+
+                metadata = {
+                    "City": city_name,
+                    "Model": model,
+                    "Scenario": scenario_name,
+                    "Latitude": latitude,
+                    "Longitude": longitude
+                }
+                for key, value in metadata.items():
+                    indices[key] = value
+                logger.info(
+                    f"Compiled precipitation indices for the city of '{city_name}', model "
+                    f"'{model}', climate scenario '{scenario_name}' in "
+                    f"{time.perf_counter() - start_time:.3f}s")
+                yield indices
 
 
 def main(args: Namespace) -> None:
-    setup_start: float = time.perf_counter()
-    logging.basicConfig(
-        format="%(asctime)s    %(levelname)-8.8s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        level=logging.DEBUG,
-    )
-    if args.quiet == 1:
-        logging.getLogger().setLevel(logging.INFO)
-    elif args.quiet == 2:
-        logging.getLogger().setLevel(logging.WARNING)
-    elif args.quiet >= 3:
-        logging.getLogger().setLevel(logging.ERROR)
+    app_logging.setup(args.quiet)
+
+    input_path: Path = Path(args.input)
+    if not input_path.is_dir():
+        logger.critical(f"Input path '{input_path.resolve()}' is not a directory")
+        return
+    logger.info(f"Input path set to '{input_path.resolve()}'")
 
     coordinates_path: Path = Path(args.coordinates)
     if not coordinates_path.is_file():
-        logging.critical(
+        logger.critical(
             f"File with cities coordinates not found at '{coordinates_path.resolve()}'")
-        return None
+        return
+    logger.debug(f"Using coordinates from file at '{coordinates_path.resolve()}'")
+
     with open(coordinates_path) as file:
         city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
-    logging.info(f"Setup time: {round(1000*(time.perf_counter() - setup_start))}ms")
 
-    all_data = []
-    counter = 0
-    for city, details in city_coordinates.items():
-        latitude = details["Nearest Coordinates"][0]
-        longitude = details["Nearest Coordinates"][1]
+    output_path: Path = Path(args.output)
+    logger.debug("Setup completed, starting data frame generation")
 
-        for model in CLIMATE_MODELS:
-            counter += 1
-            files = {
-                'Histórico': f'{model}-pr-hist.nc',
-                'SSP245': f'{model}-pr-ssp245.nc',
-                'SSP585': f'{model}-pr-ssp585.nc'
-            }
+    start_time = time.perf_counter()
+    consolidated_dataframe = pd.concat(
+        consolidate_precipitation_data(input_path, city_coordinates),
+        ignore_index=True,
+        copy=False)
+    logger.info(
+        f"Generated all data frame(s) from available files and settings in a total of "
+        f"{time.perf_counter() - start_time:.3f}s")
 
-            for scenario, file_path in files.items():
-                series = extract_precipitation(Path(file_path), latitude, longitude)
-                if series:
-                    dates, values = zip(*series)
-                    df = pd.DataFrame({
-                        'date': pd.to_datetime(dates),
-                        'precipitation': values})
-                    indices = calculate_indices(df)
-
-                    # Adiciona os dados da cidade, modelo, cenário, latitude e longitude
-                    indices['City'] = city
-                    indices['Model'] = model
-                    indices['Scenario'] = scenario
-                    indices['Latitude'] = latitude
-                    indices['Longitude'] = longitude
-
-                    # Append the data to the main dataframe
-                    all_data.append(indices)
-
-    # Concatenar todos os dados em um único DataFrame
-    all_data_df = pd.concat(all_data, ignore_index=True)
-
-    # Salvar o DataFrame como um arquivo Parquet com nome atualizado
-    all_data_df.to_parquet('climate_indices_with_corrected_coordinates_V3.parquet', index=False)
+    start_time = time.perf_counter()
+    consolidated_dataframe.to_parquet(output_path, index=False, **PARQUET_CONF)
+    logger.info(
+        f"Generated .parquet file at '{output_path.resolve()}' in "
+        f"{time.perf_counter() - start_time:.3f}s")
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    # parser.add_argument(
-    #     "input", type=str, metavar="path/to/input",
-    #     help="path to a directory where the input NetCDF4 files are stored")
-    # parser.add_argument(
-    #     "-o", "--output", type=str, metavar="path/to/output", default="output",
-    #     help="path to a directory where the output files will be saved. "
-    #     "Defaults to 'output'")
+    parser.add_argument(
+        "coordinates", type=str, metavar="path/to/coordinates.json",
+        help="path to a JSON file containing coordinates of the desired cities")
+    parser.add_argument(
+        "input", type=str, metavar="path/to/input",
+        help="path to a directory where the input NetCDF4 files are stored")
+    parser.add_argument(
+        "-o", "--output", type=str, metavar="path/to/output.parquet",
+        default="consolidated.parquet", help="path to output Parquet file. Defaults to "
+        "'./consolidated.parquet'")
     parser.add_argument(
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
         "than INFO/WARNING")
-    parser.add_argument(
-        "-c", "--coordinates", type=str, metavar="path/to/coordinates.json",
-        help="path to a JSON file containing coordinates of the desired cities")
     main(parser.parse_args())
