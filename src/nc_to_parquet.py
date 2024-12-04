@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Iterable
 
 import pandas as pd
+import numpy as np
 
 import app_logging
 from constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS, PARQUET_CONF
@@ -33,6 +34,8 @@ def compute_seasonality_index(df: pd.DataFrame) -> float:
         float: Seasonality index for the given data from a particular year.
     """
     yearly_precipitation: float = df["precipitation"].sum()
+    if yearly_precipitation <= 0:
+        return np.nan
     monthly_averages: pd.Series[float] = df.groupby("month")["precipitation"].mean()
     return (1 / yearly_precipitation) * (
         monthly_averages - (yearly_precipitation / 12)).abs().sum()
@@ -243,6 +246,7 @@ def main(args: Namespace) -> None:
     output_path: Path = Path(args.output)
     logger.debug("Setup completed, starting data frame generation")
 
+    # TODO: parallelize data consolidation to see if it improves times
     start_time = time.perf_counter()
     consolidated_dataframe = pd.concat(
         consolidate_precipitation_data(input_path, city_coordinates),
