@@ -212,8 +212,8 @@ def consolidate_precipitation_data(
             if not source_path.is_file():
                 logger.warning(
                     f"[{counts['processed']}/{counts['total']}] Could not find source file "
-                    f"for '{model}' and '{scenario_name}' at '{source_path.name}', "
-                    f"skipping")
+                    f"'{source_path.name}' for model '{model}' and scenario "
+                    f"'{scenario_name}', skipping")
                 continue
 
             for city_name, details in city_coordinates.items():
@@ -296,14 +296,14 @@ def main(args: Namespace) -> None:
         ignore_index=True,
         copy=False)
     logger.info(
-        f"Generated all data frame(s) from available files and settings in a total of "
+        f"Consolidated all precipitation data frame(s) in a total of "
         f"{time.perf_counter() - start_time:.3f}s")
 
     start_time = time.perf_counter()
     consolidated_dataframe.to_parquet(output_path, index=False, **PARQUET_CONF)
     logger.info(
         f"Generated .parquet file at '{output_path.resolve()}' in "
-        f"{time.perf_counter() - start_time:.3f}s")
+        f"{round(1000*(time.perf_counter() - start_time))}ms")
 
 
 if __name__ == "__main__":
