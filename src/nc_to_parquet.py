@@ -152,6 +152,26 @@ def compute_indices(df: pd.DataFrame) -> pd.DataFrame:
     return precipitation_indices
 
 
+def estimate_combinations(
+        models: list[str],
+        scenarios: dict[str, list[dict[str, str]]],
+        city_coordinates: dict[str, dict[str, Sequence[float]]]) -> int:
+    """
+    Estimates the number of combinations of cities, climate models and scenarios.
+
+    Args:
+        models (list[str]): List of climate model names.
+        scenarios (dict[str, list[dict[str, str]]]): Dictionary mapping scenario names to
+            their details per period.
+        city_coordinates (dict[str, dict[str, Sequence[float]]]): Dictionary mapping city
+            names to their coordinates.
+
+    Returns:
+        int: Estimated number of combinations of cities, climate models and scenarios.
+    """
+    return len(models)*len(scenarios.keys())*len(city_coordinates.keys())
+
+
 def consolidate_precipitation_data(
         input_path: Path,
         city_coordinates: dict[str, dict[str, Sequence[float]]]
@@ -179,14 +199,21 @@ def consolidate_precipitation_data(
         - In case of invalid coordinates or no valid precipitation data, the function skips
         that combination and continues with the next one.
     """
+    counts = {
+        "total": estimate_combinations(CLIMATE_MODELS, SSP_SCENARIOS, city_coordinates),
+        "processed": 0,
+        "error": 0
+    }
+    logger.info(f"Starting consolidation process for {counts['total']} items")
     for model in CLIMATE_MODELS:
         for scenario_name in SSP_SCENARIOS.keys():
             source_path = Path(
                 input_path, INPUT_FILENAME_FORMAT[scenario_name].format(model=model))
             if not source_path.is_file():
-                logger.debug(
-                    f"Could not find source file for '{model}' and '{scenario_name}' at"
-                    f" '{source_path.resolve()}', skipping")
+                logger.warning(
+                    f"[{counts['processed']}/{counts['total']}] Could not find source file "
+                    f"for '{model}' and '{scenario_name}' at '{source_path.name}', "
+                    f"skipping")
                 continue
 
             for city_name, details in city_coordinates.items():
@@ -194,15 +221,21 @@ def consolidate_precipitation_data(
                 longitude: float | None = details.get("nearest", {}).get("lon")
                 if not all((latitude, longitude)):
                     logger.warning(
-                        f"Coordinates not available for city '{city_name}', skipping")
+                        f"[{counts['processed']}/{counts['total']}] Coordinates not "
+                        f"available for the city of '{city_name}', model '{model}', climate"
+                        f" scenario '{scenario_name}', skipping")
                     continue
 
                 start_time = time.perf_counter()
                 data_series = extract_precipitation(source_path, latitude, longitude)
                 if not data_series:
+                    counts["processed"] += 1
+                    counts["error"] += 1
                     logger.error(
-                        f"No valid precipitation data found in file at "
-                        f"'{source_path.resolve()}'")
+                        f"[{counts['processed']}/{counts['total']}] No valid precipitation"
+                        f" data found for the city of '{city_name}', model '{model}', "
+                        f"climate scenario '{scenario_name}' in file at "
+                        f"'{source_path.name}'")
                     continue
 
                 indices = compute_indices(
@@ -217,11 +250,21 @@ def consolidate_precipitation_data(
                 }
                 for key, value in metadata.items():
                     indices[key] = value
+                counts["processed"] += 1
                 logger.info(
-                    f"Compiled precipitation indices for the city of '{city_name}', model "
-                    f"'{model}', climate scenario '{scenario_name}' in "
+                    f"[{counts['processed']}/{counts['total']}] Compiled precipitation "
+                    f"indices for the city of '{city_name}', model '{model}', climate "
+                    f"scenario '{scenario_name}' in "
                     f"{time.perf_counter() - start_time:.3f}s")
                 yield indices
+    counts["skipped"] = counts["total"] - counts["processed"]
+    counts["success"] = counts["processed"] - counts["error"]
+    logger.info(
+        f"Processed {counts['processed']} combinations, from a total of {counts['total']},"
+        f" skipped {counts['skipped']} items, encountered {counts['error']} error(s). "
+        f"Success rate: "
+        f"{100*(counts['success'])/(counts['total'] - counts['skipped']):.2f}%. Effective "
+        f"processed rate: {100*counts['processed']/counts['total']:.2f}%")
 
 
 def main(args: Namespace) -> None:
