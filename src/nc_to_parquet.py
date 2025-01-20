@@ -24,7 +24,7 @@ def compute_seasonality_index(df: pd.DataFrame) -> float:
     in rainfall patterns. It is calculated as the sum of the absolute differences between
     the monthly average precipitation and the monthly average precipitation if the yearly
     precipitation were distributed evenly throughout the year, divided by the yearly
-    precipitation. # TODO: add reference!
+    precipitation. Reference: https://www.mdpi.com/2073-4441/15/6/1112
 
     Args:
         df (pd.DataFrame): Data frame containing columns "month" and "precipitation", with
