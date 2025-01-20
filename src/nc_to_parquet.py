@@ -36,9 +36,9 @@ def compute_seasonality_index(df: pd.DataFrame) -> float:
     yearly_precipitation: float = df["precipitation"].sum()
     if yearly_precipitation <= 0:
         return np.nan
-    monthly_averages: pd.Series[float] = df.groupby("month")["precipitation"].mean()
+    monthly_precipitation: pd.Series[float] = df.groupby("month")["precipitation"].sum()
     return (1 / yearly_precipitation) * (
-        monthly_averages - (yearly_precipitation / 12)).abs().sum()
+        monthly_precipitation - (yearly_precipitation / 12)).abs().sum()
 
 
 def find_max_consecutive_run_length(series: pd.Series) -> int:
