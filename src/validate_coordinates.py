@@ -72,7 +72,7 @@ def generate_valid_coordinates_json(
                 f"'{source_path.resolve()}'")
 
     with open(output_file_path, "w", encoding="utf-8") as file:
-        json.dump(valid_coordinates, file, indent=2, ensure_ascii=False)
+        json.dump(valid_coordinates, file, indent=2, ensure_ascii=False, sort_keys=True)
     logger.info(
         f"Successfully generated coordinates file at '{output_file_path.resolve()}'")
 
