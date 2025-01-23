@@ -48,7 +48,7 @@ def generate_valid_coordinates_json(
             coordinates should be saved.
     """
     latitudes, longitudes, precipitation = load_precipitation_dataset(source_path)
-    logger.info(f"Successfully loaded NetCDF4 dataset from '{source_path.resolve()}'")
+    logger.info(f"Loaded NetCDF4 dataset from '{source_path.resolve()}'")
 
     valid_coordinates: dict[str, dict[str, tuple[float, float]]] = {}
     for city_name, (target_latitude, target_longitude) in original_coordinates.items():
@@ -74,7 +74,7 @@ def generate_valid_coordinates_json(
     with open(output_file_path, "w", encoding="utf-8") as file:
         json.dump(valid_coordinates, file, indent=2, ensure_ascii=False, sort_keys=True)
     logger.info(
-        f"Successfully generated coordinates file at '{output_file_path.resolve()}'")
+        f"Generated validated coordinates file at '{output_file_path.resolve()}'")
 
 
 def has_precipitation_data(
