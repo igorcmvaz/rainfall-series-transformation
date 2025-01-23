@@ -194,7 +194,7 @@ def main(args: Namespace) -> None:
     output_file_path = Path(
         output_dir, f"validated_{coordinates_path.stem}").with_suffix(".json")
 
-    with open(coordinates_path) as file:
+    with open(coordinates_path, encoding="utf-8") as file:
         original_coordinates: dict[str, Sequence[float]] = json.load(file)
 
     generate_valid_coordinates_json(reference_path, original_coordinates, output_file_path)

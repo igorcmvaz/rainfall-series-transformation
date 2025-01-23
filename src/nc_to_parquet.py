@@ -283,7 +283,7 @@ def main(args: Namespace) -> None:
         return
     logger.debug(f"Using coordinates from file at '{coordinates_path.resolve()}'")
 
-    with open(coordinates_path) as file:
+    with open(coordinates_path, encoding="utf-8") as file:
         city_coordinates: dict[str, dict[str, Sequence[float]]] = json.load(file)
 
     output_path: Path = Path(args.output)
