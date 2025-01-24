@@ -1,0 +1,2 @@
+class InvalidTargetCoordinatesError(Exception):
+    pass

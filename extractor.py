@@ -1,0 +1,142 @@
+import logging
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any, Sequence
+
+import numpy as np
+from netCDF4 import Dataset
+from numpy.ma import MaskedArray
+
+from errors import InvalidTargetCoordinatesError
+from interfaces.validators import AbstractValidator
+
+logger = logging.getLogger("rainfall_transformation")
+
+
+@dataclass(slots=True)
+class ParsedVariable:
+    units: str
+    values: MaskedArray
+
+
+# TODO: add more log messages
+class NetCDFExtractor:
+    """Provides functions to extract precipitation data from a NetCDF4 file."""
+
+    validator: AbstractValidator
+    variables: dict[str, ParsedVariable]
+
+    def __init__(self, source_path: Path, validator: AbstractValidator) -> None:
+        self.validator = validator
+        self.variables = {}
+        self._get_dataset_variables(source_path)
+
+    def _get_dataset_variables(self, source_path: Path) -> None:
+        """
+        Retrieves the dataset variables and their units.
+
+        Args:
+            source_path (Path): Path to the NetCDF4 file.
+        """
+        with Dataset(source_path) as dataset:
+            for name, variable in dataset.variables.items():
+                self.variables[name] = ParsedVariable(variable.units, variable[:])
+
+    def _parse_reference_date(
+            self, datetime_format: str = "%Y-%m-%dT%H:%M:%S") -> datetime:
+        """
+        Parses the reference date from the time variable's units.
+
+        Args:
+            datetime_format (str, optional): Format string used to parse the reference date
+                from the dataset's time variable unit. Defaults to "%Y-%m-%dT%H:%M:%S".
+
+        Returns:
+            datetime: Reference date parsed from the units information in the dataset's
+            time variable.
+
+        Notes:
+            The function assumes that the time variable's unit follows the format:
+            "days since {datetime_format}"
+        """
+        return datetime.strptime(
+            self.variables["time"].units.split("since")[-1].strip(), datetime_format)
+
+    def _find_coordinates_indices(
+            self,
+            target_latitude: float,
+            target_longitude: float) -> tuple[int, int]:
+        """
+        Finds the indices of target coordinates among coordinate variables.
+
+        Args:
+            target_latitude (int): Target latitude coordinate.
+            target_longitude (int): Target longitude coordinate.
+
+        Returns:
+            tuple[int, int]: Tuple containing the indices of the latitude and longitude
+            coordinates found for each corresponding variable.
+
+        Raises:
+            InvalidTargetCoordinatesError: If either target latitude or longitude are not
+            found.
+        """
+        try:
+            coordinates_indices = (
+                np.argwhere(self.variables["lat"].values == target_latitude)[0][0],
+                np.argwhere(self.variables["lon"].values == target_longitude)[0][0]
+            )
+        except IndexError:
+            logger.exception(
+                f"Target coordinates ({target_latitude}, {target_longitude}) are not "
+                f"present in the dataset")
+            raise InvalidTargetCoordinatesError(
+                f"No matching coordinates for ({target_latitude}, {target_longitude})")
+        return coordinates_indices
+
+    def _relative_to_absolute_date(
+            self, data_series: np.ndarray[Any]) -> np.ndarray[tuple[datetime, Any]]:
+        """
+        Transforms time variable of the dataset from relative dates (defined by a reference
+        date) into absolute datetime values and merges it with the data from a given series.
+
+        Args:
+            data_series (np.ndarray[Any]): Data series to be merged with absolute datetime
+            values.
+
+        Returns:
+            np.ndarray[tuple[datetime, Any]]: Array of tuples, each containing an absolute
+            datetime and the corresponding values from the data series, by index.
+        """
+        reference_date = self._parse_reference_date()
+        dates = [
+            reference_date + timedelta(days=float(t))
+            for t in self.variables["time"].values
+        ]
+        # TODO: fix bug here
+        return np.array([(dates[index], value) for index, value in enumerate(data_series)])
+
+    def extract_precipitation(
+            self,
+            target_latitude: float,
+            target_longitude: float) -> Sequence[tuple[datetime, float]]:
+        """
+        Extracts normalized precipitation data along with absolute datetimes from the
+        dataset, for a given pair of coordinates.
+
+        Args:
+            target_latitude (int): Target latitude coordinate.
+            target_longitude (int): Target longitude coordinate.
+
+        Returns:
+            Sequence[tuple[datetime, float]]: Precipitation data series, with each value
+            mapped to a datetime, for a given pair of coordinates.
+        """
+        latitude_index, longitude_index = self._find_coordinates_indices(
+            target_latitude, target_longitude)
+
+        precipitation_series = self._relative_to_absolute_date(
+            self.validator.normalize_data_series(
+                self.variables["pr"].values, latitude_index, longitude_index))
+        return precipitation_series
