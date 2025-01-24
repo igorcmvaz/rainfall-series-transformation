@@ -1,5 +1,6 @@
 # Rainfall Series Transformation
 
+Transformation of Brazilian '.nc' precipitation files (such as the ones found at [CLIMBra - Climate Change Dataset for Brazil](https://www.scidb.cn/en/detail?dataSetId=609b7ff93f0d4d1a9ba6eb709027c6ad), under `Gridded data/pr`") into location and model specific output files. Precipitation data is extracted from the closest grid point found in the dataset, up to a certain limit, if available. It is worth noting that missing data (`NaN`, `None`, `null`, etc) are interpreted as `0.0` rather than raising errors.
 
 Climate change indices are computed according to their definition by the Expert Team on Climate Change Detection and Indices (ETCCDI), as available at [Climate Change Indices - Definitions of the 27 core indices](https://etccdi.pacificclimate.org/list_27_indices.shtml).
 
