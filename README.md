@@ -89,4 +89,5 @@ Next steps, planned development, pending issues, known bugs, etc:
 * [ ] Rename files and directories for improved readability
 * [ ] Implement parallel computing for expensive functions
 * [ ] Add tests
+* [ ] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
 * [ ] Finish README, including proper instructions and examples
