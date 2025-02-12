@@ -1,8 +1,9 @@
 import logging
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any
 
 import numpy as np
 from netCDF4 import Dataset
