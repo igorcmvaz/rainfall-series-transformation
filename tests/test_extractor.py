@@ -1,6 +1,8 @@
 import unittest
 from datetime import datetime, timedelta
 
+import numpy as np
+
 from errors import InvalidTargetCoordinatesError
 from extractor import NetCDFExtractor
 from tests.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
@@ -48,6 +50,20 @@ class TestNetCDFExtractor(unittest.TestCase):
     def test_find_coordinates_indices_absent(self):
         with self.assertRaises(InvalidTargetCoordinatesError):
             self.extractor._find_coordinates_indices(-34.005, -74.977)
+
+    def test_relative_to_absolute_date(self):
+        LATITUDE_INDEX = 0
+        LONGITUDE_INDEX = 0
+        expected_values = NetCDFStubGenerator.create_sample_variables()
+        expected_output = np.array([(
+            datetime(2020, 1, 1) + timedelta(days=float(t)),
+            expected_values["pr"].values[t, LATITUDE_INDEX, LONGITUDE_INDEX]
+            ) for t in range(100)])
+
+        result = self.extractor._relative_to_absolute_date(
+            self.extractor.variables["pr"].values[:, LATITUDE_INDEX, LONGITUDE_INDEX])
+
+        self.assertListEqual(expected_output.tolist(), result.tolist())
 
 
 if __name__ == '__main__':
