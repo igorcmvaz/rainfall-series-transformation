@@ -114,7 +114,7 @@ class IndicesCalculator:
 
             - RX1day: Monthly maximum 1-day precipitation.
             - RX5day: Monthly maximum consecutive 5-day precipitation.
-            - SDII: Simple pricipitation intensity index (mean precipitation on wet days).
+            - SDII: Simple precipitation intensity index (mean precipitation on wet days).
             - R20mm: Annual count of days when precipitation ≥ 20mm.
             - CDD: Maximum length of dry spell, maximum number of consecutive days with
                 precipitation < 1mm.
