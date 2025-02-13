@@ -21,7 +21,6 @@ class ParsedVariable:
     values: MaskedArray
 
 
-# TODO: add more log messages
 class NetCDFExtractor:
     """Provides functions to extract precipitation data from a NetCDF4 file."""
 
@@ -32,6 +31,9 @@ class NetCDFExtractor:
         self.validator = validator
         self.variables = {}
         self._get_dataset_variables(source_path)
+        logger.debug(
+            f"Loaded variables ({', '.join(self.variables.keys())}) from file at "
+            f"'{source_path.resolve()}'")
 
     def _get_dataset_variables(self, source_path: Path) -> None:
         """
@@ -111,11 +113,11 @@ class NetCDFExtractor:
             datetime and the corresponding values from the data series, by index.
         """
         reference_date = self._parse_reference_date()
+        logger.debug(f"Reference date: {reference_date.strftime("%Y-%m-%d")}")
         dates = [
             reference_date + timedelta(days=float(t))
             for t in self.variables["time"].values
         ]
-        # TODO: fix bug here
         return np.array([(dates[index], value) for index, value in enumerate(data_series)])
 
     def extract_precipitation(
