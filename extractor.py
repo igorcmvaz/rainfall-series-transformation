@@ -10,7 +10,7 @@ from netCDF4 import Dataset
 from numpy.ma import MaskedArray
 
 from errors import InvalidTargetCoordinatesError
-from interfaces.validators import AbstractValidator
+from validators import PrecipitationValidator
 
 logger = logging.getLogger("rainfall_transformation")
 
@@ -24,11 +24,9 @@ class ParsedVariable:
 class NetCDFExtractor:
     """Provides functions to extract precipitation data from a NetCDF4 file."""
 
-    validator: AbstractValidator
     variables: dict[str, ParsedVariable]
 
-    def __init__(self, source_path: Path, validator: AbstractValidator) -> None:
-        self.validator = validator
+    def __init__(self, source_path: Path) -> None:
         self.variables = {}
         self._get_dataset_variables(source_path)
         logger.debug(
@@ -140,6 +138,6 @@ class NetCDFExtractor:
             target_latitude, target_longitude)
 
         precipitation_series = self._relative_to_absolute_date(
-            self.validator.normalize_data_series(
+            PrecipitationValidator.normalize_data_series(
                 self.variables["pr"].values, latitude_index, longitude_index))
         return precipitation_series

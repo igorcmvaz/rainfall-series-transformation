@@ -6,17 +6,15 @@ import numpy as np
 from errors import InvalidTargetCoordinatesError
 from extractor import NetCDFExtractor
 from tests.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
-from validators import PrecipitationValidator
 
 
 class TestNetCDFExtractor(unittest.TestCase):
 
     def setUp(self):
-        self.extractor = NetCDFExtractor(SAMPLE_NC_PATH, PrecipitationValidator)
+        self.extractor = NetCDFExtractor(SAMPLE_NC_PATH)
 
     def test_get_dataset_variables(self):
         extractor = NetCDFExtractor.__new__(NetCDFExtractor)
-        extractor.validator = PrecipitationValidator
         extractor.variables = {}
         expected_variables = NetCDFStubGenerator.create_sample_variables()
 
