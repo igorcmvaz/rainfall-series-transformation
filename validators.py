@@ -52,3 +52,56 @@ class PrecipitationValidator:
         """
         return np.array(data_series)[np.nonzero(
             [start_date <= date <= end_date for date, _ in data_series])]
+
+
+class CoordinatesValidator:
+
+    @staticmethod
+    def get_coordinates(details: dict[str, dict[str, float]]) -> tuple[float, float]:
+        """
+        Retrieves the coordinates from a dictionary for a specific location.
+
+        Args:
+            details (dict[str, dict[str, float]]): Dictionary containing the details for the
+            location, including the 'nearest' coordinates.
+
+        Raises:
+            CoordinatesNotAvailableError: If either latitude or longitude are not
+            successfully retrieved.
+
+        Returns:
+            tuple[float, float]: Tuple of latitude and longitude retrieved from the
+            dictionary.
+        """
+        latitude: float | None = details.get("nearest", {}).get("lat")
+        longitude: float | None = details.get("nearest", {}).get("lon")
+        coordinates = (latitude, longitude)
+        if not all(coordinates):
+            raise CoordinatesNotAvailableError
+        return coordinates
+
+
+class PathValidator:
+
+    @staticmethod
+    def validate_source_path(model: str, scenario: str, source_dir: Path | str) -> Path:
+        """
+        Validates a source file path for precipitation data from a given directory, given a
+        specific model and scenario.
+
+
+        Args:
+            model (str): Name of the climate model.
+            scenario (str): Name of the climate scenario.
+            source_dir (Path | str): Directory containing the precipitation files.
+
+        Raises:
+            InvalidSourceFileError: If a file does not exist in the expected path.
+
+        Returns:
+            Path: Path to the file containing the corresponding precipitation data.
+        """
+        source_path = Path(source_dir, INPUT_FILENAME_FORMAT[scenario].format(model=model))
+        if not source_path.is_file():
+            raise InvalidSourceFileError
+        return source_path
