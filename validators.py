@@ -1,14 +1,16 @@
 from collections.abc import Sequence
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 import numpy as np
 from numpy.ma import MaskedArray
 
-from interfaces.validators import AbstractValidator
+from constants import INPUT_FILENAME_FORMAT
+from errors import CoordinatesNotAvailableError, InvalidSourceFileError
 
 
-class PrecipitationValidator(AbstractValidator):
+class PrecipitationValidator:
 
     @staticmethod
     def normalize_data_series(
