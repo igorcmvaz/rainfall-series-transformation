@@ -81,10 +81,10 @@ For further reference on writing good commit messages, see [Conventional Commits
 Next steps, planned development, pending issues, known bugs, etc:
 
 * [x] Add progress/file counter in [nc_to_csv_timeseries.py](/src/nc_to_csv_timeseries.py)
-* [ ] Review valitions for precipitation data from NetCDF4 files
-* [ ] Review computation of **CDD** and CWD metrics in [nc_to_parquet.py](/src/nc_to_parquet.py)
-* [ ] Remove locations with same final coordinates in [validate_coordinates.py](/src/validate_coordinates.py)
+* [x] Review validations for precipitation data from NetCDF4 files
+* [x] Review computation of **CDD** and CWD metrics in [nc_to_parquet.py](/src/nc_to_parquet.py)
 * [ ] Reestructure code using classes to distribute functionality and provide abstractions between layers
+* [ ] Remove locations with same final coordinates in [validate_coordinates.py](/src/validate_coordinates.py)
 * [ ] Add a single point of entry to the code
 * [ ] Rename files and directories for improved readability
 * [ ] Implement parallel computing for expensive functions
