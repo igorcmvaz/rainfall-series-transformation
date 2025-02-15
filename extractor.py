@@ -127,8 +127,8 @@ class NetCDFExtractor:
         dataset, for a given pair of coordinates.
 
         Args:
-            target_latitude (int): Target latitude coordinate.
-            target_longitude (int): Target longitude coordinate.
+            target_latitude (float): Target latitude coordinate.
+            target_longitude (float): Target longitude coordinate.
 
         Returns:
             Sequence[tuple[datetime, float]]: Precipitation data series, with each value
