@@ -7,7 +7,8 @@ import numpy as np
 from numpy.ma import MaskedArray
 
 from constants import INPUT_FILENAME_FORMAT
-from errors import CoordinatesNotAvailableError, InvalidSourceFileError
+from errors import (
+    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
 
 
 class PrecipitationValidator:
@@ -96,12 +97,19 @@ class PathValidator:
             source_dir (Path | str): Directory containing the precipitation files.
 
         Raises:
+            InvalidClimateScenarioError: If no file format matches the provided climate
+                scenario.
             InvalidSourceFileError: If a file does not exist in the expected path.
 
         Returns:
             Path: Path to the file containing the corresponding precipitation data.
         """
-        source_path = Path(source_dir, INPUT_FILENAME_FORMAT[scenario].format(model=model))
-        if not source_path.is_file():
-            raise InvalidSourceFileError
-        return source_path
+        try:
+            source_path = Path(
+                source_dir, INPUT_FILENAME_FORMAT[scenario].format(model=model))
+        except KeyError:
+            raise InvalidClimateScenarioError
+        else:
+            if not source_path.is_file():
+                raise InvalidSourceFileError
+            return source_path
