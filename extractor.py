@@ -1,5 +1,4 @@
 import logging
-from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -121,7 +120,7 @@ class NetCDFExtractor:
     def extract_precipitation(
             self,
             target_latitude: float,
-            target_longitude: float) -> Sequence[tuple[datetime, float]]:
+            target_longitude: float) -> np.ndarray[tuple[datetime, float]]:
         """
         Extracts normalized precipitation data along with absolute datetimes from the
         dataset, for a given pair of coordinates.
@@ -131,7 +130,7 @@ class NetCDFExtractor:
             target_longitude (float): Target longitude coordinate.
 
         Returns:
-            Sequence[tuple[datetime, float]]: Precipitation data series, with each value
+            np.ndarray[tuple[datetime, float]]: Precipitation data series, with each value
             mapped to a datetime, for a given pair of coordinates.
         """
         latitude_index, longitude_index = self._find_coordinates_indices(
