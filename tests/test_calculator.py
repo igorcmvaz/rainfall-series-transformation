@@ -1,5 +1,6 @@
 import unittest
 
+import numpy as np
 import pandas as pd
 
 from calculator import (
@@ -143,6 +144,13 @@ class TestSeasonalityIndexComputation(unittest.TestCase):
         data = pd.DataFrame(precipitation, columns=["month", "precipitation"])
 
         self.assertEqual(compute_seasonality_index(data), 1.5)
+
+    def test_seasonality_with_no_precipitation(self):
+        precipitation = [(month, 0) for month in range(1, 13)]
+
+        data = pd.DataFrame(precipitation, columns=["month", "precipitation"])
+
+        self.assertTrue(np.isnan(compute_seasonality_index(data)))
 
 
 class TestIndicesCalculator(unittest.TestCase):
