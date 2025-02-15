@@ -90,7 +90,6 @@ class PathValidator:
         Validates a source file path for precipitation data from a given directory, given a
         specific model and scenario.
 
-
         Args:
             model (str): Name of the climate model.
             scenario (str): Name of the climate scenario.
