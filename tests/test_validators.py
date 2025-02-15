@@ -1,12 +1,15 @@
 import json
-from pathlib import Path
+import shutil
 import unittest
+from datetime import datetime, timedelta
+from pathlib import Path
 
 import numpy as np
-from datetime import datetime, timedelta
 
-from errors import CoordinatesNotAvailableError
-from validators import PrecipitationValidator, CoordinatesValidator, PathValidator
+from constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
+from errors import (
+    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
+from validators import CoordinatesValidator, PathValidator, PrecipitationValidator
 
 SAMPLE_CITIES_PATH = Path(__file__).parent / "sample_city_coordinates.json"
 
@@ -145,6 +148,52 @@ class TestCoordinatesValidation(unittest.TestCase):
         for city, details in cities.items():
             with self.subTest(city=city), self.assertRaises(CoordinatesNotAvailableError):
                 CoordinatesValidator.get_coordinates(details)
+
+
+class TestPathValidation(unittest.TestCase):
+
+    def setUp(self):
+        self.temp_dir = Path("temp")
+        self.temp_dir.mkdir()
+        self._create_sample_files()
+
+    def _create_sample_files(self):
+        for model in CLIMATE_MODELS:
+            for scenario_name in SSP_SCENARIOS:
+                new_file = Path(
+                    self.temp_dir, INPUT_FILENAME_FORMAT[scenario_name].format(model=model))
+                new_file.touch()
+
+    def test_valid_paths_all_models_and_scenarios(self):
+        for model in CLIMATE_MODELS:
+            for scenario_name in SSP_SCENARIOS:
+                with self.subTest(model=model, scenario=scenario_name):
+                    expected_path = Path(self.temp_dir, INPUT_FILENAME_FORMAT[
+                        scenario_name].format(model=model))
+                    self.assertEqual(PathValidator.validate_source_path(
+                        model, scenario_name, self.temp_dir), expected_path)
+
+    def test_invalid_scenarios(self):
+        models = ["Test", "something", "not-a-thing", "gisele-bundchen", "kalman"]
+        wrong_scenarios = ["scp3848", "SCP7789", "pré-histórico"]
+        for model in models:
+            for scenario_name in wrong_scenarios:
+                with (
+                        self.subTest(model=model, scenario=scenario_name),
+                        self.assertRaises(InvalidClimateScenarioError)):
+                    PathValidator.validate_source_path(model, scenario_name, self.temp_dir)
+
+    def test_no_file_in_resulting_path(self):
+        models = ["Test", "something", "not-a-thing", "gisele-bundchen", "kalman"]
+        for model in models:
+            for scenario_name in SSP_SCENARIOS:
+                with (
+                        self.subTest(model=model, scenario=scenario_name),
+                        self.assertRaises(InvalidSourceFileError)):
+                    PathValidator.validate_source_path(model, scenario_name, self.temp_dir)
+
+    def tearDown(self):
+        shutil.rmtree(self.temp_dir)
 
 
 if __name__ == '__main__':
