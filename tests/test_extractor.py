@@ -76,6 +76,22 @@ class TestNetCDFExtractor(unittest.TestCase):
 
                     self.assertListEqual(expected_output.tolist(), result.tolist())
 
+    def test_extract_sample_precipitation(self):
+        expected_values = NetCDFStubGenerator.create_sample_variables()
+
+        for latitude_index, target_latitude in enumerate(LATITUDES):
+            for longitude_index, target_longitude in enumerate(LONGITUDES):
+                with self.subTest(coordinates=(target_latitude, target_longitude)):
+                    expected_output = np.array([
+                        (
+                            datetime(2020, 1, 1) + timedelta(days=float(t)),
+                            expected_values["pr"].values[t, latitude_index, longitude_index]
+                        ) for t in range(100)])
+
+                    result = self.extractor.extract_precipitation(
+                        target_latitude, target_longitude)
+                    self.assertListEqual(expected_output.tolist(), result.tolist())
+
 
 if __name__ == '__main__':
     unittest.main()
