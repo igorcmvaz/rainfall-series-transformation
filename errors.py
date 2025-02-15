@@ -8,3 +8,7 @@ class CoordinatesNotAvailableError(Exception):
 
 class InvalidSourceFileError(Exception):
     pass
+
+
+class InvalidClimateScenarioError(Exception):
+    pass
