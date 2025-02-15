@@ -3,7 +3,8 @@ import unittest
 import pandas as pd
 
 from calculator import (
-    IndicesCalculator, compute_seasonality_index, find_max_consecutive_run_length)
+    IndicesCalculator, compute_seasonality_index, find_max_consecutive_run_length,
+    estimate_combinations)
 from tests.stub_precipitation import PrecipitationGenerator
 
 
@@ -197,6 +198,31 @@ class TestIndicesCalculator(unittest.TestCase):
                 self.assertAlmostEqual(
                     self.calculator.seasonality_indices.loc[year],
                     indices["seasonality_index"])
+
+
+class TestCombinationEstimation(unittest.TestCase):
+
+    def test_single_argument(self):
+        self.assertEqual(estimate_combinations([1]), 1)
+
+    def test_nested_single_argument(self):
+        self.assertEqual(estimate_combinations([[1, 2], [2, 3], [3, 4, 5, 6]]), 3)
+
+    def test_multiple_sequences(self):
+        self.assertEqual(estimate_combinations([1, 2], [2, 3], [3, 4, 5, 6]), 16)
+
+    def test_multiple_dictionaries(self):
+        self.assertEqual(estimate_combinations(
+            {"a": 1, "b": 2},
+            {"A": 3, "B": 4},
+            {0: None}), 4)
+
+    def test_empty_argument(self):
+        self.assertEqual(estimate_combinations([1, 2], [2, 3], []), 0)
+
+    def test_various_types(self):
+        self.assertEqual(estimate_combinations(
+            [1, 2], {"1": 1, "2": 2}, {1, 2, 3}, "1234"), 48)
 
 
 if __name__ == '__main__':

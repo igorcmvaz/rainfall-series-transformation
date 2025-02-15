@@ -1,11 +1,22 @@
 import logging
 from collections.abc import Sequence
 from datetime import datetime
+from functools import reduce
 
 import numpy as np
 import pandas as pd
 
 logger = logging.getLogger("rainfall_transformation")
+
+
+def estimate_combinations(*args) -> int:
+    """
+    Estimates the number of combinations based on the length of the parameters.
+
+    Returns:
+        int: The total number of combinations possible given the length of the parameters.
+    """
+    return reduce(lambda x, y: x*y, [len(arg) for arg in args])
 
 
 def find_max_consecutive_run_length(series: pd.Series) -> int:
@@ -106,6 +117,7 @@ class IndicesCalculator:
         self.df["rolling_5day"] = self.df["precipitation"].rolling(
             window=5, min_periods=1).sum()
 
+    # TODO: use async for computation and file management
     def compute_climate_indices(self) -> pd.DataFrame:
         """
         Computes various climate indices related to precipitation data from the data frame.

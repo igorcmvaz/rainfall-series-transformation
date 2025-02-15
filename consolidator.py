@@ -1,25 +1,14 @@
 import logging
 from collections.abc import Generator
-from functools import reduce
 from pathlib import Path
 
 import pandas as pd
 
-from calculator import IndicesCalculator
+from calculator import IndicesCalculator, estimate_combinations
 from extractor import NetCDFExtractor
 from validators import CoordinatesValidator, PathValidator
 
 logger = logging.getLogger("rainfall_transformation")
-
-
-def estimate_combinations(*args) -> int:
-    """
-    Estimates the number of combinations based on the length of the parameters.
-
-    Returns:
-        int: The total number of combinations possible given the length of the parameters.
-    """
-    return reduce(lambda x, y: x*y, [len(arg) for arg in args])
 
 
 class Consolidator:
