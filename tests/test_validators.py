@@ -1,9 +1,14 @@
+import json
+from pathlib import Path
 import unittest
 
 import numpy as np
 from datetime import datetime, timedelta
 
-from validators import PrecipitationValidator
+from errors import CoordinatesNotAvailableError
+from validators import PrecipitationValidator, CoordinatesValidator, PathValidator
+
+SAMPLE_CITIES_PATH = Path(__file__).parent / "sample_city_coordinates.json"
 
 
 class TestNormalization(unittest.TestCase):
@@ -94,6 +99,52 @@ class TestDateFiltering(unittest.TestCase):
             self.data_series, start_date, end_date)
 
         self.assertListEqual(result.tolist(), self.data_series[OFFSET:-OFFSET].tolist())
+
+
+class TestCoordinatesValidation(unittest.TestCase):
+
+    def setUp(self):
+        with open(SAMPLE_CITIES_PATH) as file:
+            self.cities: dict[str, dict[str, dict[str, float]]] = json.load(file)
+
+    def test_retrieve_coordinates_from_sample_cities(self):
+        for city, details in self.cities.items():
+            with self.subTest(city=city):
+                latitude = details["nearest"]["lat"]
+                longitude = details["nearest"]["lon"]
+                self.assertTupleEqual(
+                    (latitude, longitude), CoordinatesValidator.get_coordinates(details))
+
+    def test_coordinates_not_available(self):
+        cities = {
+            "Florianópolis": {
+                "nearest": {
+                    "not_lat": 12.5,
+                    "not_lon": 13.5
+                }
+            },
+            "Rio de Janeiro": {
+                "nearest": {
+                    "lat": 12.5,
+                    "not_lon": 13.5
+                }
+            },
+            "São Paulo": {
+                "nearest": {
+                    "not_lat": 12.5,
+                    "lon": 13.5
+                }
+            },
+            "Vitória": {
+                "not_nearest": {
+                    "lat": -20.375,
+                    "lon": -40.375
+                }
+            }
+        }
+        for city, details in cities.items():
+            with self.subTest(city=city), self.assertRaises(CoordinatesNotAvailableError):
+                CoordinatesValidator.get_coordinates(details)
 
 
 if __name__ == '__main__':
