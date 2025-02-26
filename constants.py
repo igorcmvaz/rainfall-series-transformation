@@ -26,58 +26,25 @@ CLIMATE_MODELS: list[str] = [
     "UKESM1-0-LL",
     ]
 
-SSP_SCENARIOS: dict[str, list[dict[str, str]]] = {
-    "Histórico": [
+SSP_SCENARIOS: dict[str, dict[str, str]] = {
+    "Histórico":
         {
             "label": "Histórico",
             "start_date": "1980-01-01",
-            "end_date": "2000-01-01"
-        }
-    ],
-    "SSP245": [
+            "end_date": "2013-12-31"
+        },
+    "SSP245":
         {
-            "label": "SSP245_2015_2035",
+            "label": "SSP245_2015_2100",
             "start_date": "2015-01-01",
-            "end_date": "2035-01-01"
+            "end_date": "2100-12-31"
         },
+    "SSP585":
         {
-            "label": "SSP245_2024_2074",
-            "start_date": "2024-01-01",
-            "end_date": "2074-01-01"
-        },
-        {
-            "label": "SSP245_2040_2060",
-            "start_date": "2040-01-01",
-            "end_date": "2060-01-01"
-        },
-        {
-            "label": "SSP245_2060_2080",
-            "start_date": "2060-01-01",
-            "end_date": "2080-01-01"
-        },
-    ],
-    "SSP585": [
-        {
-            "label": "SSP585_2015_2035",
+            "label": "SSP585_2015_2100",
             "start_date": "2015-01-01",
-            "end_date": "2035-01-01",
+            "end_date": "2100-12-31"
         },
-        {
-            "label": "SSP585_2024_2074",
-            "start_date": "2024-01-01",
-            "end_date": "2074-01-01"
-        },
-        {
-            "label": "SSP585_2040_2060",
-            "start_date": "2040-01-01",
-            "end_date": "2060-01-01"
-        },
-        {
-            "label": "SSP585_2060_2080",
-            "start_date": "2060-01-01",
-            "end_date": "2080-01-01"
-        },
-    ]
     }
 
 INPUT_FILENAME_FORMAT: dict[str, str] = {

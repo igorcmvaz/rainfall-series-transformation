@@ -15,7 +15,7 @@ logger = logging.getLogger("rainfall_transformation")
 class Consolidator:
 
     cities: dict[str, dict[str, dict[str, float]]]
-    scenarios: dict[str, list[dict[str, str]]]
+    scenarios: dict[str, dict[str, str]]
     models: list[str]
     source_dir: Path
     state: dict[str, int]
@@ -23,7 +23,7 @@ class Consolidator:
     def __init__(
             self,
             cities: dict[str, dict[str, dict[str, float]]],
-            scenarios: dict[str, list[dict[str, str]]],
+            scenarios: dict[str, dict[str, str]],
             models: list[str],
             source_dir: Path) -> None:
         self.models = models

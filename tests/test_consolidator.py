@@ -28,13 +28,10 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
         with open(SAMPLE_CITIES_PATH) as file:
             self.cities = json.load(file)
         self.models = CLIMATE_MODELS[:5]
-        self.scenarios = {
-            name: periods[0] for name, periods in SSP_SCENARIOS.items()
-        }
         self.consolidator = Consolidator(
-            self.cities, self.scenarios, self.models, self.SAMPLE_SOURCE_DIR)
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR)
         self.expected_total = estimate_combinations(
-            self.models, self.scenarios, self.cities)
+            self.models, SSP_SCENARIOS, self.cities)
 
         self._prepare_sample_precipitation()
 
@@ -55,7 +52,7 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
 
     def _create_sample_files(self):
         for model in self.models:
-            for scenario_name in self.scenarios:
+            for scenario_name in SSP_SCENARIOS:
                 new_file = Path(
                     self.SAMPLE_SOURCE_DIR,
                     INPUT_FILENAME_FORMAT[scenario_name].format(model=model))
@@ -199,7 +196,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
                 SAMPLE_JSON_PATH).parent
 
     def _validate_empty_file(self) -> None:
-        self.empty_scenario = {"SSP245": SSP_SCENARIOS["SSP245"][0]}
+        self.empty_scenario = {"SSP245": SSP_SCENARIOS["SSP245"]}
         self.empty_model = "TaiESM1"
         self.empty_coordinates = (-34.125, -74.125)
         self.empty_cities = {
