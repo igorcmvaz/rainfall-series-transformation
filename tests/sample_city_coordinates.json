@@ -1,0 +1,62 @@
+{
+  "Elsweyr": {
+    "nearest": {
+      "lat": -74.125,
+      "lon": -34.125
+    },
+    "target": {
+      "lat": -74.1302,
+      "lon": -34.1025
+    }
+  },
+  "Auridon": {
+    "nearest": {
+      "lat": -73.875,
+      "lon": -33.875
+    },
+    "target": {
+      "lat": -73.8702,
+      "lon": -33.8625
+    }
+  },
+  "Summerset": {
+    "nearest": {
+      "lat": -73.625,
+      "lon": -33.625
+    },
+    "target": {
+      "lat": -73.6202,
+      "lon": -33.6325
+    }
+  },
+  "Cyrodiil": {
+    "nearest": {
+      "lat": -73.325,
+      "lon": -33.325
+    },
+    "target": {
+      "lat": -73.3302,
+      "lon": -33.3125
+    }
+  },
+  "Skyrim": {
+    "nearest": {
+      "lat": -73.125,
+      "lon": -33.125
+    },
+    "target": {
+      "lat": -73.1302,
+      "lon": -33.1025
+    }
+  },
+  "Alik'r Desert": {
+    "nearest": {
+      "lat": -72.875,
+      "lon": -32.875
+    },
+    "target": {
+      "lat": -72.8072,
+      "lon": -32.9022
+    }
+  }
+}
