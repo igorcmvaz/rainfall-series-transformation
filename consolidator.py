@@ -1,8 +1,10 @@
 import logging
 from collections.abc import Generator
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 from calculator import IndicesCalculator, estimate_combinations
@@ -100,16 +102,22 @@ class Consolidator:
         for key, value in kwargs.items():
             dataframe[key.capitalize()] = value
 
-    def generate_precipitation_indices(self) -> Generator[pd.DataFrame]:
+    def generate_precipitation_dataset(
+            self) -> Generator[tuple[np.ndarray[tuple[datetime, float]], dict[str, Any]]]:
         """
-        Returns a generator that yields dataframes containing precipitation indices for each
-        city, climate model and scenario.
+        Returns a generator that yields arrays of tuples containing datetime and
+        precipitation values for each city, climate model and scenario, as well as metadata
+        about the dataset.
 
         Yields:
-            Generator[pd.DataFrame]: Dataframe containing precipitation indices computed
-            from data available in NetCDF4 file, for each specified city, climate model and
-            scenario.
+            Generator[tuple[np.ndarray[tuple[datetime, float]], dict[str, Any]]]: Tuple
+            where the first element is an array of (datetime, precipitation) tuples, and the
+            second element is a dictionary with metadata about the dataset.
         """
+        logger.info(
+            f"Starting extraction of precipitation data for {len(self.cities)} cities, "
+            f"{len(self.models)} climate model(s) and {len(self.scenarios)} scenario(s)"
+            )
         for city_name, details in self.cities.items():
             latitude, longitude = CoordinatesValidator.get_coordinates(details)
             # TODO: check for temp file
@@ -125,25 +133,37 @@ class Consolidator:
                             scenario=scenario,
                             target_coordinates=(latitude, longitude))
                         continue
-                    indices = IndicesCalculator(data_series).compute_climate_indices()
-                    self._insert_metadata(
-                        indices,
-                        city=city_name,
-                        model=model,
-                        scenario=scenario,
-                        latitude=latitude,
-                        longitude=longitude)
-                    self._count_processed(
-                        city=city_name,
-                        model=model,
-                        scenario=scenario,
-                        target_coordinates=(latitude, longitude))
-                    yield indices
-            # TODO: create temp file
+                    metadata = {
+                        "city": city_name,
+                        "model": model,
+                        "scenario": scenario,
+                        "latitude": latitude,
+                        "longitude": longitude
+                    }
+                    # TODO: create temp file
+                    yield data_series, metadata
             logger.info(
                 f"Completed processing of city '{city_name}', coordinates "
                 f"({latitude}, {longitude})")
         self._set_final_state()
+
+    def generate_precipitation_indices(self) -> Generator[pd.DataFrame]:
+        """
+        Returns a generator that yields dataframes containing precipitation indices for each
+        city, climate model and scenario.
+
+        Yields:
+            Generator[pd.DataFrame]: Dataframe containing precipitation indices computed
+            from data available in NetCDF4 file, for each specified city, climate model and
+            scenario.
+        """
+        for data_series, metadata in self.generate_precipitation_dataset():
+            indices = IndicesCalculator(data_series).compute_climate_indices()
+            self._insert_metadata(indices, **metadata)
+            metadata["target_coordinates"] = (metadata["latitude"], metadata["longitude"])
+            del metadata["latitude"], metadata["longitude"]
+            self._count_processed(**metadata)
+            yield indices
 
     def consolidate_dataset(self) -> pd.DataFrame:
         """
