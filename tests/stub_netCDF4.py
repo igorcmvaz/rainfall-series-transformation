@@ -1,8 +1,10 @@
+import json
 from pathlib import Path
 
 import numpy as np
 from netCDF4 import Dataset
 
+from constants import INPUT_FILENAME_FORMAT
 from extractor import ParsedVariable
 
 SAMPLE_NC_PATH = Path(__file__).parent / "sample.nc"
@@ -23,6 +25,23 @@ class NetCDFStubGenerator:
             latitudes: list[float],
             longitudes: list[float],
             precipitation: list[float]) -> None:
+        """
+        Generates a sample NetCDF4 file at the given path with the given parameters and
+        values.
+
+        Args:
+            output_path (Path): Path of the output NetCDF4 file.
+            creation_date (str): Value to be saved as the date of creation of the file.
+                Should be a string with format "yyyy-mm-dd".
+            time_length (int): Length of the time variable. Range of values is automatically
+                generated from this.
+            reference_date (str): Reference date for the time variable. Must be a string
+                with format "yyyy-mm-dd".
+            latitudes (list[float]): Array of latitude values, in degrees North.
+            longitudes (list[float]): Array of longitude values, in degrees East.
+            precipitation (list[float]): Array of precipitation values, per day, in
+                millimeters.
+        """
         with Dataset(output_path, mode="w", format="NETCDF4") as dataset:
             dataset.creation_date = creation_date
             dataset.frequency = "day"
@@ -76,6 +95,14 @@ class NetCDFStubGenerator:
 
     @classmethod
     def create_sample_variables(cls) -> dict[str, ParsedVariable]:
+        """
+        Generates a dictionary with ParsedVariable entries for latitude, longitude, time and
+        precipitation, matching the exported versions from `create_sample_stub()`.
+
+        Returns:
+            dict[str, ParsedVariable]: Mapping keys "lon", "lat", "time", "pr" to their
+            corresponding units and sample values.
+        """
         return {
             "lon": ParsedVariable(
                 "degrees_east", np.ma.masked_array(
@@ -88,6 +115,64 @@ class NetCDFStubGenerator:
             "pr": ParsedVariable(
                 "mm", np.ma.masked_array(cls.precipitation_sample)),
         }
+
+    @classmethod
+    def from_sample_json(
+            cls,
+            sample_json_path: Path,
+            creation_date: str = "2025-01-01",
+            latitude: float = -27.625,
+            longitude: float = -48.875) -> Path:
+        """
+        Generates a NetCDF4 file from an existing sample JSON file containing precipitation
+        data for a single city, model and scenario.
+
+        The existing JSON file must contain at least the following attributes:
+            scenario (str): Name of the climate scenario.
+            model (str): Name of the climate model.
+            start_date (str): Reference date for the time variable (must be in
+                format "yyyy-mm-dd").
+            data (list[tuple[Any, float]]): Array of (date, precipitation) tuples.
+
+        Args:
+            sample_json_path (Path, optional): Path to the JSON file used as reference.
+            creation_date (str, optional): Value to be saved as the date of creation of the
+                file. Should be a string with format "yyyy-mm-dd". Defaults to "2025-01-01".
+            latitude (float, optional): Latitude coordinate. Defaults to -27.625.
+            longitude (float, optional): Longitude coordinate. Defaults to -48.875.
+
+        Returns:
+            Path: Path to the generated NetCDF4 file.
+        """
+        with open(sample_json_path) as file:
+            content = json.load(file)
+
+        output_path = Path(
+            Path(__file__).parent,
+            INPUT_FILENAME_FORMAT[content["scenario"]].format(model=content["model"]))
+
+        cls._generate_sample_netcdf4(
+            output_path=output_path,
+            creation_date=creation_date,
+            time_length=len(content["data"]),
+            reference_date=content["start_date"],
+            latitudes=[latitude],
+            longitudes=[longitude],
+            precipitation=[value[1] for value in content["data"]]
+        )
+
+        return output_path
+
+    @classmethod
+    def create_empty_stub(cls, output_path: Path) -> None:
+        cls._generate_sample_netcdf4(
+            output_path=output_path,
+            creation_date="2025-01-01",
+            time_length=0,
+            reference_date="2020-01-01",
+            latitudes=[-34.125],
+            longitudes=[-74.125],
+            precipitation=[])
 
 
 if __name__ == "__main__":
