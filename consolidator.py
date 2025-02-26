@@ -80,7 +80,7 @@ class Consolidator:
                     extractor = NetCDFExtractor(PathValidator.validate_source_path(
                         model, scenario, self.source_dir))
                     data_series = extractor.extract_precipitation(latitude, longitude)
-                    if not data_series:
+                    if not data_series.any():
                         self._count_error(
                             city=city_name,
                             model=model,
