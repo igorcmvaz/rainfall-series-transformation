@@ -170,6 +170,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
             key: value for key, value in SSP_SCENARIOS.items() if key == content["scenario"]
         }
         self.coordinates = (content["latitude"], content["longitude"])
+        self.city_name = content["city"]
         self.cities = {
             content["city"]: {
                 "nearest": {
@@ -213,10 +214,33 @@ class TestConsolidatorGeneration(unittest.TestCase):
         if not empty_file_path.is_file():
             NetCDFStubGenerator.create_empty_stub(empty_file_path)
 
-    def test_generate_sample_precipitation_dataset(self):
+    def test_generate_precipitation_dataset(self):
+        mock_data_series = np.array([
+                (date.strftime("%Y-%m-%d"), 20)
+                for date in [datetime(2020, 1, 1) + timedelta(days=t) for t in range(100)]
+            ])
+        expected_metadata = {
+            "city": self.city_name,
+            "model": self.models[0],
+            "scenario": list(self.scenarios.keys())[0],
+            "latitude": self.cities[self.city_name]["nearest"]["lat"],
+            "longitude": self.cities[self.city_name]["nearest"]["lon"],
+        }
         consolidator = Consolidator(
             self.cities, self.scenarios, self.models, self.sample_source_dir)
         generator = consolidator.generate_precipitation_dataset()
+
+        with patch("extractor.NetCDFExtractor.extract_precipitation") as precipitation_mock:
+            precipitation_mock.return_value = mock_data_series
+            result_data, result_meta = next(generator)
+
+        self.assertListEqual(result_data.tolist(), mock_data_series.tolist())
+        self.assertDictEqual(result_meta, expected_metadata)
+
+    def test_generate_sample_precipitation_indices(self):
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        generator = consolidator.generate_precipitation_indices()
         result = next(generator)
         for year, indices in self.expected_indices.items():
             with self.subTest(year=year):
@@ -234,13 +258,13 @@ class TestConsolidatorGeneration(unittest.TestCase):
                     yearly_result["Seasonality_Index"].values[0],
                     indices["seasonality_index"])
 
-    def test_log_output_from_generate_precipitation(self):
+    def test_log_output_from_generate_indices(self):
         EXPECTED_LOG_MESSAGE = (
             f"Completed processing of city '{list(self.cities.keys())[0]}', coordinates "
             f"({', '.join(str(coordinate) for coordinate in self.coordinates)})")
         consolidator = Consolidator(
             self.cities, self.scenarios, self.models, self.sample_source_dir)
-        generator = consolidator.generate_precipitation_dataset()
+        generator = consolidator.generate_precipitation_indices()
         next(generator)
         with (
                 self.assertRaises(StopIteration),
@@ -248,7 +272,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
             next(generator)
             self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
 
-    def test_fail_to_generate_dataset(self):
+    def test_fail_to_generate_indices(self):
         consolidator = Consolidator(
             self.empty_cities,
             self.empty_scenario,
@@ -258,7 +282,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
             f"[1/1] Error during processing. Details: city={list(self.cities.keys())[0]}, "
             f"model={self.empty_model}, scenario={list(self.empty_scenario.keys())[0]}, "
             f"target_coordinates={self.empty_coordinates}")
-        generator = consolidator.generate_precipitation_dataset()
+        generator = consolidator.generate_precipitation_indices()
 
         with (
                 self.assertRaises(StopIteration),
@@ -273,7 +297,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
         consolidator = Consolidator(
             self.cities, self.scenarios, self.models, self.sample_source_dir)
         with patch(
-                "consolidator.Consolidator.generate_precipitation_dataset"
+                "consolidator.Consolidator.generate_precipitation_indices"
                 ) as generator_mock:
             generator_mock.return_value = (MOCK_DATAFRAME for _ in range(5))
             result = consolidator.consolidate_dataset()
