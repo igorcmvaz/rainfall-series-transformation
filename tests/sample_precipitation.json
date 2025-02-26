@@ -1,5 +1,7 @@
 {
     "city": "Florianópolis",
+    "latitude": -27.5954,
+    "longitude": -48.548,
     "model": "ACCESS-CM2",
     "scenario": "Histórico", 
     "start_date": "1980-01-01",
