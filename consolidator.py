@@ -71,7 +71,7 @@ class Consolidator:
         for key, value in kwargs.items():
             dataframe[key.capitalize()] = value
 
-    def compose_precipitation_dataset(self) -> Generator[pd.DataFrame]:
+    def generate_precipitation_dataset(self) -> Generator[pd.DataFrame]:
         for city_name, details in self.cities.items():
             latitude, longitude = CoordinatesValidator.get_coordinates(details)
             # TODO: check for temp file
@@ -109,6 +109,6 @@ class Consolidator:
 
     def consolidate_dataset(self) -> pd.DataFrame:
         return pd.concat(
-            self.compose_precipitation_dataset(),
+            self.generate_precipitation_dataset(),
             ignore_index=True,
             copy=False)
