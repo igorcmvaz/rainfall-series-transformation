@@ -136,7 +136,6 @@ class NetCDFExtractor:
         latitude_index, longitude_index = self._find_coordinates_indices(
             target_latitude, target_longitude)
 
-        precipitation_series = self._relative_to_absolute_date(
+        return self._relative_to_absolute_date(
             PrecipitationValidator.normalize_data_series(
                 self.variables["pr"].values, latitude_index, longitude_index))
-        return precipitation_series
