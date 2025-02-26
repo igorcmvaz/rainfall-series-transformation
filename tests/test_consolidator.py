@@ -35,7 +35,7 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
 
         self._prepare_sample_precipitation()
 
-        self.SAMPLE_SOURCE_DIR.mkdir()
+        self.SAMPLE_SOURCE_DIR.mkdir(exist_ok=True)
         self._create_sample_files()
 
     def _prepare_sample_precipitation(self):
@@ -56,7 +56,7 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
                 new_file = Path(
                     self.SAMPLE_SOURCE_DIR,
                     INPUT_FILENAME_FORMAT[scenario_name].format(model=model))
-                new_file.touch()
+                new_file.touch(exist_ok=True)
 
     def test_state_after_count_error(self):
         ORIGINAL_PROCESSED_COUNT = self.consolidator.state["processed"]
@@ -150,8 +150,7 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
                 self.assertEqual(value[2], expected_value[1])
 
     def tearDown(self):
-        pass
-        # shutil.rmtree(self.SAMPLE_SOURCE_DIR)
+        shutil.rmtree(self.SAMPLE_SOURCE_DIR)
 
 
 class TestConsolidatorGeneration(unittest.TestCase):
@@ -172,10 +171,6 @@ class TestConsolidatorGeneration(unittest.TestCase):
     # TODO: patch generate_precipitation_dataset (return different stuff to concat)
     def test_consolidate_dataset(self):
         pass
-
-    def tearDown(self):
-        pass
-        # shutil.rmtree(self.SAMPLE_SOURCE_DIR)
 
 
 if __name__ == '__main__':
