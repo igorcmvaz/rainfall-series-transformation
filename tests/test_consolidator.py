@@ -4,6 +4,8 @@ import shutil
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
@@ -12,14 +14,15 @@ from calculator import estimate_combinations
 from consolidator import Consolidator, logger
 from constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
 from tests.stub_netCDF4 import NetCDFStubGenerator
+from tests.stub_precipitation import SAMPLE_JSON_PATH
 from tests.test_validators import SAMPLE_CITIES_PATH
 
 
 class TestConsolidatorInternalFunctions(unittest.TestCase):
 
     SAMPLE_SOURCE_DIR = Path(__file__).parent / "temp"
-    LATITUDES = [-34.125 + 0.25*step for step in range(6)]
     LONGITUDES = [-74.125 + 0.25*step for step in range(6)]
+    LATITUDES = [-34.125 + 0.25*step for step in range(6)]
 
     def setUp(self):
         with open(SAMPLE_CITIES_PATH) as file:
@@ -155,22 +158,129 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
 
 class TestConsolidatorGeneration(unittest.TestCase):
 
-    SAMPLE_SOURCE_DIR = Path(__file__).parent
-    SAMPLE_NC_PATH = Path(__file__).parent / "ACCESS-CM2-pr-hist.nc"
-
     def setUp(self):
-        pass
+        with open(SAMPLE_JSON_PATH) as file:
+            content = json.load(file)
+
+        self._prepate_data_attributes(content)
+        self._validate_sample_file(content)
+        self._validate_empty_file()
+
+    def _prepate_data_attributes(self, content: dict[str, Any]) -> None:
+        self.sample_source_dir = Path(__file__).parent
+        self.models = [content["model"]]
+        self.scenarios = {
+            key: value for key, value in SSP_SCENARIOS.items() if key == content["scenario"]
+        }
+        self.coordinates = (content["latitude"], content["longitude"])
+        self.cities = {
+            content["city"]: {
+                "nearest": {
+                    "lat": -27.625,
+                    "lon": -48.875
+                },
+                "target": {
+                    "lat": -27.5954,
+                    "lon": -48.548
+                }
+            }
+        }
+        self.expected_indices = {
+            int(year): content["climate_indices"][year]
+            for year in content["climate_indices"]
+        }
+
+    def _validate_sample_file(self, content: dict[str, Any]) -> None:
+        sample_nc_path = Path(
+            self.sample_source_dir,
+            INPUT_FILENAME_FORMAT[content["scenario"]].format(model=content["model"]))
+        if not sample_nc_path.is_file():
+            self.sample_source_dir = NetCDFStubGenerator.from_sample_json(
+                SAMPLE_JSON_PATH).parent
+
+    def _validate_empty_file(self) -> None:
+        self.empty_scenario = {"SSP245": SSP_SCENARIOS["SSP245"][0]}
+        self.empty_model = "TaiESM1"
+        self.empty_coordinates = (-34.125, -74.125)
+        self.empty_cities = {
+            "Vulkhel Guard": {
+                "nearest": {
+                    "lat": self.empty_coordinates[0],
+                    "lon": self.empty_coordinates[1]
+                }
+            }
+        }
+        empty_file_path = Path(
+            self.sample_source_dir,
+            INPUT_FILENAME_FORMAT["SSP245"].format(model=self.empty_model))
+        if not empty_file_path.is_file():
+            NetCDFStubGenerator.create_empty_stub(empty_file_path)
 
     def test_generate_sample_precipitation_dataset(self):
-        pass
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        generator = consolidator.generate_precipitation_dataset()
+        result = next(generator)
+        for year, indices in self.expected_indices.items():
+            with self.subTest(year=year):
+                yearly_result = result[result["year"] == year]
+                self.assertAlmostEqual(
+                    yearly_result["PRCPTOT"].values[0], indices["PRCPTOT"])
+                self.assertAlmostEqual(yearly_result["R95p"].values[0], indices["R95p"])
+                self.assertAlmostEqual(yearly_result["RX1day"].values[0], indices["Rx1day"])
+                self.assertAlmostEqual(yearly_result["RX5day"].values[0], indices["Rx5day"])
+                self.assertAlmostEqual(yearly_result["SDII"].values[0], indices["SDII"])
+                self.assertAlmostEqual(yearly_result["R20mm"].values[0], indices["R20mm"])
+                self.assertAlmostEqual(yearly_result["CDD"].values[0], indices["CDD"])
+                self.assertAlmostEqual(yearly_result["CWD"].values[0], indices["CWD"])
+                self.assertAlmostEqual(
+                    yearly_result["Seasonality_Index"].values[0],
+                    indices["seasonality_index"])
 
-    # TODO: patch extract_precipitation (at least once, return empty dataset)
+    def test_log_output_from_generate_precipitation(self):
+        EXPECTED_LOG_MESSAGE = (
+            f"Completed processing of city '{list(self.cities.keys())[0]}', coordinates "
+            f"({', '.join(str(coordinate) for coordinate in self.coordinates)})")
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        generator = consolidator.generate_precipitation_dataset()
+        next(generator)
+        with (
+                self.assertRaises(StopIteration),
+                self.assertLogs(logger, level=logging.INFO) as log_context):
+            next(generator)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
     def test_fail_to_generate_dataset(self):
-        pass
+        consolidator = Consolidator(
+            self.empty_cities,
+            self.empty_scenario,
+            [self.empty_model],
+            self.sample_source_dir)
+        EXPECTED_LOG_MESSAGE = (
+            f"[1/1] Error during processing. Details: city={list(self.cities.keys())[0]}, "
+            f"model={self.empty_model}, scenario={list(self.empty_scenario.keys())[0]}, "
+            f"target_coordinates={self.empty_coordinates}")
+        generator = consolidator.generate_precipitation_dataset()
 
-    # TODO: patch generate_precipitation_dataset (return different stuff to concat)
+        with (
+                self.assertRaises(StopIteration),
+                self.assertLogs(logger, level=logging.ERROR) as log_context):
+            next(generator)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
     def test_consolidate_dataset(self):
-        pass
+        MOCK_DATAFRAME = pd.DataFrame([1, 2, 3])
+        EXPECTED_OUTPUT = pd.concat((MOCK_DATAFRAME for _ in range(5)), ignore_index=True)
+
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        with patch(
+                "consolidator.Consolidator.generate_precipitation_dataset"
+                ) as generator_mock:
+            generator_mock.return_value = (MOCK_DATAFRAME for _ in range(5))
+            result = consolidator.consolidate_dataset()
+        self.assertTrue((result == EXPECTED_OUTPUT).all().values)
 
 
 if __name__ == '__main__':
