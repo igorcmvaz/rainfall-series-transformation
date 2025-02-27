@@ -170,7 +170,7 @@ class TestPathValidation(unittest.TestCase):
                 with self.subTest(model=model, scenario=scenario_name):
                     expected_path = Path(self.temp_dir, INPUT_FILENAME_FORMAT[
                         scenario_name].format(model=model))
-                    self.assertEqual(PathValidator.validate_source_path(
+                    self.assertEqual(PathValidator.validate_precipitation_source_path(
                         model, scenario_name, self.temp_dir), expected_path)
 
     def test_invalid_scenarios(self):
@@ -181,7 +181,8 @@ class TestPathValidation(unittest.TestCase):
                 with (
                         self.subTest(model=model, scenario=scenario_name),
                         self.assertRaises(InvalidClimateScenarioError)):
-                    PathValidator.validate_source_path(model, scenario_name, self.temp_dir)
+                    PathValidator.validate_precipitation_source_path(
+                        model, scenario_name, self.temp_dir)
 
     def test_no_file_in_resulting_path(self):
         models = ["Test", "something", "not-a-thing", "gisele-bundchen", "kalman"]
@@ -190,7 +191,8 @@ class TestPathValidation(unittest.TestCase):
                 with (
                         self.subTest(model=model, scenario=scenario_name),
                         self.assertRaises(InvalidSourceFileError)):
-                    PathValidator.validate_source_path(model, scenario_name, self.temp_dir)
+                    PathValidator.validate_precipitation_source_path(
+                        model, scenario_name, self.temp_dir)
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir)
