@@ -55,7 +55,8 @@ class CSVExporter(BaseExporter):
             schema: list[str] = ["date", "precipitation"]) -> None:
         df = pd.DataFrame(data_series, columns=schema)
         output_path = self._get_file_path(city_name, model, period_label)
-        df.to_csv(output_path, index=False, encoding="utf-8")
+        df.to_csv(
+            output_path, sep=",", index=False, encoding="utf-8", date_format="%Y-%m-%d")
         logger.info(
             f"Successfully exported precipitation data series to file at "
             f"'{output_path.resolve()}'")
