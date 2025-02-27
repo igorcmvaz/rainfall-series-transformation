@@ -6,8 +6,8 @@ from typing import Any
 import numpy as np
 from numpy.ma import MaskedArray
 
-from constants import INPUT_FILENAME_FORMAT
-from errors import (
+from globals.constants import INPUT_FILENAME_FORMAT
+from globals.errors import (
     CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
 
 

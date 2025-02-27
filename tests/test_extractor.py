@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 
 import numpy as np
 
-from errors import InvalidTargetCoordinatesError
-from extractor import NetCDFExtractor
+from globals.errors import InvalidTargetCoordinatesError
+from agents.extractor import NetCDFExtractor
 from tests.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
 
 LATITUDES = [-34.125 + 0.25*step for step in range(16)]

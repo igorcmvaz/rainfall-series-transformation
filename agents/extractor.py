@@ -8,8 +8,8 @@ import numpy as np
 from netCDF4 import Dataset
 from numpy.ma import MaskedArray
 
-from errors import InvalidTargetCoordinatesError
-from validators import PrecipitationValidator
+from globals.errors import InvalidTargetCoordinatesError
+from agents.validators import PrecipitationValidator
 
 logger = logging.getLogger("rainfall_transformation")
 

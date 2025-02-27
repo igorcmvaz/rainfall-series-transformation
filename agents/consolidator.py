@@ -7,9 +7,9 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from calculator import IndicesCalculator, estimate_combinations
-from extractor import NetCDFExtractor
-from validators import CoordinatesValidator, PathValidator
+from agents.calculator import IndicesCalculator, estimate_combinations
+from agents.extractor import NetCDFExtractor
+from agents.validators import CoordinatesValidator, PathValidator
 
 logger = logging.getLogger("rainfall_transformation")
 

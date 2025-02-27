@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from constants import PARQUET_CONF
+from globals.constants import PARQUET_CONF
 
 logger = logging.getLogger("rainfall_transformation")
 

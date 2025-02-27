@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from calculator import (
+from agents.calculator import (
     IndicesCalculator, compute_seasonality_index, find_max_consecutive_run_length,
     estimate_combinations)
 from tests.stub_precipitation import PrecipitationGenerator

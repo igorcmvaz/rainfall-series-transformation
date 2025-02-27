@@ -10,9 +10,9 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
-from calculator import estimate_combinations
-from consolidator import Consolidator, logger
-from constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
+from agents.calculator import estimate_combinations
+from agents.consolidator import Consolidator, logger
+from globals.constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
 from tests.stub_netCDF4 import NetCDFStubGenerator
 from tests.stub_precipitation import SAMPLE_JSON_PATH
 from tests.test_validators import SAMPLE_CITIES_PATH
@@ -230,7 +230,9 @@ class TestConsolidatorGeneration(unittest.TestCase):
             self.cities, self.scenarios, self.models, self.sample_source_dir)
         generator = consolidator.generate_precipitation_dataset()
 
-        with patch("extractor.NetCDFExtractor.extract_precipitation") as precipitation_mock:
+        with patch(
+                "agents.extractor.NetCDFExtractor.extract_precipitation"
+                ) as precipitation_mock:
             precipitation_mock.return_value = mock_data_series
             result_data, result_meta = next(generator)
 
@@ -297,7 +299,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
         consolidator = Consolidator(
             self.cities, self.scenarios, self.models, self.sample_source_dir)
         with patch(
-                "consolidator.Consolidator.generate_precipitation_indices"
+                "agents.consolidator.Consolidator.generate_precipitation_indices"
                 ) as generator_mock:
             generator_mock.return_value = (MOCK_DATAFRAME for _ in range(5))
             result = consolidator.consolidate_dataset()

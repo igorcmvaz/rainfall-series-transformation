@@ -4,8 +4,8 @@ from pathlib import Path
 import numpy as np
 from netCDF4 import Dataset
 
-from constants import INPUT_FILENAME_FORMAT
-from extractor import ParsedVariable
+from globals.constants import INPUT_FILENAME_FORMAT
+from agents.extractor import ParsedVariable
 
 SAMPLE_NC_PATH = Path(__file__).parent / "sample.nc"
 

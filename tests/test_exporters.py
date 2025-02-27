@@ -8,7 +8,8 @@ import numpy as np
 import pandas as pd
 import time_machine
 
-from exporters import BaseExporter, CSVExporter, NetunoExporter, ParquetExporter, logger
+from agents.exporters import (
+    BaseExporter, CSVExporter, NetunoExporter, ParquetExporter, logger)
 
 
 ZONE_INFO = ZoneInfo("America/Sao_Paulo")
