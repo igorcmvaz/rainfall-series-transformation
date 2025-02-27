@@ -14,6 +14,8 @@ LONGITUDES = [-74.125 + 0.25*step for step in range(12)]
 class TestNetCDFExtractor(unittest.TestCase):
 
     def setUp(self):
+        if not SAMPLE_NC_PATH.is_file():
+            NetCDFStubGenerator.create_sample_stub(SAMPLE_NC_PATH)
         self.extractor = NetCDFExtractor(SAMPLE_NC_PATH)
 
     def test_get_dataset_variables(self):
