@@ -1,6 +1,6 @@
 # Rainfall Series Transformation
 
-Transformation of Brazilian '.nc' precipitation files (such as the ones found at [CLIMBra - Climate Change Dataset for Brazil](https://www.scidb.cn/en/detail?dataSetId=609b7ff93f0d4d1a9ba6eb709027c6ad), under `Gridded data/pr`") into location and model specific output files. Precipitation data is extracted from the closest grid point found in the dataset, up to a certain limit, if available. It is worth noting that missing data (`NaN`, `None`, `null`, etc) are interpreted as `0.0` rather than raising errors.
+Transformation of Brazilian '.nc' precipitation files (such as the ones found at [CLIMBra - Climate Change Dataset for Brazil](https://www.scidb.cn/en/detail?dataSetId=609b7ff93f0d4d1a9ba6eb709027c6ad), under `Gridded data/pr`") into location and model specific output files. Precipitation data is extracted from the closest grid point found in the dataset, up to a certain limit, if available. It is worth noting that missing data (`NaN`, `None`, `null`, etc) is interpreted as `0.0` (no precipitation) rather than raising errors.
 
 Climate change indices are computed according to their definition by the Expert Team on Climate Change Detection and Indices (ETCCDI), as available at [Climate Change Indices - Definitions of the 27 core indices](https://etccdi.pacificclimate.org/list_27_indices.shtml).
 
@@ -11,7 +11,6 @@ git clone git@github.com:igorcmvaz/rainfall-series-transformation.git
 cd rainfall-series-transformation
 python -m venv .venv     # optional (but recommended) to create a virtual environment
 python -m pip install -r requirements.txt
-cd src
 ```
 
 ## Usage
@@ -83,11 +82,14 @@ Next steps, planned development, pending issues, known bugs, etc:
 * [x] Add progress/file counter in [nc_to_csv_timeseries.py](/src/nc_to_csv_timeseries.py)
 * [x] Review validations for precipitation data from NetCDF4 files
 * [x] Review computation of **CDD** and CWD metrics in [nc_to_parquet.py](/src/nc_to_parquet.py)
-* [ ] Reestructure code using classes to distribute functionality and provide abstractions between layers
+* [x] Reestructure code using classes to distribute functionality and decouple sections
+* [x] Add tests
+* [x] Rename files and directories for improved readability (move stubs and samples into sub directory)
+* [ ] Reimplement coordinates validation as a dedicated option (not part of the main workflow)
 * [ ] Remove locations with same final coordinates in [validate_coordinates.py](/src/validate_coordinates.py)
 * [ ] Add a single point of entry to the code
-* [ ] Rename files and directories for improved readability
-* [ ] Implement parallel computing for expensive functions
-* [ ] Add tests
+* [ ] Add new console argument to export for Netuno (only precipitation values, no header) ? (part of future-epw-analysis)
 * [ ] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
+* [ ] Implement parallel computing for expensive functions
+* [ ] Implement logging off the main thread
 * [ ] Finish README, including proper instructions and examples
