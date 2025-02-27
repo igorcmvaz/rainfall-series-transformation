@@ -64,7 +64,7 @@ class CSVExporter(BaseExporter):
 
 class NetunoExporter(CSVExporter):
 
-    def _get_file_path(self, city_name, model, period_label):
+    def _get_file_path(self, city_name, model, period_label) -> Path:
         return Path(
             self.output_dir,
             f"(Netuno){city_name}_{model}_{period_label}").with_suffix(".csv")
