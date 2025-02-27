@@ -1,23 +1,16 @@
 import logging
-from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 from netCDF4 import Dataset
-from numpy.ma import MaskedArray
 
-from globals.errors import InvalidTargetCoordinatesError
 from agents.validators import PrecipitationValidator
+from globals.errors import InvalidTargetCoordinatesError
+from globals.types import ParsedVariable
 
 logger = logging.getLogger("rainfall_transformation")
-
-
-@dataclass(slots=True)
-class ParsedVariable:
-    units: str
-    values: MaskedArray
 
 
 class NetCDFExtractor:

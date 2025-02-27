@@ -5,7 +5,7 @@ import numpy as np
 from netCDF4 import Dataset
 
 from globals.constants import INPUT_FILENAME_FORMAT
-from agents.extractors import ParsedVariable
+from globals.types import ParsedVariable
 
 SAMPLE_NC_PATH = Path(__file__).parent / "sample.nc"
 
