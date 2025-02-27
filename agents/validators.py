@@ -85,7 +85,8 @@ class CoordinatesValidator:
 class PathValidator:
 
     @staticmethod
-    def validate_source_path(model: str, scenario: str, source_dir: Path | str) -> Path:
+    def validate_precipitation_source_path(
+            model: str, scenario: str, source_dir: Path | str) -> Path:
         """
         Validates a source file path for precipitation data from a given directory, given a
         specific model and scenario.

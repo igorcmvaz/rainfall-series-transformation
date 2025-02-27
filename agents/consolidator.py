@@ -123,8 +123,9 @@ class Consolidator:
             # TODO: check for temp file
             for model in self.models:
                 for scenario in self.scenarios:
-                    extractor = NetCDFExtractor(PathValidator.validate_source_path(
-                        model, scenario, self.source_dir))
+                    extractor = NetCDFExtractor(
+                        PathValidator.validate_precipitation_source_path(
+                            model, scenario, self.source_dir))
                     data_series = extractor.extract_precipitation(latitude, longitude)
                     if not data_series.any():
                         self._count_error(
