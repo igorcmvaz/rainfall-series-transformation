@@ -231,7 +231,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
         generator = consolidator.generate_precipitation_dataset()
 
         with patch(
-                "agents.extractor.NetCDFExtractor.extract_precipitation"
+                "agents.extractors.NetCDFExtractor.extract_precipitation"
                 ) as precipitation_mock:
             precipitation_mock.return_value = mock_data_series
             result_data, result_meta = next(generator)
