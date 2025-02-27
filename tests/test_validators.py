@@ -6,10 +6,10 @@ from pathlib import Path
 
 import numpy as np
 
+from agents.validators import CoordinatesValidator, PathValidator, PrecipitationValidator
 from globals.constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
 from globals.errors import (
     CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
-from agents.validators import CoordinatesValidator, PathValidator, PrecipitationValidator
 
 SAMPLE_CITIES_PATH = Path(Path(__file__).parent, "samples", "sample_city_coordinates.json")
 

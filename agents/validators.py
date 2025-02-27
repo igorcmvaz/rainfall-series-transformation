@@ -8,7 +8,8 @@ from numpy.ma import MaskedArray
 
 from globals.constants import INPUT_FILENAME_FORMAT
 from globals.errors import (
-    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
+    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceDirectoryError,
+    InvalidSourceFileError)
 
 
 class PrecipitationValidator:
