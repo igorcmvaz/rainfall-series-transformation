@@ -13,8 +13,8 @@ import pandas as pd
 from agents.calculator import estimate_combinations
 from agents.consolidator import Consolidator, logger
 from globals.constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
-from tests.stub_netCDF4 import NetCDFStubGenerator
-from tests.stub_precipitation import SAMPLE_JSON_PATH
+from tests.samples.stub_netCDF4 import NetCDFStubGenerator
+from tests.samples.stub_precipitation import SAMPLE_JSON_PATH
 from tests.test_validators import SAMPLE_CITIES_PATH
 
 

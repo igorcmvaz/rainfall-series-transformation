@@ -6,7 +6,7 @@ import pandas as pd
 from agents.calculator import (
     IndicesCalculator, compute_seasonality_index, find_max_consecutive_run_length,
     estimate_combinations)
-from tests.stub_precipitation import PrecipitationGenerator
+from tests.samples.stub_precipitation import PrecipitationGenerator
 
 
 precipitation_generator = PrecipitationGenerator()

@@ -11,7 +11,7 @@ from globals.errors import (
     CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
 from agents.validators import CoordinatesValidator, PathValidator, PrecipitationValidator
 
-SAMPLE_CITIES_PATH = Path(__file__).parent / "sample_city_coordinates.json"
+SAMPLE_CITIES_PATH = Path(Path(__file__).parent, "samples", "sample_city_coordinates.json")
 
 
 class TestNormalization(unittest.TestCase):
