@@ -84,11 +84,11 @@ Next steps, planned development, pending issues, known bugs, etc:
 * [x] Review computation of **CDD** and CWD metrics in [nc_to_parquet.py](/src/nc_to_parquet.py)
 * [x] Reestructure code using classes to distribute functionality and decouple sections
 * [x] Add tests
+* [x] Add new console argument to export for Netuno (only precipitation values, no header)
 * [x] Rename files and directories for improved readability (move stubs and samples into sub directory)
 * [ ] Reimplement coordinates validation as a dedicated option (not part of the main workflow)
-* [ ] Remove locations with same final coordinates in [validate_coordinates.py](/src/validate_coordinates.py)
+* [ ] Cache results from precipitation extraction not to re-extract data that was already extracted (in case of equal coordinates in different cities)
 * [ ] Add a single point of entry to the code
-* [ ] Add new console argument to export for Netuno (only precipitation values, no header) ? (part of future-epw-analysis)
 * [ ] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
 * [ ] Implement parallel computing for expensive functions
 * [ ] Implement logging off the main thread
