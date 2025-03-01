@@ -6,10 +6,12 @@ from pathlib import Path
 
 import numpy as np
 
-from agents.validators import CoordinatesValidator, PathValidator, PrecipitationValidator
+from agents.validators import (
+    CommandLineArgsValidator, CoordinatesValidator, PathValidator, PrecipitationValidator)
 from globals.constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
 from globals.errors import (
-    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceFileError)
+    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidCoordinatesFileError,
+    InvalidSourceDirectoryError, InvalidSourceFileError)
 
 SAMPLE_CITIES_PATH = Path(Path(__file__).parent, "samples", "sample_city_coordinates.json")
 
@@ -196,6 +198,35 @@ class TestPathValidation(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir)
+
+
+class TestCommandLineArgsValidation(unittest.TestCase):
+
+    def setUp(self):
+        self.cmd_validator = CommandLineArgsValidator()
+
+    def test_check_valid_coordinates_path(self):
+        self.cmd_validator.coordinates_path = Path(__file__)
+        self.assertIsNone(self.cmd_validator._validate_coordinates_path())
+
+    def test_check_invalid_coordinates_path(self):
+        self.cmd_validator.coordinates_path = Path(__file__).parent / "noi.xyz"
+        with self.assertRaises(InvalidCoordinatesFileError):
+            self.cmd_validator._validate_coordinates_path()
+
+    def test_check_valid_input_path(self):
+        self.cmd_validator.input_path = Path(__file__).parent
+        self.assertIsNone(self.cmd_validator._validate_input_path())
+
+    def test_check_invalid_input_path(self):
+        self.cmd_validator.input_path = Path(__file__).parent / "xyz"
+        with self.assertRaises(InvalidSourceDirectoryError):
+            self.cmd_validator._validate_input_path()
+
+    def test_validate_arguments_ok(self):
+        self.cmd_validator.coordinates_path = Path(__file__)
+        self.cmd_validator.input_path = Path(__file__).parent
+        self.assertIsNone(self.cmd_validator.validate_arguments())
 
 
 if __name__ == '__main__':
