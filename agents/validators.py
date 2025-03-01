@@ -79,7 +79,7 @@ class CoordinatesValidator:
         longitude: float | None = details.get("nearest", {}).get("lon")
         coordinates = (latitude, longitude)
         if not all(coordinates):
-            raise CoordinatesNotAvailableError
+            raise CoordinatesNotAvailableError(details)
         return coordinates
 
 
@@ -109,8 +109,8 @@ class PathValidator:
             source_path = Path(
                 source_dir, INPUT_FILENAME_FORMAT[scenario].format(model=model))
         except KeyError:
-            raise InvalidClimateScenarioError
+            raise InvalidClimateScenarioError(scenario)
         else:
             if not source_path.is_file():
-                raise InvalidSourceFileError
+                raise InvalidSourceFileError(source_path)
             return source_path
