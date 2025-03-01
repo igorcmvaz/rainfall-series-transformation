@@ -1,3 +1,5 @@
+import csv
+import json
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -7,7 +9,7 @@ import numpy as np
 from netCDF4 import Dataset
 
 from agents.validators import PrecipitationValidator
-from globals.errors import InvalidTargetCoordinatesError
+from globals.errors import InvalidSourceFileError, InvalidTargetCoordinatesError
 from globals.types import ParsedVariable
 
 logger = logging.getLogger("rainfall_transformation")
@@ -84,8 +86,7 @@ class NetCDFExtractor:
             logger.exception(
                 f"Target coordinates ({target_latitude}, {target_longitude}) are not "
                 f"present in the dataset")
-            raise InvalidTargetCoordinatesError(
-                f"No matching coordinates for ({target_latitude}, {target_longitude})")
+            raise InvalidTargetCoordinatesError(target_latitude, target_longitude)
         return coordinates_indices
 
     def _relative_to_absolute_date(
@@ -132,3 +133,46 @@ class NetCDFExtractor:
         return self._relative_to_absolute_date(
             PrecipitationValidator.normalize_data_series(
                 self.variables["pr"].values, latitude_index, longitude_index))
+
+
+class BaseCoordinatesExtractor:
+
+    source_path: Path
+
+    def __init__(self, source_path: Path) -> None:
+        if not source_path.is_file():
+            raise InvalidSourceFileError(source_path.resolve())
+        self.source_path = source_path
+
+    def get_coordinates(self) -> dict[str, Any]:
+        raise NotImplementedError
+
+
+class StructuredCoordinatesExtractor(BaseCoordinatesExtractor):
+
+    def get_coordinates(self) -> dict[str, dict[str, list[float]]]:
+        with open(self.source_path, encoding="utf-8") as file:
+            city_coordinates = json.load(file)
+        logger.info(
+            f"Successfully extracted coordinates from file at "
+            f"'{self.source_path.resolve()}'")
+        return city_coordinates
+
+
+class RawCoordinatesExtractor(BaseCoordinatesExtractor):
+
+    def get_coordinates(self) -> dict[str, dict[str, int | float]]:
+        raw_coordinates: dict[str, dict[str, int | float]] = {}
+        with open(self.source_path, encoding="utf-8", newline="") as file:
+            reader = csv.reader(file, delimiter=",")
+            next(reader)
+            for row in reader:
+                raw_coordinates[row[1]] = {
+                    "ibge_code": int(row[0]),
+                    "latitude": float(row[2]),
+                    "longitude": float(row[3])
+                }
+        logger.info(
+            f"Successfully extracted coordinates and codes from file at "
+            f"'{self.source_path.resolve()}'")
+        return raw_coordinates
