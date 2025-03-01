@@ -11,12 +11,12 @@ from agents.extractors import (
     StructuredCoordinatesExtractor, logger)
 from globals.errors import InvalidSourceFileError, InvalidTargetCoordinatesError
 from tests.samples.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
+from tests.samples.stub_raw_coordinates import (
+    RawCoordinatesSampleGenerator, SAMPLE_RAW_CITIES_PATH, SAMPLE_RAW_COORDINATES)
 from tests.test_validators import SAMPLE_CITIES_PATH
 
 LATITUDES = [-34.125 + 0.25*step for step in range(16)]
 LONGITUDES = [-74.125 + 0.25*step for step in range(12)]
-SAMPLE_RAW_CITIES_PATH = Path(
-    Path(__file__).parent, "samples", "sample_raw_city_coordinates.csv")
 
 
 class TestNetCDFExtractor(unittest.TestCase):
@@ -151,42 +151,19 @@ class TestStructuredCoordinatesExtractor(unittest.TestCase):
 
 class TestRawCoordinatesExtractor(unittest.TestCase):
 
+    def setUp(self):
+        if not SAMPLE_RAW_CITIES_PATH.is_file():
+            RawCoordinatesSampleGenerator.create_sample_stub(SAMPLE_RAW_CITIES_PATH)
+
     def test_initialization_with_invalid_file(self):
         invalid_path = Path(__file__).parent / "noi.xyz"
         with self.assertRaises(InvalidSourceFileError):
             RawCoordinatesExtractor(invalid_path)
 
     def test_get_coordinates(self):
-        EXPECTED_RESULT = {
-            "São Paulo": {
-                "ibge_code": 3550308,
-                "latitude": -23.533,
-                "longitude": -46.64
-            },
-            "Rio de Janeiro": {
-                "ibge_code": 3304557,
-                "latitude": -22.913,
-                "longitude": -43.2
-            },
-            "Brasília": {
-                "ibge_code": 5300108,
-                "latitude": -15.78,
-                "longitude": -47.93
-            },
-            "Fortaleza": {
-                "ibge_code": 2304400,
-                "latitude": -3.717,
-                "longitude": -38.542
-            },
-            "Salvador": {
-                "ibge_code": 2927408,
-                "latitude": -12.972,
-                "longitude": -38.501
-            },
-        }
         extractor = RawCoordinatesExtractor(SAMPLE_RAW_CITIES_PATH)
         coordinates = extractor.get_coordinates()
-        self.assertDictEqual(EXPECTED_RESULT, coordinates)
+        self.assertDictEqual(SAMPLE_RAW_COORDINATES, coordinates)
 
     def test_log_record_from_get_coordinates(self):
         EXPECTED_LOG_MESSAGE = (
