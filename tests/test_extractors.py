@@ -1,14 +1,22 @@
+import json
+import logging
 import unittest
 from datetime import datetime, timedelta
+from pathlib import Path
 
 import numpy as np
 
-from agents.extractors import NetCDFExtractor
-from globals.errors import InvalidTargetCoordinatesError
+from agents.extractors import (
+    BaseCoordinatesExtractor, NetCDFExtractor, RawCoordinatesExtractor,
+    StructuredCoordinatesExtractor, logger)
+from globals.errors import InvalidSourceFileError, InvalidTargetCoordinatesError
 from tests.samples.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
+from tests.test_validators import SAMPLE_CITIES_PATH
 
 LATITUDES = [-34.125 + 0.25*step for step in range(16)]
 LONGITUDES = [-74.125 + 0.25*step for step in range(12)]
+SAMPLE_RAW_CITIES_PATH = Path(
+    Path(__file__).parent, "samples", "sample_raw_city_coordinates.csv")
 
 
 class TestNetCDFExtractor(unittest.TestCase):
@@ -93,6 +101,102 @@ class TestNetCDFExtractor(unittest.TestCase):
                     result = self.extractor.extract_precipitation(
                         target_latitude, target_longitude)
                     self.assertListEqual(expected_output.tolist(), result.tolist())
+
+
+class TestBaseCoordinatesExtractor(unittest.TestCase):
+
+    def test_initialization_with_valid_file(self):
+        valid_path = Path(__file__)
+        extractor = BaseCoordinatesExtractor(valid_path)
+        self.assertEqual(valid_path, extractor.source_path)
+
+    def test_initialization_with_invalid_file(self):
+        invalid_path = Path(__file__).parent / "noi.xyz"
+        with self.assertRaises(InvalidSourceFileError):
+            BaseCoordinatesExtractor(invalid_path)
+
+    def test_get_coordinates_not_implemented(self):
+        valid_path = Path(__file__)
+        extractor = BaseCoordinatesExtractor(valid_path)
+        with self.assertRaises(NotImplementedError):
+            extractor.get_coordinates()
+
+
+class TestStructuredCoordinatesExtractor(unittest.TestCase):
+
+    def setUp(self):
+        with open(SAMPLE_CITIES_PATH, encoding="utf-8") as file:
+            self.expected_city_coordinates = json.load(file)
+
+    def test_initialization_with_invalid_file(self):
+        invalid_path = Path(__file__).parent / "noi.xyz"
+        with self.assertRaises(InvalidSourceFileError):
+            StructuredCoordinatesExtractor(invalid_path)
+
+    def test_get_coordinates(self):
+        extractor = StructuredCoordinatesExtractor(SAMPLE_CITIES_PATH)
+        coordinates = extractor.get_coordinates()
+        self.assertDictEqual(self.expected_city_coordinates, coordinates)
+
+    def test_log_record_from_get_coordinates(self):
+        EXPECTED_LOG_MESSAGE = (
+            f"Successfully extracted coordinates from file at "
+            f"'{SAMPLE_CITIES_PATH.resolve()}'")
+        extractor = StructuredCoordinatesExtractor(SAMPLE_CITIES_PATH)
+
+        with self.assertLogs(logger, level=logging.INFO) as log_context:
+            extractor.get_coordinates()
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+
+class TestRawCoordinatesExtractor(unittest.TestCase):
+
+    def test_initialization_with_invalid_file(self):
+        invalid_path = Path(__file__).parent / "noi.xyz"
+        with self.assertRaises(InvalidSourceFileError):
+            RawCoordinatesExtractor(invalid_path)
+
+    def test_get_coordinates(self):
+        EXPECTED_RESULT = {
+            "São Paulo": {
+                "ibge_code": 3550308,
+                "latitude": -23.533,
+                "longitude": -46.64
+            },
+            "Rio de Janeiro": {
+                "ibge_code": 3304557,
+                "latitude": -22.913,
+                "longitude": -43.2
+            },
+            "Brasília": {
+                "ibge_code": 5300108,
+                "latitude": -15.78,
+                "longitude": -47.93
+            },
+            "Fortaleza": {
+                "ibge_code": 2304400,
+                "latitude": -3.717,
+                "longitude": -38.542
+            },
+            "Salvador": {
+                "ibge_code": 2927408,
+                "latitude": -12.972,
+                "longitude": -38.501
+            },
+        }
+        extractor = RawCoordinatesExtractor(SAMPLE_RAW_CITIES_PATH)
+        coordinates = extractor.get_coordinates()
+        self.assertDictEqual(EXPECTED_RESULT, coordinates)
+
+    def test_log_record_from_get_coordinates(self):
+        EXPECTED_LOG_MESSAGE = (
+            f"Successfully extracted coordinates and codes from file at "
+            f"'{SAMPLE_RAW_CITIES_PATH.resolve()}'")
+        extractor = RawCoordinatesExtractor(SAMPLE_RAW_CITIES_PATH)
+
+        with self.assertLogs(logger, level=logging.INFO) as log_context:
+            extractor.get_coordinates()
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
 
 
 if __name__ == '__main__':
