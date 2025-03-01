@@ -8,8 +8,8 @@ from numpy.ma import MaskedArray
 
 from globals.constants import INPUT_FILENAME_FORMAT
 from globals.errors import (
-    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidSourceDirectoryError,
-    InvalidSourceFileError)
+    CoordinatesNotAvailableError, InvalidClimateScenarioError, InvalidCoordinatesFileError,
+    InvalidSourceDirectoryError, InvalidSourceFileError)
 
 
 class PrecipitationValidator:
@@ -114,3 +114,26 @@ class PathValidator:
             if not source_path.is_file():
                 raise InvalidSourceFileError(source_path)
             return source_path
+
+
+class CommandLineArgsValidator:
+    coordinates_path: Path
+    input_path: Path
+    parquet_required: str
+    csv_required: str
+    netuno_required: str
+    only_process_coordinates: bool
+    quiet: int
+    verbose: bool
+
+    def _validate_coordinates_path(self) -> None:
+        if not self.coordinates_path.is_file():
+            raise InvalidCoordinatesFileError(self.coordinates_path)
+
+    def _validate_input_path(self) -> None:
+        if not self.input_path.is_dir():
+            raise InvalidSourceDirectoryError(self.input_path)
+
+    def validate_arguments(self) -> None:
+        self._validate_coordinates_path()
+        self._validate_input_path()
