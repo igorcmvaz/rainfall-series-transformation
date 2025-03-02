@@ -55,6 +55,30 @@ class PrecipitationValidator:
         return np.array(data_series)[np.nonzero(
             [start_date <= date <= end_date for date, _ in data_series])]
 
+    @staticmethod
+    def coordinates_have_precipitation_data(
+            precipitation_series: MaskedArray,
+            latitude_index: int,
+            longitude_index: int) -> bool:
+        """
+        Checks if there are any valid (non-missing/non-masked) precipitation data points in
+        the precipitation series for given coordinates.
+
+        Args:
+            precipitation_series (MaskedArray): Multidimensional array representing
+                precipitation data (with dimensions for time, latitude and longitude).
+            latitude_index (int): Index of the desired latitude dimension in the
+                precipitation data series.
+            longitude_index (int): Index of the desired longitude dimension in the
+                precipitation data series.
+
+        Returns:
+            bool: True if there is at least one valid data point for the given coordinates,
+            False otherwise.
+        """
+        return not np.all(np.ma.getmask(
+            precipitation_series[:, latitude_index, longitude_index]))
+
 
 class CoordinatesValidator:
 
