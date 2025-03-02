@@ -106,6 +106,60 @@ class TestDateFiltering(unittest.TestCase):
         self.assertListEqual(result.tolist(), self.data_series[OFFSET:-OFFSET].tolist())
 
 
+class TestPrecipitationPerCoordinates(unittest.TestCase):
+
+    def setUp(self):
+        self.rng = np.random.default_rng(seed=42)
+        self.data_series = self.rng.uniform(0, 100, size=(2, 2, 2))
+
+    def test_all_valid_precipitation_data(self):
+        mask = np.array([
+            [
+                [False, False],
+                [False, False]
+            ],
+            [
+                [False, False],
+                [False, False]
+            ]
+        ])
+        masked_data = np.ma.masked_array(self.data_series, mask)
+
+        self.assertTrue(PrecipitationValidator.coordinates_have_precipitation_data(
+            masked_data, 0, 1))
+
+    def test_one_missing_precipitation_data(self):
+        mask = np.array([
+            [
+                [True, False],
+                [False, True]
+            ],
+            [
+                [True, True],
+                [False, False]
+            ]
+        ])
+        masked_data = np.ma.masked_array(self.data_series, mask)
+
+        self.assertTrue(PrecipitationValidator.coordinates_have_precipitation_data(
+            masked_data, 0, 1))
+
+    def test_all_missing_precipitation_data(self):
+        mask = np.array([
+            [
+                [True, True],
+                [True, True]
+            ],
+            [
+                [True, True],
+                [True, True]
+            ]
+        ])
+        masked_data = np.ma.masked_array(self.data_series, mask)
+        self.assertFalse(PrecipitationValidator.coordinates_have_precipitation_data(
+            masked_data, 0, 1))
+
+
 class TestCoordinatesValidation(unittest.TestCase):
 
     def setUp(self):
