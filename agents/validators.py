@@ -151,13 +151,26 @@ class CommandLineArgsValidator:
     verbose: bool
 
     def _validate_coordinates_path(self) -> None:
+        """
+        Validates the path to a coordinates file, checking if it actually is a file.
+
+        Raises:
+            InvalidCoordinatesFileError: If the given path is not a file.
+        """
         if not self.coordinates_path.is_file():
             raise InvalidCoordinatesFileError(self.coordinates_path)
 
     def _validate_input_path(self) -> None:
+        """
+        Validates the path to an input directory, checking if it actually is a directory.
+
+        Raises:
+            InvalidSourceDirectoryError: If the given path is not a directory.
+        """
         if not self.input_path.is_dir():
             raise InvalidSourceDirectoryError(self.input_path)
 
     def validate_arguments(self) -> None:
+        """Executes all validation methods from the class."""
         self._validate_coordinates_path()
         self._validate_input_path()

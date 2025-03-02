@@ -151,6 +151,15 @@ class BaseCoordinatesExtractor:
 class StructuredCoordinatesExtractor(BaseCoordinatesExtractor):
 
     def get_coordinates(self) -> dict[str, dict[str, list[float]]]:
+        """
+        Retrieves the latitude and longitude coordinates from a structured JSON file and
+        returns them.
+
+        Returns:
+            dict[str, dict[str, list[float]]]: Dictionary mapping city names to target and
+            nearest latitude and longitude coordinates, as well as any other defining
+            key-value pairs for each city.
+        """
         with open(self.source_path, encoding="utf-8") as file:
             city_coordinates = json.load(file)
         logger.info(
@@ -162,6 +171,14 @@ class StructuredCoordinatesExtractor(BaseCoordinatesExtractor):
 class RawCoordinatesExtractor(BaseCoordinatesExtractor):
 
     def get_coordinates(self) -> dict[str, dict[str, int | float]]:
+        """
+        Retrieves the IBGE code and latitude and longitude coordinates from a 'raw' CSV file
+        and returns them in a structure format.
+
+        Returns:
+            dict[str, dict[str, int | float]]: Dictionary mapping city names to their IBGE
+            code, as well as their latitude and longitude coordinates.
+        """
         raw_coordinates: dict[str, dict[str, int | float]] = {}
         with open(self.source_path, encoding="utf-8", newline="") as file:
             reader = csv.reader(file, delimiter=",")

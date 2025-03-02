@@ -199,6 +199,25 @@ class CoordinatesFinder:
             self,
             original_latitude_index: int,
             original_longitude_index: int) -> tuple[float, float]:
+        """
+        Searches around a set of coordinate indices for valid precipitation data, until a
+        maximum offset is reached.
+
+        Uses an expanding spiral pattern until the maximum index offset from the original
+        coordinate indices is reached.
+
+        Args:
+            original_latitude_index (int): Index of the reference latitude value.
+            original_longitude_index (int): Index of the reference longitude value.
+
+        Raises:
+            ReachedCoordinatesOffsetLimitError: If no valid precipitation data is found
+            before reaching the maximum index offset.
+
+        Returns:
+            tuple[float, float]: Tuple of latitude and longitude coordinates closest to the
+            original ones that have valid precipitation data.
+        """
         MAX_LATITUDE_INDEX = len(self.precipitation[0, :, 0] - 1)
         MAX_LONGITUDE_INDEX = len(self.precipitation[0, 0, :] - 1)
         offset = 1
@@ -226,6 +245,24 @@ class CoordinatesFinder:
 
     def _search_nearest_coordinates(
             self, target_latitude: float, target_longitude: float) -> tuple[float, float]:
+        """
+        Searches for coordinates that are closest to target coordinates and contain valid
+        precipitation data.
+
+        If the target coordinates contain valid precipitation data, they are returned right
+        away. If not, a specific method (`_search_around_coordinates()`) is used to find the
+        nearest coordinates that do.
+
+        Args:
+            target_latitude (float): Latitude component for which to find the nearest valid
+                coordinates.
+            target_longitude (float): Longitude component for which to find the nearest
+                valid coordinates.
+
+        Returns:
+            tuple[float, float]: A tuple containing the nearest coordinates that contain
+            valid precipitation data.
+        """
         latitude_index = np.abs(self.latitudes - target_latitude).argmin()
         longitude_index = np.abs(self.longitudes - target_longitude).argmin()
         if PrecipitationValidator.coordinates_have_precipitation_data(
@@ -234,6 +271,20 @@ class CoordinatesFinder:
         return self._search_around_coordinates(latitude_index, longitude_index)
 
     def find_matching_coordinates(self) -> dict[str, dict[str, int | dict[str, float]]]:
+        """
+        Finds the nearest matching coordinates that contain valid precipitation data in the
+        given NetCDF4 file, for each city present in the given raw coordinates file.
+
+        All matching coordinates are consolidated in a dictionary for each city. If no
+        matching coordinates are found for a city, it is not included in the resulting
+        dictionary.
+
+        Returns:
+            dict[str, dict[str, int | dict[str, float]]]: Dictionary where keys are city
+            names and values are dictionaries with 'target' and 'nearest' keys, each
+            containing 'lat' and 'lon' keys with corresponding values. Any other key-value
+            pairs present from the extracted data are also included.
+        """
         nearest_matching_coordinates: dict[str, dict[str, int | dict[str, float]]] = {}
         for city_name, details in self.city_coordinates.items():
             target_latitude: float = details.pop("latitude")
