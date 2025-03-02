@@ -10,7 +10,7 @@ from globals.constants import PARQUET_CONF
 logger = logging.getLogger("rainfall_transformation")
 
 
-class BaseExporter:
+class BasePrecipitationExporter:
 
     parent_output_dir: Path
 
@@ -21,7 +21,7 @@ class BaseExporter:
         return f"{datetime.now().strftime('%Y-%m-%dT%H-%M')}-"
 
 
-class ParquetExporter(BaseExporter):
+class ParquetExporter(BasePrecipitationExporter):
 
     def _get_base_file_name(self) -> str:
         return self._get_base_path() + "consolidated.parquet"
@@ -32,7 +32,7 @@ class ParquetExporter(BaseExporter):
         logger.info(f"Successfully exported dataframe to file at '{output_path.resolve()}'")
 
 
-class CSVExporter(BaseExporter):
+class CSVExporter(BasePrecipitationExporter):
 
     def __init__(self, parent_output_dir: Path) -> None:
         super().__init__(parent_output_dir)

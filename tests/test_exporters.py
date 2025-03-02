@@ -9,7 +9,7 @@ import pandas as pd
 import time_machine
 
 from agents.exporters import (
-    BaseExporter, CSVExporter, NetunoExporter, ParquetExporter, logger)
+    BasePrecipitationExporter, CSVExporter, NetunoExporter, ParquetExporter, logger)
 
 
 ZONE_INFO = ZoneInfo("America/Sao_Paulo")
@@ -19,7 +19,7 @@ ZONE_INFO = ZoneInfo("America/Sao_Paulo")
 class TestBaseExporter(unittest.TestCase):
 
     def test_get_base_path(self):
-        exporter = BaseExporter(Path(__file__).parent)
+        exporter = BasePrecipitationExporter(Path(__file__).parent)
         base_path = exporter._get_base_path()
         self.assertEqual(base_path, "2020-11-05T23-45-")
 
