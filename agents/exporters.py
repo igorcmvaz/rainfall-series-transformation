@@ -1,3 +1,4 @@
+import json
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -81,3 +82,12 @@ class NetunoExporter(CSVExporter):
             model,
             period_label,
             schema=["precipitation"])
+
+
+class JSONCoordinatesExporter:
+
+    @staticmethod
+    def generate_json(coordinates: dict, output_path: Path) -> None:
+        with open(output_path, "w", encoding="utf-8") as file:
+            json.dump(coordinates, file, indent=2, ensure_ascii=False, sort_keys=True)
+        logger.info(f"Exported new coordinates file to '{output_path.resolve()}'")
