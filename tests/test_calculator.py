@@ -1,12 +1,17 @@
+import logging
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
 
 from agents.calculator import (
-    IndicesCalculator, compute_seasonality_index, find_max_consecutive_run_length,
-    estimate_combinations)
+    CoordinatesFinder, IndicesCalculator, compute_seasonality_index, estimate_combinations,
+    find_max_consecutive_run_length, logger)
+from globals.errors import ReachedCoordinatesOffsetLimitError
+from tests.samples.stub_netCDF4 import SAMPLE_NC_PATH, NetCDFStubGenerator
 from tests.samples.stub_precipitation import PrecipitationGenerator
+from tests.samples.stub_raw_coordinates import SAMPLE_RAW_CITIES_PATH
 
 
 precipitation_generator = PrecipitationGenerator()
@@ -231,6 +236,136 @@ class TestCombinationEstimation(unittest.TestCase):
     def test_various_types(self):
         self.assertEqual(estimate_combinations(
             [1, 2], {"1": 1, "2": 2}, {1, 2, 3}, "1234"), 48)
+
+
+class TestCoordinatesFinder(unittest.TestCase):
+
+    def setUp(self):
+        self.finder = CoordinatesFinder(SAMPLE_NC_PATH, SAMPLE_RAW_CITIES_PATH)
+        sample_variables = NetCDFStubGenerator.create_sample_variables()
+        self.sample_latitudes = sample_variables["lat"].values
+        self.sample_longitudes = sample_variables["lon"].values
+        self.STEP_SIZE = self.sample_latitudes[1] - self.sample_latitudes[0]
+
+    def test_search_around_coordinates_success(self):
+        LATITUDE_INDEX = LONGITUDE_INDEX = 1
+        result = self.finder._search_around_coordinates(LATITUDE_INDEX, LONGITUDE_INDEX)
+        self.assertTupleEqual((
+                self.sample_latitudes[LATITUDE_INDEX],
+                self.sample_longitudes[LONGITUDE_INDEX-1]),
+                    result)
+
+    def test_search_around_coordinates_failure(self):
+        with self.assertRaises(ReachedCoordinatesOffsetLimitError), patch(
+            "agents.validators.PrecipitationValidator.coordinates_have_precipitation_data"
+                ) as precipitation_mock:
+            precipitation_mock.return_value = False
+            self.finder._search_around_coordinates(0, 0)
+
+    def test_search_nearest_coordinates_exact_match(self):
+        result = self.finder._search_nearest_coordinates(
+            self.sample_latitudes[0], self.sample_longitudes[0])
+        self.assertTupleEqual((self.sample_latitudes[0], self.sample_longitudes[0]), result)
+
+    def test_search_nearest_coordinates_approximate_match(self):
+        DIFF = self.STEP_SIZE / 4
+        LATITUDE_INDEX = LONGITUDE_INDEX = 5
+        TARGET_LATITUDE = self.sample_latitudes[LATITUDE_INDEX] + DIFF
+        TARGET_LONGITUDE = self.sample_longitudes[LONGITUDE_INDEX] - DIFF
+        result = self.finder._search_nearest_coordinates(TARGET_LATITUDE, TARGET_LONGITUDE)
+        self.assertTupleEqual((
+            self.sample_latitudes[LATITUDE_INDEX], self.sample_longitudes[LONGITUDE_INDEX]),
+                result)
+
+    def test_search_nearest_coordinates_far_match(self):
+        DIFF = self.STEP_SIZE + 0.1
+        LATITUDE_INDEX = LONGITUDE_INDEX = 5
+        TARGET_LATITUDE = self.sample_latitudes[LATITUDE_INDEX] + DIFF
+        TARGET_LONGITUDE = self.sample_longitudes[LONGITUDE_INDEX] - DIFF
+
+        self.finder.precipitation.mask = np.zeros(
+            shape=self.finder.precipitation.shape, dtype=bool)
+        self.finder.precipitation.mask[:, LATITUDE_INDEX+1, LONGITUDE_INDEX-1] = True
+
+        result = self.finder._search_nearest_coordinates(TARGET_LATITUDE, TARGET_LONGITUDE)
+        self.assertTupleEqual((
+            self.sample_latitudes[LATITUDE_INDEX+1],
+            self.sample_longitudes[LONGITUDE_INDEX-2]
+            ), result)
+
+        self.finder.precipitation.mask = False
+
+    def test_find_matching_coordinates_all_valid(self):
+        EXPECTED_RESULT = {
+            "Elsweyr": {
+                "target": {
+                    "lat": -34.0058,
+                    "lon": -74.0085
+                },
+                "nearest": {
+                    "lat": -34.125,
+                    "lon": -74.125
+                },
+                "ibge_code": 8850308,
+            },
+            "Auridon": {
+                "target": {
+                    "lat": -33.6025,
+                    "lon": -73.6052
+                },
+                "nearest": {
+                    "lat": -33.625,
+                    "lon": -73.625
+                },
+                "ibge_code": 8804557,
+            },
+            "Summerset": {
+                "target": {
+                    "lat": -32.9123,
+                    "lon": -72.8035
+                },
+                "nearest": {
+                    "lat": -32.875,
+                    "lon": -72.875
+                },
+                "ibge_code": 8500108,
+            },
+            "Cyrodiil": {
+                "target": {
+                    "lat": -31.4040,
+                    "lon": -71.3033
+                },
+                "nearest": {
+                    "lat": -31.375,
+                    "lon": -71.375
+                },
+                "ibge_code": 9904400,
+            },
+            "Skyrim": {
+                "target": {
+                    "lat": -30.1111,
+                    "lon": -70.1313
+                },
+                "nearest": {
+                    "lat": -30.125,
+                    "lon": -70.125
+                },
+                "ibge_code": 8927408,
+            },
+        }
+        result = self.finder.find_matching_coordinates()
+        self.assertDictEqual(EXPECTED_RESULT, result)
+
+    def test_log_record_from_failed_find_matching_coordinates(self):
+        EXPECTED_LOG_MESSAGE = (
+            "Could not find valid precipitation data near the original coordinates (")
+        with self.assertLogs(logger, level=logging.ERROR) as log_context, patch(
+            "agents.validators.PrecipitationValidator.coordinates_have_precipitation_data"
+                ) as precipitation_mock:
+            precipitation_mock.return_value = False
+            result = self.finder.find_matching_coordinates()
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[-1])
+            self.assertDictEqual({}, result)
 
 
 if __name__ == '__main__':

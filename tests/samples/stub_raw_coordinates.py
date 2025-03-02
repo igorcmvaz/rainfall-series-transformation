@@ -4,31 +4,33 @@ from pathlib import Path
 SAMPLE_RAW_CITIES_PATH = Path(
     Path(__file__).parent, "sample_raw_city_coordinates.csv")
 SAMPLE_RAW_COORDINATES = {
-    "São Paulo": {
-        "ibge_code": 3550308,
-        "latitude": -23.533,
-        "longitude": -46.64
+    "Elsweyr": {
+        "ibge_code": 8850308,
+        "latitude": -34.0058,
+        "longitude": -74.0085
     },
-    "Rio de Janeiro": {
-        "ibge_code": 3304557,
-        "latitude": -22.913,
-        "longitude": -43.2
+    "Auridon": {
+        "ibge_code": 8804557,
+        "latitude": -33.6025,
+        "longitude": -73.6052
     },
-    "Brasília": {
-        "ibge_code": 5300108,
-        "latitude": -15.78,
-        "longitude": -47.93
+    "Summerset": {
+        "ibge_code": 8500108,
+        "latitude": -32.9123,
+        "longitude": -72.8035
     },
-    "Fortaleza": {
-        "ibge_code": 2304400,
-        "latitude": -3.717,
-        "longitude": -38.542
+    "Cyrodiil": {
+        "ibge_code": 9904400,
+        "latitude": -31.4040,
+        "longitude": -71.3033
     },
-    "Salvador": {
-        "ibge_code": 2927408,
-        "latitude": -12.972,
-        "longitude": -38.501
+
+    "Skyrim": {
+        "ibge_code": 8927408,
+        "latitude": -30.1111,
+        "longitude": -70.1313
     },
+
 }
 
 
