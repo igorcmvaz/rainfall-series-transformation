@@ -34,3 +34,14 @@ class InvalidSourceFileError(InvalidFileError):
 
 class InvalidCoordinatesFileError(InvalidFileError):
     pass
+
+
+class ReachedCoordinatesOffsetLimitError(Exception):
+    def __init__(
+            self,
+            original_latitude_index: int,
+            original_longitude_index: int,
+            offset_limit: int):
+        super().__init__(
+            f"Reached the maximum offset limit of {offset_limit}, from given starting "
+            f"coordinate indices ({original_latitude_index}, {original_longitude_index})")

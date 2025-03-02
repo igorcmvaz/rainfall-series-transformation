@@ -2,9 +2,15 @@ import logging
 from collections.abc import Sequence
 from datetime import datetime
 from functools import reduce
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+from agents.extractors import NetCDFExtractor, RawCoordinatesExtractor
+from agents.validators import PrecipitationValidator
+from globals.errors import ReachedCoordinatesOffsetLimitError
+
 
 logger = logging.getLogger("rainfall_transformation")
 
@@ -174,3 +180,83 @@ class IndicesCalculator:
             })
         precipitation_indices.reset_index(inplace=True)
         return precipitation_indices
+
+
+class CoordinatesFinder:
+
+    MAX_OFFSET = 15
+
+    def __init__(self, netcdf_reference_path: Path, raw_coordinates_path: Path) -> None:
+        netcdf_extractor = NetCDFExtractor(netcdf_reference_path)
+        self.latitudes = netcdf_extractor.variables["lat"].values
+        self.longitudes = netcdf_extractor.variables["lon"].values
+        self.precipitation = netcdf_extractor.variables["pr"].values
+
+        self.city_coordinates = RawCoordinatesExtractor(
+            raw_coordinates_path).get_coordinates()
+
+    def _search_around_coordinates(
+            self,
+            original_latitude_index: int,
+            original_longitude_index: int) -> tuple[float, float]:
+        MAX_LATITUDE_INDEX = len(self.precipitation[0, :, 0] - 1)
+        MAX_LONGITUDE_INDEX = len(self.precipitation[0, 0, :] - 1)
+        offset = 1
+        checked_coordinates: set[tuple[int, int]] = {
+            (original_latitude_index, original_longitude_index)}
+        while offset <= self.MAX_OFFSET:
+            for latitude_offset in (limits := sorted(range(-offset, offset + 1), key=abs)):
+                for longitude_offset in limits:
+                    new_latitude_index = min(
+                        original_latitude_index + latitude_offset, MAX_LATITUDE_INDEX)
+                    new_longitude_index = min(
+                        original_longitude_index + longitude_offset, MAX_LONGITUDE_INDEX)
+                    if (new_latitude_index, new_longitude_index) in checked_coordinates:
+                        continue
+
+                    if PrecipitationValidator.coordinates_have_precipitation_data(
+                            self.precipitation, new_latitude_index, new_longitude_index):
+                        return (
+                            self.latitudes[new_latitude_index],
+                            self.longitudes[new_longitude_index])
+                    checked_coordinates.add((new_latitude_index, new_longitude_index))
+            offset += 1
+        raise ReachedCoordinatesOffsetLimitError(
+            original_latitude_index, original_longitude_index, self.MAX_OFFSET)
+
+    def _search_nearest_coordinates(
+            self, target_latitude: float, target_longitude: float) -> tuple[float, float]:
+        latitude_index = np.abs(self.latitudes - target_latitude).argmin()
+        longitude_index = np.abs(self.longitudes - target_longitude).argmin()
+        if PrecipitationValidator.coordinates_have_precipitation_data(
+                self.precipitation, latitude_index, longitude_index):
+            return self.latitudes[latitude_index], self.longitudes[longitude_index]
+        return self._search_around_coordinates(latitude_index, longitude_index)
+
+    def find_matching_coordinates(self) -> dict[str, dict[str, int | dict[str, float]]]:
+        nearest_matching_coordinates: dict[str, dict[str, int | dict[str, float]]] = {}
+        for city_name, details in self.city_coordinates.items():
+            target_latitude: float = details.pop("latitude")
+            target_longitude: float = details.pop("longitude")
+
+            try:
+                valid_latitude, valid_longitude = self._search_nearest_coordinates(
+                    target_latitude, target_longitude)
+            except ReachedCoordinatesOffsetLimitError:
+                logger.exception(
+                    f"Could not find valid precipitation data near the original coordinates"
+                    f" ({target_latitude}, {target_longitude})")
+            else:
+                nearest_matching_coordinates[city_name] = dict(
+                    {
+                        "target": {
+                            "lat": target_latitude,
+                            "lon": target_longitude
+                        },
+                        "nearest": {
+                            "lat": valid_latitude,
+                            "lon": valid_longitude
+                        }
+                    },
+                    **details)
+        return nearest_matching_coordinates
