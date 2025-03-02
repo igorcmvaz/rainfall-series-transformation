@@ -1,3 +1,4 @@
+import json
 import logging
 import unittest
 from datetime import datetime
@@ -9,7 +10,9 @@ import pandas as pd
 import time_machine
 
 from agents.exporters import (
-    BasePrecipitationExporter, CSVExporter, NetunoExporter, ParquetExporter, logger)
+    BasePrecipitationExporter, CSVExporter, JSONCoordinatesExporter, NetunoExporter,
+    ParquetExporter, logger)
+from tests.samples.stub_raw_coordinates import SAMPLE_RAW_COORDINATES
 
 
 ZONE_INFO = ZoneInfo("America/Sao_Paulo")
@@ -171,6 +174,28 @@ class TestNetunoExporter(unittest.TestCase):
 
     def tearDown(self):
         self.exporter.output_dir.rmdir()
+
+
+class TestJSONCoordinatesExporter(unittest.TestCase):
+
+    def setUp(self):
+        self.output_path = Path(Path(__file__).parent, "samples", "coordinates.json")
+
+    def test_generate_json(self):
+        JSONCoordinatesExporter.generate_json(SAMPLE_RAW_COORDINATES, self.output_path)
+        with open(self.output_path) as file:
+            content = json.load(file)
+        self.assertDictEqual(SAMPLE_RAW_COORDINATES, content)
+
+    def test_log_record_from_generate_json(self):
+        EXPECTED_LOG_MESSAGE = (
+            f"Exported new coordinates file to '{self.output_path.resolve()}'")
+        with self.assertLogs(logger, level=logging.INFO) as log_context:
+            JSONCoordinatesExporter.generate_json(SAMPLE_RAW_COORDINATES, self.output_path)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def tearDown(self):
+        self.output_path.unlink()
 
 
 if __name__ == '__main__':
