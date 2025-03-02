@@ -118,14 +118,15 @@ class Consolidator:
             f"Starting extraction of precipitation data for {len(self.cities)} cities, "
             f"{len(self.models)} climate model(s) and {len(self.scenarios)} scenario(s)"
             )
-        for city_name, details in self.cities.items():
-            latitude, longitude = CoordinatesValidator.get_coordinates(details)
-            # TODO: check for temp file
-            for model in self.models:
-                for scenario in self.scenarios:
-                    extractor = NetCDFExtractor(
-                        PathValidator.validate_precipitation_source_path(
-                            model, scenario, self.source_dir))
+        for model in self.models:
+            for scenario in self.scenarios:
+                # TODO: check for temp file
+                extractor = NetCDFExtractor(
+                    PathValidator.validate_precipitation_source_path(
+                        model, scenario, self.source_dir))
+                for city_name, details in self.cities.items():
+                    latitude, longitude = CoordinatesValidator.get_coordinates(details)
+                    # TODO: cache results based on coordinates, to prevent re-extraction in case of same coordinates
                     data_series = extractor.extract_precipitation(latitude, longitude)
                     if not data_series.any():
                         self._count_error(
@@ -143,9 +144,7 @@ class Consolidator:
                     }
                     # TODO: create temp file
                     yield data_series, metadata
-            logger.info(
-                f"Completed processing of city '{city_name}', coordinates "
-                f"({latitude}, {longitude})")
+            logger.info(f"Completed processing of model '{model}'")
         self._set_final_state()
 
     def generate_precipitation_indices(self) -> Generator[pd.DataFrame]:
