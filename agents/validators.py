@@ -44,7 +44,7 @@ class PrecipitationValidator:
         Filters a data series using a reference time period.
 
         Args:
-            data_series (Sequence): Data series.
+            data_series (Sequence[tuple[datetime, Any]]): Data series.
             start_date (datetime): Start of the time period.
             end_date (datetime): End of the time period.
 
