@@ -161,8 +161,8 @@ class Consolidator:
         for data_series, metadata in self.generate_precipitation_dataset():
             indices = IndicesCalculator(data_series).compute_climate_indices()
             self._insert_metadata(indices, **metadata)
-            metadata["target_coordinates"] = (metadata["latitude"], metadata["longitude"])
-            del metadata["latitude"], metadata["longitude"]
+            metadata["target_coordinates"] = (
+                metadata.pop("latitude"), metadata.pop("longitude"))
             self._count_processed(**metadata)
             yield indices
 
