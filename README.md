@@ -86,10 +86,12 @@ Next steps, planned development, pending issues, known bugs, etc:
 * [x] Add tests
 * [x] Add new console argument to export for Netuno (only precipitation values, no header)
 * [x] Rename files and directories for improved readability (move stubs and samples into sub directory)
-* [ ] Reimplement coordinates validation as a dedicated option (not part of the main workflow)
-* [ ] Cache results from precipitation extraction not to re-extract data that was already extracted (in case of equal coordinates in different cities)
-* [ ] Add a single point of entry to the code
-* [ ] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
+* [x] Reimplement coordinates validation as a dedicated option (not part of the main workflow)
+* [x] Cache results from precipitation extraction not to re-extract data that was already extracted (in case of equal coordinates in different cities)
+* [x] Check throughout the code which functions can be cached for improved performance
+* [x] Add a single point of entry to the code
+* [x] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
+* [ ] Add docstrings to classes
 * [ ] Implement parallel computing for expensive functions
 * [ ] Implement logging off the main thread
 * [ ] Finish README, including proper instructions and examples
