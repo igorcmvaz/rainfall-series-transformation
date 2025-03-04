@@ -51,7 +51,7 @@ class ParquetExporter(BasePrecipitationExporter):
         """
         output_path = Path(self.parent_output_dir, self._get_base_file_name())
         dataframe.to_parquet(output_path, index=False, **PARQUET_CONF)
-        logger.info(f"Successfully exported dataframe to file at '{output_path.resolve()}'")
+        logger.info(f"Successfully exported dataframe to '{output_path.resolve()}'")
 
 
 class CSVExporter(BasePrecipitationExporter):
@@ -70,29 +70,28 @@ class CSVExporter(BasePrecipitationExporter):
         """
         return self._get_base_path() + "output"
 
-    def _get_file_path(self, city_name: str, model: str, period_label: str) -> Path:
+    def _get_file_path(self, city_name: str, model: str, scenario: str) -> Path:
         """
-        Generates a file name for a new CSV file, given city name, climate model and period
-        label.
+        Generates a file name for a new CSV file, given city name, climate model and
+        scenario.
 
         Args:
             city_name (str): Name of the city related to the data.
             model (str): Climate model related to the data.
-            period_label (str): Label of the climate scenario and period related to the
-            data.
+            scenario (str): Climate scenario related to the data.
 
         Returns:
             Path: Path to the new CSV file to be created.
         """
         return Path(
-            self.output_dir, f"{city_name}_{model}_{period_label}").with_suffix(".csv")
+            self.output_dir, f"{city_name}_{model}_{scenario}").with_suffix(".csv")
 
     def generate_csv(
             self,
             data_series: np.ndarray[tuple[datetime, float]],
             city_name: str,
             model: str,
-            period_label: str,
+            scenario: str,
             schema: list[str] = ["date", "precipitation"]) -> None:
         """
         Generates a CSV file from a given data series.
@@ -102,46 +101,43 @@ class CSVExporter(BasePrecipitationExporter):
                 be exported.
             city_name (str): Name of the city related to the data.
             model (str): Climate model related to the data.
-            period_label (str): Label of the climate scenario and period related to the
-                data.
+            scenario (str): Climate scenario related to the data.
             schema (list[str], optional): Output schema (columns to be exported). Must have
             the same dimensions as the data series. Defaults to ["date", "precipitation"].
         """
         df = pd.DataFrame(data_series, columns=schema)
-        output_path = self._get_file_path(city_name, model, period_label)
+        output_path = self._get_file_path(city_name, model, scenario)
         df.to_csv(
             output_path, sep=",", index=False, encoding="utf-8", date_format="%Y-%m-%d")
         logger.info(
-            f"Successfully exported precipitation data series to file at "
-            f"'{output_path.resolve()}'")
+            f"Successfully exported precipitation data series to '{output_path.resolve()}'")
 
 
 class NetunoExporter(CSVExporter):
 
-    def _get_file_path(self, city_name, model, period_label) -> Path:
+    def _get_file_path(self, city_name: str, model: str, scenario: str) -> Path:
         """
-        Generates a file name for a new CSV file, given city name, climate model and period
-        label, labeled with "(Netuno)".
+        Generates a file name for a new CSV file, given city name, climate model and
+        scenario, labeled with "(Netuno)".
 
         Args:
             city_name (str): Name of the city related to the data.
             model (str): Climate model related to the data.
-            period_label (str): Label of the climate scenario and period related to the
-            data.
+            scenario (str): Climate scenario related to the data.
 
         Returns:
             Path: Path to the new CSV file to be created.
         """
         return Path(
             self.output_dir,
-            f"(Netuno){city_name}_{model}_{period_label}").with_suffix(".csv")
+            f"(Netuno){city_name}_{model}_{scenario}").with_suffix(".csv")
 
     def generate_csv(
             self,
             data_series: np.ndarray[tuple[datetime, float]],
             city_name: str,
             model: str,
-            period_label: str) -> None:
+            scenario: str) -> None:
         """
         Generates a CSV file from a given data series, including only precipitation data,
         no other columns and no headers.
@@ -151,14 +147,13 @@ class NetunoExporter(CSVExporter):
                 be exported.
             city_name (str): Name of the city related to the data.
             model (str): Climate model related to the data.
-            period_label (str): Label of the climate scenario and period related to the
-                data.
+            scenario (str): Climate scenario related to the data.
         """
         super().generate_csv(
             [precipitation for _, precipitation in data_series],
             city_name,
             model,
-            period_label,
+            scenario,
             schema=["precipitation"])
 
 
