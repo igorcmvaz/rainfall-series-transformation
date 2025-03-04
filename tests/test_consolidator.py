@@ -302,7 +302,7 @@ class TestConsolidatorGeneration(unittest.TestCase):
                 "agents.consolidator.Consolidator.generate_precipitation_indices"
                 ) as generator_mock:
             generator_mock.return_value = (MOCK_DATAFRAME for _ in range(5))
-            result = consolidator.consolidate_dataset()
+            result = consolidator.consolidate_indices_dataset()
         self.assertTrue((result == EXPECTED_OUTPUT).all().values)
 
 
