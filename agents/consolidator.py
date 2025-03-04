@@ -58,8 +58,8 @@ class Consolidator:
         self.state["error"] += 1
         details = [f"{key}={value}" for key, value in kwargs.items()]
         logger.error(
-            f"[{self.state['processed']}/{self.state['total']}] Error during processing. "
-            f"Details: {', '.join(details)}")
+            f"[{self.state['processed']}/{self.state['total']}] Error during processing for"
+            f" {', '.join(details)}")
 
     def _count_processed(self, **kwargs: dict[str, Any]) -> None:
         """
@@ -73,8 +73,8 @@ class Consolidator:
         self.state["processed"] += 1
         details = [f"{key}={value}" for key, value in kwargs.items()]
         logger.info(
-            f"[{self.state['processed']}/{self.state['total']}] Completed processing. "
-            f"Details: {', '.join(details)}")
+            f"[{self.state['processed']}/{self.state['total']}] Completed processing for "
+            f"{', '.join(details)}")
 
     def _set_final_state(self) -> None:
         """
