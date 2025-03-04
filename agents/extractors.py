@@ -1,6 +1,7 @@
 import csv
 import json
 import logging
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -21,22 +22,28 @@ class NetCDFExtractor:
     variables: dict[str, ParsedVariable]
 
     def __init__(self, source_path: Path) -> None:
-        self.variables = {}
-        self._get_dataset_variables(source_path)
-        logger.debug(
-            f"Loaded variables ({', '.join(self.variables.keys())}) from file at "
-            f"'{source_path.resolve()}'")
+        self.variables = self._get_dataset_variables(source_path)
 
-    def _get_dataset_variables(self, source_path: Path) -> None:
+    def _get_dataset_variables(self, source_path: Path) -> dict[str, ParsedVariable]:
         """
         Retrieves the dataset variables and their units.
 
         Args:
             source_path (Path): Path to the NetCDF4 file.
+
+        Returns:
+            dict[str, ParsedVariable]: Dictionary mapping variable names to their
+            corresponding ParsedVariable representation.
         """
+        parsed_variables = {}
+        start_time = time.perf_counter()
         with Dataset(source_path) as dataset:
             for name, variable in dataset.variables.items():
-                self.variables[name] = ParsedVariable(variable.units, variable[:])
+                parsed_variables[name] = ParsedVariable(variable.units, variable[:])
+        logger.debug(
+            f"Successfully loaded variables ({', '.join(parsed_variables.keys())}) from "
+            f"file '{source_path.name}' in {(time.perf_counter() - start_time):.2f}s")
+        return parsed_variables
 
     def _parse_reference_date(
             self, datetime_format: str = "%Y-%m-%dT%H:%M:%S") -> datetime:
