@@ -11,7 +11,6 @@ from agents.extractors import NetCDFExtractor, RawCoordinatesExtractor
 from agents.validators import PrecipitationValidator
 from globals.errors import ReachedCoordinatesOffsetLimitError
 
-
 logger = logging.getLogger("rainfall_transformation")
 
 
