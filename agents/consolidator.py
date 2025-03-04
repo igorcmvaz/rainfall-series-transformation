@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from agents.calculator import IndicesCalculator, estimate_combinations
+from agents.exporters import CSVExporter
 from agents.extractors import NetCDFExtractor
 from agents.validators import CoordinatesValidator, PathValidator
 
@@ -27,7 +28,8 @@ class Consolidator:
             cities: dict[str, dict[str, dict[str, float]]],
             scenarios: dict[str, dict[str, str]],
             models: list[str],
-            source_dir: Path) -> None:
+            source_dir: Path,
+            csv_generator: CSVExporter | None = None) -> None:
         self.models = models
         self.scenarios = scenarios
         self.cities = cities
@@ -41,6 +43,7 @@ class Consolidator:
             "success_rate": 0,
             "process_rate": 0
         }
+        self.csv_generator = csv_generator
 
     def _count_error(self, **kwargs: dict[str, Any]) -> None:
         """
@@ -142,7 +145,12 @@ class Consolidator:
                         "latitude": latitude,
                         "longitude": longitude
                     }
-                    # TODO: create temp file
+                    if self.csv_generator is not None:
+                        self.csv_generator.generate_csv(
+                            data_series,
+                            metadata["city"],
+                            metadata["model"],
+                            metadata["scenario"])
                     yield data_series, metadata
             logger.info(f"Completed processing of model '{model}'")
         self._set_final_state()
