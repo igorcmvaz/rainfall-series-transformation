@@ -157,15 +157,15 @@ class BaseCoordinatesExtractor:
 
 class StructuredCoordinatesExtractor(BaseCoordinatesExtractor):
 
-    def get_coordinates(self) -> dict[str, dict[str, list[float]]]:
+    def get_coordinates(self) -> dict[str, dict[str, int | dict[str, float]]]:
         """
         Retrieves the latitude and longitude coordinates from a structured JSON file and
         returns them.
 
         Returns:
-            dict[str, dict[str, list[float]]]: Dictionary mapping city names to target and
-            nearest latitude and longitude coordinates, as well as any other defining
-            key-value pairs for each city.
+            dict[str, dict[str, int | dict[str, float]]]: Dictionary mapping city names
+            to target and nearest latitude and longitude coordinates, as well as any other
+            defining key-value pairs for each city.
         """
         with open(self.source_path, encoding="utf-8") as file:
             city_coordinates = json.load(file)
