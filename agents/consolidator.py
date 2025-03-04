@@ -155,6 +155,16 @@ class Consolidator:
             logger.info(f"Completed processing of model '{model}'")
         self._set_final_state()
 
+    def generate_all_precipitation_series(self) -> None:
+        """
+        Generates all precipitation data series by exhausting the generator from
+        `generate_precipitation_dataset()`.
+        """
+        start_time = time.perf_counter()
+        for _ in self.generate_precipitation_dataset():
+            pass
+        logger.info(f"Completed process in {time.perf_counter() - start_time:.2f}s")
+
     def generate_precipitation_indices(self) -> Generator[pd.DataFrame]:
         """
         Returns a generator that yields dataframes containing precipitation indices for each
