@@ -147,6 +147,7 @@ class CommandLineArgsValidator:
     csv_required: str
     netuno_required: str
     only_process_coordinates: bool
+    keep_temp_files: bool
     quiet: int
     verbose: bool
 

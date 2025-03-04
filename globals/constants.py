@@ -52,3 +52,6 @@ INPUT_FILENAME_FORMAT: dict[str, str] = {
     "SSP245": "{model}-pr-ssp245.nc",
     "SSP585": "{model}-pr-ssp585.nc"
 }
+
+RECOVERY_FILENAME_FORMAT = "{model}_{scenario}.pickle"
+TEMP_FILE_NAME = "dirty.pickle"

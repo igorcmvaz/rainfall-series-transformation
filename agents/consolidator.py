@@ -1,17 +1,20 @@
 import logging
+import pickle
+import shutil
 import time
 from collections.abc import Generator
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-import numpy as np
 import pandas as pd
 
 from agents.calculator import IndicesCalculator, estimate_combinations
 from agents.exporters import CSVExporter
 from agents.extractors import NetCDFExtractor
 from agents.validators import CoordinatesValidator, PathValidator
+from globals.constants import RECOVERY_FILENAME_FORMAT, TEMP_FILE_NAME
+from globals.errors import InvalidSourceFileError
+from globals.types import MetaData, PrecipitationSeries, RecoveryData
 
 logger = logging.getLogger("rainfall_transformation")
 
@@ -45,6 +48,19 @@ class Consolidator:
             "process_rate": 0
         }
         self.csv_generator = csv_generator
+        self.temp_dir = self._create_temp_dir()
+
+    def _create_temp_dir(self) -> Path:
+        """
+        Creates a temporary directory for recovery files, if it does not already exist.
+
+        Returns:
+            Path: Path to the temporary directory.
+        """
+        temp_path = Path(self.source_dir.parent, "temp")
+        temp_path.mkdir(exist_ok=True)
+        logger.debug(f"Created temporary recovery directory at '{temp_path.resolve()}'")
+        return temp_path
 
     def _count_error(self, **kwargs: dict[str, Any]) -> None:
         """
@@ -106,17 +122,80 @@ class Consolidator:
         for key, value in kwargs.items():
             dataframe[key.capitalize()] = value
 
-    def generate_precipitation_dataset(
-            self) -> Generator[tuple[np.ndarray[tuple[datetime, float]], dict[str, Any]]]:
+    def _dump_recovery_data(
+            self, model: str, scenario: str, recovery_data: RecoveryData) -> None:
         """
-        Returns a generator that yields arrays of tuples containing datetime and
-        precipitation values for each city, climate model and scenario, as well as metadata
-        about the dataset.
+        Dumps precipitation related to a climate model and scenario into a binary recovery
+        file.
+
+        Args:
+            model (str): Climate model related to the data.
+            scenario (str): Climate scenario related to the data.
+            recovery_data (RecoveryData): Recovery data (precipitation series and metadata)
+            to be stored in the file.
+        """
+        if not recovery_data:
+            return
+        output_file_path = Path(
+            self.temp_dir, RECOVERY_FILENAME_FORMAT.format(model=model, scenario=scenario))
+        dirty_path = Path(self.temp_dir, TEMP_FILE_NAME)
+        with open(dirty_path, "wb") as temp_file:
+            pickle.dump(recovery_data, temp_file, protocol=pickle.HIGHEST_PROTOCOL)
+        dirty_path.replace(output_file_path)
+        logger.info(f"Successfully saved recovery file at '{output_file_path.name}'")
+
+    def _validate_recovery_path(self, model: str, scenario: str) -> Path | None:
+        """
+        Validates the path to a recovery file given a climate model and scenario.
+
+        Args:
+            model (str): Climate model related to the data.
+            scenario (str): Climate scenario related to the data.
+
+        Returns:
+            Path | None: Path to the recovery file, if it exists, else None.
+        """
+        recovery_file = Path(
+            self.temp_dir, RECOVERY_FILENAME_FORMAT.format(model=model, scenario=scenario))
+        if recovery_file.is_file():
+            return recovery_file
+        logger.debug(
+            f"No recovery file found for model '{model}', scenario '{scenario}', "
+            f"proceeding with normal extraction")
+        return None
+
+    def _recover_data_from_file(self, path_to_file: Path) -> RecoveryData:
+        """
+        Recovers data from a binary file in a given path.
+
+        Args:
+            path_to_file (Path): Path to the recovery file.
+
+        Returns:
+            RecoveryData: Data (precipitation series and metadata) recovered from the file.
+        """
+        logger.info(f"Retrieving data from recovery file '{path_to_file.name}'")
+        with open(path_to_file, "rb") as file:
+            recovered_data = pickle.load(file)
+        return recovered_data
+
+    def clear_temp_files(self) -> None:
+        """Deletes the temporary directory along with all temporary files."""
+        shutil.rmtree(self.temp_dir)
+
+    def generate_precipitation_dataset(
+            self) -> Generator[tuple[PrecipitationSeries, MetaData]]:
+        """
+        Returns a generator that yields precipitation data series.
+
+        The generator yields arrays of tuples containing datetime and precipitation values
+        for each city, climate model and scenario, as well as metadata. If a CSV exporter is
+        available, the precipitation data series is exported before being yielded.
 
         Yields:
-            Generator[tuple[np.ndarray[tuple[datetime, float]], dict[str, Any]]]: Tuple
-            where the first element is an array of (datetime, precipitation) tuples, and the
-            second element is a dictionary with metadata about the dataset.
+            Generator[tuple[PrecipitationSeries, MetaData]]: Tuple where the first element
+            is an array of (datetime, precipitation) tuples, and the second element is a
+            dictionary with metadata about the dataset.
         """
         logger.info(
             f"Starting extraction of precipitation data for {len(self.cities)} cities, "
@@ -124,22 +203,40 @@ class Consolidator:
             )
         for model in self.models:
             for scenario in self.scenarios:
-                # TODO: check for temp file
-                extractor = NetCDFExtractor(
-                    PathValidator.validate_precipitation_source_path(
-                        model, scenario, self.source_dir))
-                for city_name, details in self.cities.items():
+                cities_to_process = self.cities.copy()
+                for_recovery: RecoveryData = {}
+                if (recovery_path := self._validate_recovery_path(
+                        model, scenario)) is not None:
+                    recovered_data = self._recover_data_from_file(recovery_path)
+                    for city, content in recovered_data.items():
+                        if city not in cities_to_process:
+                            continue
+                        self._count_processed(**content["metadata"])
+                        cities_to_process.pop(city, None)
+                        yield content["data"], content["metadata"]
+                if not cities_to_process:
+                    continue
+                try:
+                    extractor = NetCDFExtractor(
+                        PathValidator.validate_precipitation_source_path(
+                            model, scenario, self.source_dir))
+                except InvalidSourceFileError:
+                    logger.warning(
+                        f"File corresponding to model '{model}' and scenario '{scenario}' "
+                        f"was not found, skipping")
+                    continue
+                for city_name, details in cities_to_process.items():
                     latitude, longitude = CoordinatesValidator.get_coordinates(details)
-                    # TODO: cache results based on coordinates, to prevent re-extraction in case of same coordinates
                     data_series = extractor.extract_precipitation(latitude, longitude)
                     if not data_series.any():
                         self._count_error(
                             city=city_name,
                             model=model,
                             scenario=scenario,
-                            target_coordinates=(latitude, longitude))
+                            latitude=latitude,
+                            longitude=longitude)
                         continue
-                    metadata = {
+                    metadata: dict[str, str | float] = {
                         "city": city_name,
                         "model": model,
                         "scenario": scenario,
@@ -152,7 +249,10 @@ class Consolidator:
                             metadata["city"],
                             metadata["model"],
                             metadata["scenario"])
+                    self._count_processed(**metadata)
+                    for_recovery[city_name] = {"data": data_series, "metadata": metadata}
                     yield data_series, metadata
+                self._dump_recovery_data(model, scenario, for_recovery)
             logger.info(f"Completed processing of model '{model}'")
         self._set_final_state()
 
@@ -179,9 +279,6 @@ class Consolidator:
         for data_series, metadata in self.generate_precipitation_dataset():
             indices = IndicesCalculator(data_series).compute_climate_indices()
             self._insert_metadata(indices, **metadata)
-            metadata["target_coordinates"] = (
-                metadata.pop("latitude"), metadata.pop("longitude"))
-            self._count_processed(**metadata)
             yield indices
 
     def consolidate_indices_dataset(self) -> pd.DataFrame:
