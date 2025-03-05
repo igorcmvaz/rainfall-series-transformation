@@ -50,7 +50,8 @@ class Consolidator:
         }
         self.recovery_required = recovery_required
         self.csv_generator = csv_generator
-        self.temp_dir = self._create_temp_dir()
+        if recovery_required:
+            self.temp_dir = self._create_temp_dir()
 
     def _create_temp_dir(self) -> Path:
         """
