@@ -153,6 +153,19 @@ python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-
 python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-netuno
 ```
 
+## Tests
+
+All the tests are contained in the [tests](/tests/) directory, along with any sample files and stubs required to effectively run the tests. The dependencies for tests are already included in the [requirements](/requirements.txt) file, and they should be only a few - besides `pytest` itself and `pytest-cov` (only required if coverage analysis is desired), the test suite for the current version depends only on `time-machine`, specifically for tests involving datetimes.
+
+In order to run the test suite (entirely, or part of it), see the example commands below:
+
+```bash
+python -m pytest
+python -m pytest -v               # verbose option
+python -m pytest -o log_cli=true  # to show application logs in the terminal
+python -m pytest --cov            # to run coverage analysis (requires pytest-cov)
+```
+
 ## Commits
 
 When committing to this repository, the following convention is advised:
