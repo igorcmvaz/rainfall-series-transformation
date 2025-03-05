@@ -126,7 +126,31 @@ python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-p
 The output from the CSV operation is a new directory labeled with a timestamp (such as `path/2025-01-01T09-15-output`) containing one CSV file for each combination of city, model and scenario. The output file name has the format `{city}_{model}_{scenario}.csv` and might include a `(Netuno)` flag at the beginning, such as `(Netuno)Brasília_GFDL-ESM4_SSP245.csv`.
 
 ### Samples
-<!-- TODO: organize and detail usage of samples in the repository -->
+
+In the [example](/example) directory, one can find files that can be used to run the program with a reduced scope, in order to check its operation and understand the process. Here are the details of the resources available in that directory:
+
+* `/CLIMBra` directory: a directory to store any NetCDF4 files (which are not stored in the repository because of their size). By default, it contains only a blank [`.gitkeep`](/example/CLIMBra/.gitkeep) file, which is used to ensure the directory is tracked by Git (empty directories cannot be tracked).
+* `brazilian_cities_over_50k.csv`: file with raw coordinates for all brazilian cities with estimated population of at least 50k people.
+* `brazilian_cities_over_50k.json`: file with validated coordinates (from the corresponding CSV file) for all brazilian cities with estimated population of at least 50k people.
+
+So, in order to use these sample files, follow this process:
+
+```bash
+# Download a NetCDF4 file (for example, "Gridded data/pr/hist/ACCESS-CM2-pr-hist.nc") and save it with corresponding name at "/example/CLIMBra/". This might take a couple minutes to complete since the file has around 250MB
+curl -o example/CLIMBra/ACCESS-CM2-pr-hist.nc https://china.scidb.cn/download?fileId=42efd8ad21bf9790fc8044cf247e1808&traceId=58820d62-21ec-4a52-a95b-be0fd14066f1
+
+# Validate the coordinates of the cities in the example CSV (this step is optional, and will overwrite the existing JSON file -- with exactly the same content)
+python transform.py example/brazilian_cities_over_50k.csv example/CLIMBra --raw-coordinates
+
+# Run the program with the corresponding parameters to generate a consolidated Parquet file
+python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-parquet
+
+# Or, run the program with the corresponding parameters to generate CSV files with precipitation data
+python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-csv
+
+# Or, generate precipitation data in Netuno format
+python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-netuno
+```
 
 ## Commits
 
@@ -157,7 +181,7 @@ Next steps, planned development, pending issues, known bugs, etc:
 * [x] Check throughout the code which functions can be cached for improved performance
 * [x] Add a single point of entry to the code
 * [x] Break the process by batches and create recovery method (temporary directory from which a last saved state can be recovered, for long operations, excluded upon successful completion)
+* [x] Finish README, including proper instructions and examples
 * [ ] Add docstrings to classes
 * [ ] Implement parallel computing for expensive functions
 * [ ] Implement logging off the main thread
-* [ ] Finish README, including proper instructions and examples
