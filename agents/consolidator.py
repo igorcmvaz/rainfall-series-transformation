@@ -50,19 +50,23 @@ class Consolidator:
         }
         self.recovery_required = recovery_required
         self.csv_generator = csv_generator
-        if recovery_required:
-            self.temp_dir = self._create_temp_dir()
+        self.temp_dir = self._create_temp_dir(recovery_required)
 
-    def _create_temp_dir(self) -> Path:
+    def _create_temp_dir(self, create_new: bool) -> Path:
         """
         Creates a temporary directory for recovery files, if it does not already exist.
+
+        Args:
+            create_new (bool): Whether a new temporary directory should be create if one
+            doesn't already exist.
 
         Returns:
             Path: Path to the temporary directory.
         """
         temp_path = Path(self.source_dir.parent, "temp")
-        temp_path.mkdir(exist_ok=True)
-        logger.debug(f"Created temporary recovery directory at '{temp_path.resolve()}'")
+        if create_new and not temp_path.is_dir():
+            temp_path.mkdir()
+            logger.debug(f"Created temporary recovery directory at '{temp_path.resolve()}'")
         return temp_path
 
     def _count_error(self, **kwargs: dict[str, Any]) -> None:
