@@ -27,6 +27,7 @@ MANIFEST
 parts/
 sdist/
 share/python-wheels/
+temp/
 var/
 venv/
 wheels/
