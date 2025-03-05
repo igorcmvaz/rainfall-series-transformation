@@ -185,6 +185,24 @@ class Consolidator:
             f"{time.perf_counter() - start_time:.2f}s")
         return recovered_data
 
+    def _evaluate_csv_generation(
+            self, data_series: PrecipitationSeries, metadata: MetaData) -> None:
+        """
+        Evaluates if CSV generation is required and, if true, executes it for the given
+        data.
+
+        Args:
+            data_series (PrecipitationSeries): Precipitation data series.
+            metadata (MetaData): Metadata about the given precipitation data series. Must
+            contain at least the following keys: city, model, scenario.
+        """
+        if self.csv_generator is not None:
+            self.csv_generator.generate_csv(
+                data_series,
+                metadata["city"],
+                metadata["model"],
+                metadata["scenario"])
+
     def clear_temp_files(self) -> None:
         """Deletes the temporary directory along with all temporary files."""
         shutil.rmtree(self.temp_dir)
@@ -249,12 +267,7 @@ class Consolidator:
                         "latitude": latitude,
                         "longitude": longitude
                     }
-                    if self.csv_generator is not None:
-                        self.csv_generator.generate_csv(
-                            data_series,
-                            metadata["city"],
-                            metadata["model"],
-                            metadata["scenario"])
+                    self._evaluate_csv_generation(data_series, metadata)
                     self._count_processed(**metadata)
                     for_recovery[city_name] = {"data": data_series, "metadata": metadata}
                     yield data_series, metadata
