@@ -300,12 +300,12 @@ class CoordinatesFinder:
                 nearest_matching_coordinates[city_name] = dict(
                     {
                         "target": {
-                            "lat": target_latitude,
-                            "lon": target_longitude
+                            "lat": float(target_latitude),
+                            "lon": float(target_longitude)
                         },
                         "nearest": {
-                            "lat": valid_latitude,
-                            "lon": valid_longitude
+                            "lat": float(valid_latitude),
+                            "lon": float(valid_longitude)
                         }
                     },
                     **details)
