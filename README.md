@@ -33,6 +33,28 @@ Output will be a JSON file of the same name containing both original and validat
 
 ```json
 {
+  "São Paulo": {
+    "ibge_code": 3550308,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.533,
+      "lon": -46.64
+    }
+  },
+  "Rio de Janeiro": {
+    "ibge_code": 3304557,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.913,
+      "lon": -43.2
+    }
+  },
   "Brasília": {
     "ibge_code": 5300108,
     "nearest": {
@@ -42,17 +64,6 @@ Output will be a JSON file of the same name containing both original and validat
     "target": {
       "lat": -15.78,
       "lon": -47.93
-    }
-  },
-  "Fortaleza": {
-    "ibge_code": 2304400,
-    "nearest": {
-      "lat": -3.625,
-      "lon": -38.875
-    },
-    "target": {
-      "lat": -3.717,
-      "lon": -38.542
     }
   }
 }
@@ -113,6 +124,8 @@ python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-p
 
 The output from the CSV operation is a new directory labeled with a timestamp (such as `path/2025-01-01T09-15-output`) containing one CSV file for each combination of city, model and scenario. The output file name has the format `{city}_{model}_{scenario}.csv` and might include a `(Netuno)` flag at the beginning, such as `(Netuno)Brasília_GFDL-ESM4_SSP245.csv`.
 
+### Samples
+<!-- TODO: organize and detail usage of samples in the repository -->
 
 ## Commits
 
