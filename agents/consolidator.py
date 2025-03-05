@@ -246,6 +246,9 @@ class Consolidator:
                         cities_to_process.pop(city, None)
                         yield content["data"], content["metadata"]
                 if not cities_to_process:
+                    logger.debug(
+                        f"Found recovery data for all cities under model '{model}' and "
+                        f"scenario '{scenario}'")
                     continue
                 try:
                     extractor = NetCDFExtractor(
