@@ -1,5 +1,6 @@
 import json
 import logging
+import pickle
 import shutil
 import unittest
 from datetime import datetime, timedelta
@@ -12,7 +13,9 @@ import pandas as pd
 
 from agents.calculator import estimate_combinations
 from agents.consolidator import Consolidator, logger
-from globals.constants import CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS
+from agents.exporters import CSVExporter
+from globals.constants import (
+    CLIMATE_MODELS, INPUT_FILENAME_FORMAT, SSP_SCENARIOS, RECOVERY_FILENAME_FORMAT)
 from tests.samples.stub_netCDF4 import NetCDFStubGenerator
 from tests.samples.stub_precipitation import SAMPLE_JSON_PATH
 from tests.test_validators import SAMPLE_CITIES_PATH
@@ -20,7 +23,7 @@ from tests.test_validators import SAMPLE_CITIES_PATH
 
 class TestConsolidatorInternalFunctions(unittest.TestCase):
 
-    SAMPLE_SOURCE_DIR = Path(__file__).parent / "temp"
+    SAMPLE_SOURCE_DIR = Path(__file__).parent / "test_temp"
     LONGITUDES = [-74.125 + 0.25*step for step in range(6)]
     LATITUDES = [-34.125 + 0.25*step for step in range(6)]
 
@@ -148,6 +151,32 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
             with self.subTest(test=value[1], foo=value[2]):
                 self.assertEqual(value[1], expected_value[0])
                 self.assertEqual(value[2], expected_value[1])
+
+    def test_evaluate_csv_generation(self):
+        ORIGINAL_CSV_GENERATOR = self.consolidator.csv_generator
+        self.consolidator.csv_generator = CSVExporter(Path(__file__).parent)
+
+        with patch("agents.exporters.CSVExporter.generate_csv") as csv_mock:
+            DATA_SERIES = [(1, 3.14), (2, 1.16)]
+            METADATA = {"city": "Auridon", "model": "ACCESS", "scenario": "SSP245"}
+            self.consolidator._evaluate_csv_generation(DATA_SERIES, METADATA)
+            csv_mock.assert_called_once_with(
+                DATA_SERIES, METADATA["city"], METADATA["model"], METADATA["scenario"])
+
+        self.consolidator.csv_generator.output_dir.rmdir()
+        self.consolidator.csv_generator = ORIGINAL_CSV_GENERATOR
+
+    def test_evaluate_no_csv_generation(self):
+        ORIGINAL_CSV_GENERATOR = self.consolidator.csv_generator
+        self.consolidator.csv_generator = None
+
+        with patch("agents.exporters.CSVExporter.generate_csv") as csv_mock:
+            DATA_SERIES = [(1, 3.14), (2, 1.16)]
+            METADATA = {"city": "Auridon", "model": "ACCESS", "scenario": "SSP245"}
+            self.consolidator._evaluate_csv_generation(DATA_SERIES, METADATA)
+            csv_mock.assert_not_called()
+
+        self.consolidator.csv_generator = ORIGINAL_CSV_GENERATOR
 
     def tearDown(self):
         shutil.rmtree(self.SAMPLE_SOURCE_DIR)
@@ -304,6 +333,363 @@ class TestConsolidatorGeneration(unittest.TestCase):
             generator_mock.return_value = (MOCK_DATAFRAME for _ in range(5))
             result = consolidator.consolidate_indices_dataset()
         self.assertTrue((result == EXPECTED_OUTPUT).all().values)
+
+    def test_generate_all_precipitation_series(self):
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        with patch(
+                "agents.consolidator.Consolidator.generate_precipitation_dataset"
+                ) as generator_mock:
+            generator_mock.return_value = ({1: 2} for _ in range(2))
+            consolidator.generate_all_precipitation_series()
+            with self.assertRaises(StopIteration):
+                next(generator_mock.return_value)
+
+    def test_log_output_from_generate_all_precipitation_series(self):
+        EXPECTED_LOG_MESSAGE = "Completed process in "
+        consolidator = Consolidator(
+            self.cities, self.scenarios, self.models, self.sample_source_dir)
+        with patch(
+                "agents.consolidator.Consolidator.generate_precipitation_dataset"
+                ) as generator_mock:
+            generator_mock.return_value = ({1: 2} for _ in range(2))
+            with self.assertLogs(logger, level=logging.INFO) as log_context:
+                consolidator.generate_all_precipitation_series()
+                self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+
+class TestConsolidatorRecoveryFunctions(unittest.TestCase):
+
+    SAMPLE_SOURCE_DIR = Path(__file__).parent / "test_temp"
+    EXPECTED_TEMP_DIR = Path(SAMPLE_CITIES_PATH.parent.parent, "temp")
+    LONGITUDES = [-74.125 + 0.25*step for step in range(6)]
+    LATITUDES = [-34.125 + 0.25*step for step in range(6)]
+
+    def setUp(self):
+        with open(SAMPLE_CITIES_PATH) as file:
+            self.cities = json.load(file)
+        self.models = CLIMATE_MODELS[:5]
+        self.expected_total = estimate_combinations(self.models, SSP_SCENARIOS, self.cities)
+        self.SAMPLE_SOURCE_DIR.mkdir(exist_ok=True)
+
+    def test_create_temp_dir(self):
+        EXPECTED_LOG_MESSAGE = (
+            f"Created temporary recovery directory at '{self.EXPECTED_TEMP_DIR.resolve()}'")
+        shutil.rmtree(self.EXPECTED_TEMP_DIR, ignore_errors=True)
+        self.assertFalse(self.EXPECTED_TEMP_DIR.is_dir())
+
+        with self.assertLogs(logger, level=logging.DEBUG) as log_context:
+            Consolidator(
+                self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+        self.assertTrue(self.EXPECTED_TEMP_DIR.is_dir())
+
+        shutil.rmtree(self.EXPECTED_TEMP_DIR)
+
+    def test_return_existing_temp_dir(self):
+        self.EXPECTED_TEMP_DIR.mkdir(exist_ok=True)
+
+        with self.assertNoLogs(logger, level=logging.DEBUG):
+            Consolidator(
+                self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        self.assertTrue(self.EXPECTED_TEMP_DIR.is_dir())
+
+        shutil.rmtree(self.EXPECTED_TEMP_DIR)
+
+    def test_dump_no_recovery_data(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        recovery_file_path = Path(
+            consolidator.temp_dir,
+            RECOVERY_FILENAME_FORMAT.format(model="test", scenario="ssp"))
+
+        with self.assertNoLogs(logger, level=logging.INFO):
+            consolidator._dump_recovery_data("test", "ssp", {})
+        self.assertFalse(recovery_file_path.is_file())
+
+    def test_content_of_dumped_data(self):
+        EXPECTED_RESULT = {"test": "SSP"}
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        recovery_file_path = Path(
+            consolidator.temp_dir,
+            RECOVERY_FILENAME_FORMAT.format(model="test", scenario="ssp"))
+
+        consolidator._dump_recovery_data("test", "ssp", EXPECTED_RESULT)
+        with open(recovery_file_path, "rb") as file:
+            result = pickle.load(file)
+
+        self.assertDictEqual(result, EXPECTED_RESULT)
+
+    def test_log_output_from_recovery_dump(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        recovery_file_path = Path(
+            consolidator.temp_dir,
+            RECOVERY_FILENAME_FORMAT.format(model="test", scenario="ssp"))
+        EXPECTED_LOG_MESSAGE = (
+            f"Successfully saved recovery file at '{recovery_file_path.name}' in ")
+
+        with self.assertLogs(logger, level=logging.INFO) as log_context:
+            consolidator._dump_recovery_data("test", "ssp", {"test": "SSP"})
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def test_validate_recovery_path_success(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        recovery_file_path = Path(
+            consolidator.temp_dir,
+            RECOVERY_FILENAME_FORMAT.format(model="test", scenario="ssp"))
+        recovery_file_path.touch(exist_ok=True)
+
+        result = consolidator._validate_recovery_path("test", "ssp")
+
+        self.assertEqual(result, recovery_file_path)
+
+    def test_validate_recovery_path_failure(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+
+        result = consolidator._validate_recovery_path("something", "else")
+
+        self.assertIsNone(result)
+
+    def test_log_output_from_failed_recovery_path_validation(self):
+        EXPECTED_LOG_MESSAGE = (
+            "No recovery file found for model 'something', scenario 'else', proceeding "
+            "with normal extraction")
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+
+        with self.assertLogs(logger, level=logging.DEBUG) as log_context:
+            consolidator._validate_recovery_path("something", "else")
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def test_recover_data_from_file(self):
+        SAVED_DATA = {"test": "SSP"}
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        PATH_TO_RECOVERY_FILE = Path(consolidator.temp_dir, "sample.pickle")
+        with open(PATH_TO_RECOVERY_FILE, "wb") as temp_file:
+            pickle.dump(SAVED_DATA, temp_file, protocol=pickle.HIGHEST_PROTOCOL)
+
+        result = consolidator._recover_data_from_file(PATH_TO_RECOVERY_FILE)
+
+        self.assertDictEqual(SAVED_DATA, result)
+
+    def test_log_output_from_data_recovery(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        PATH_TO_RECOVERY_FILE = Path(consolidator.temp_dir, "sample.pickle")
+        EXPECTED_LOG_MESSAGE = "Retrieved data from recovery file 'sample.pickle' in "
+        with open(PATH_TO_RECOVERY_FILE, "wb") as temp_file:
+            pickle.dump({"test": "SSP"}, temp_file, protocol=pickle.HIGHEST_PROTOCOL)
+
+        with self.assertLogs(logger, level=logging.INFO) as log_context:
+            consolidator._recover_data_from_file(PATH_TO_RECOVERY_FILE)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def test_clear_temp_files(self):
+        consolidator = Consolidator(
+            self.cities, SSP_SCENARIOS, self.models, self.SAMPLE_SOURCE_DIR, True)
+        for scenario in ["Histórico", "SSP245", "SSP585"]:
+            file_path = Path(consolidator.temp_dir, scenario).with_suffix(".temp")
+            file_path.touch()
+        consolidator.clear_temp_files()
+
+        self.assertFalse(self.EXPECTED_TEMP_DIR.is_dir())
+
+    def test_generate_dataset_with_invalid_recovered_city(self):
+        SAMPLE_RECOVERY_DATA = {
+            "Vulkhel Guard": {
+                "data": [
+                    (datetime(2020, 1, 1), 13.2),
+                    (datetime(2020, 1, 2), 2.3),
+                    (datetime(2020, 1, 3), 10.0),
+                ],
+                "metadata": {
+                    "city": "Vulkhel Guard",
+                    "model": "ACCESS",
+                    "scenario": "SSP245",
+                    "latitude": 30.3012,
+                    "longitude": 57.2920
+                }
+            }
+        }
+        consolidator = Consolidator(
+            self.cities,
+            {"Histórico": "test"},
+            self.models[:1],
+            self.SAMPLE_SOURCE_DIR,
+            True)
+        RECOVERY_PATH = Path(consolidator.temp_dir, RECOVERY_FILENAME_FORMAT.format(
+                model=self.models[0], scenario="Histórico"))
+        RECOVERY_PATH.touch()
+        generator = consolidator.generate_precipitation_dataset()
+
+        with (
+            self.assertRaises(StopIteration),
+            patch("agents.consolidator.Consolidator._count_processed") as count_mock,
+            patch("agents.consolidator.Consolidator._set_final_state"),
+            patch("agents.consolidator.Consolidator._recover_data_from_file")
+                as recovery_mock):
+            recovery_mock.return_value = SAMPLE_RECOVERY_DATA
+            next(generator)
+            count_mock.assert_not_called()
+
+    def test_generate_dataset_with_valid_recovered_city(self):
+        SAMPLE_RECOVERY_DATA = {
+            "Elsweyr": {
+                "data": [
+                    (datetime(2020, 1, 1), 13.2),
+                    (datetime(2020, 1, 2), 2.3),
+                    (datetime(2020, 1, 3), 10.0),
+                ],
+                "metadata": {
+                    "city": "Elsweyr",
+                    "model": "ACCESS",
+                    "scenario": "SSP245",
+                    "latitude": 30.3012,
+                    "longitude": 57.2920
+                }
+            }
+        }
+        consolidator = Consolidator(
+            self.cities, {"SSP245": "test"}, ["ACCESS"], self.SAMPLE_SOURCE_DIR, True)
+        RECOVERY_PATH = Path(consolidator.temp_dir, RECOVERY_FILENAME_FORMAT.format(
+                model="ACCESS", scenario="SSP245"))
+        RECOVERY_PATH.touch()
+        generator = consolidator.generate_precipitation_dataset()
+
+        with (
+            patch("agents.consolidator.Consolidator._recover_data_from_file")
+                as recovery_mock):
+            recovery_mock.return_value = SAMPLE_RECOVERY_DATA
+            data, metadata = next(generator)
+        self.assertListEqual(data, SAMPLE_RECOVERY_DATA["Elsweyr"]["data"])
+        self.assertDictEqual(metadata, SAMPLE_RECOVERY_DATA["Elsweyr"]["metadata"])
+
+    def test_generate_dataset_with_recovered_data_exhausting_cities(self):
+        with open(SAMPLE_CITIES_PATH) as file:
+            cities: dict = json.load(file)
+        SAMPLE_RECOVERY_DATA = {
+            city_name: {
+                "data": [
+                    (datetime(2020, 1, 1), 13.2),
+                    (datetime(2020, 1, 2), 2.3),
+                    (datetime(2020, 1, 3), 10.0),
+                ],
+                "metadata": {
+                    "city": "Elsweyr",
+                    "model": "ACCESS",
+                    "scenario": "SSP245",
+                    "latitude": 30.3012,
+                    "longitude": 57.2920
+                }
+            } for city_name in cities
+        }
+        consolidator = Consolidator(
+            self.cities, {"SSP245": "test"}, ["ACCESS"], self.SAMPLE_SOURCE_DIR, True)
+        RECOVERY_PATH = Path(consolidator.temp_dir, RECOVERY_FILENAME_FORMAT.format(
+                model="ACCESS", scenario="SSP245"))
+        RECOVERY_PATH.touch()
+        generator = consolidator.generate_precipitation_dataset()
+        EXPECTED_LOG_MESSAGE = (
+            "Found recovery data for all cities under model 'ACCESS' and scenario 'SSP245'")
+
+        with (
+            patch("agents.consolidator.Consolidator._recover_data_from_file")
+                as recovery_mock):
+            recovery_mock.return_value = SAMPLE_RECOVERY_DATA
+            for _ in SAMPLE_RECOVERY_DATA:
+                next(generator)
+        with self.assertRaises(StopIteration), self.assertLogs(
+                logger, level=logging.DEBUG) as log_context:
+            next(generator)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def test_generate_dataset_with_file_not_found(self):
+        EXPECTED_LOG_MESSAGE = (
+            "File corresponding to model 'ACCESS' and scenario 'SSP245' was not found, "
+            "skipping")
+        consolidator = Consolidator(
+            self.cities, {"SSP245": "test"}, ["ACCESS"], self.SAMPLE_SOURCE_DIR)
+        generator = consolidator.generate_precipitation_dataset()
+
+        with (
+                self.assertRaises(StopIteration),
+                patch("agents.consolidator.Consolidator._set_final_state"),
+                self.assertLogs(logger, level=logging.WARNING) as log_context):
+            next(generator)
+            self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
+
+    def test_call_recovery_data_dump(self):
+        CITIES = {
+            "Florianópolis": {
+                "nearest": {
+                    "lat": -27.625,
+                    "lon": -48.875
+                }
+            }
+        }
+        mock_data_series = np.array([(1, 20) for _ in range(100)])
+        consolidator = Consolidator(
+            CITIES, {"Histórico": "test"}, ["ACCESS"], self.SAMPLE_SOURCE_DIR, True)
+        EXPECTED_FILE_PATH = Path(consolidator.source_dir, "ACCESS-pr-hist.nc")
+        EXPECTED_FILE_PATH.touch()
+        generator = consolidator.generate_precipitation_dataset()
+        for_recovery = {}
+        with (
+                patch("agents.extractors.NetCDFExtractor.__init__") as extractor_init,
+                patch("agents.consolidator.Consolidator._set_final_state"),
+                patch(
+                    "agents.extractors.NetCDFExtractor.extract_precipitation"
+                    ) as precipitation_mock):
+            extractor_init.return_value = None
+            precipitation_mock.return_value = mock_data_series
+            result_data, result_meta = next(generator)
+            for_recovery["Florianópolis"] = {"data": result_data, "metadata": result_meta}
+        with (
+                self.assertRaises(StopIteration),
+                patch("agents.consolidator.Consolidator._dump_recovery_data") as dump_mock):
+            next(generator)
+            dump_mock.assert_called_once_with("ACCESS", "Histórico", for_recovery)
+
+    def test_no_call_recovery_data_dump(self):
+        CITIES = {
+            "Florianópolis": {
+                "nearest": {
+                    "lat": -27.625,
+                    "lon": -48.875
+                }
+            }
+        }
+        mock_data_series = np.array([(1, 20) for _ in range(100)])
+        consolidator = Consolidator(
+            CITIES, {"Histórico": "test"}, ["ACCESS"], self.SAMPLE_SOURCE_DIR)
+        EXPECTED_FILE_PATH = Path(consolidator.source_dir, "ACCESS-pr-hist.nc")
+        EXPECTED_FILE_PATH.touch()
+        generator = consolidator.generate_precipitation_dataset()
+        for_recovery = {}
+        with (
+                patch("agents.extractors.NetCDFExtractor.__init__") as extractor_init,
+                patch("agents.consolidator.Consolidator._set_final_state"),
+                patch(
+                    "agents.extractors.NetCDFExtractor.extract_precipitation"
+                    ) as precipitation_mock):
+            extractor_init.return_value = None
+            precipitation_mock.return_value = mock_data_series
+            result_data, result_meta = next(generator)
+            for_recovery["Florianópolis"] = {"data": result_data, "metadata": result_meta}
+        with (
+                self.assertRaises(StopIteration),
+                patch("agents.consolidator.Consolidator._dump_recovery_data") as dump_mock):
+            next(generator)
+            dump_mock.assert_not_called()
+
+    def tearDown(self):
+        shutil.rmtree(self.SAMPLE_SOURCE_DIR, ignore_errors=True)
+        shutil.rmtree(self.EXPECTED_TEMP_DIR, ignore_errors=True)
 
 
 if __name__ == '__main__':
