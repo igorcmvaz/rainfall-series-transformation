@@ -73,7 +73,7 @@ In order to, specifically, run the program to validate an existing CSV file with
 
 ```bash
 python transform.py path/to/raw_coordinates.csv path/to/netcdf_dir --raw-coordinates
-python transform.py path/to/raw_coordinates.csv path/to/netcdf_dir --raw-coordinates --verbose  # for DEBUG logs
+python transform.py path/to/raw_coordinates.csv path/to/netcdf_dir --raw-coordinates --verbose  # to show DEBUG logs
 python transform.py path/to/raw_coordinates.csv path/to/netcdf_dir --raw-coordinates -q         # to hide INFO logs
 python transform.py path/to/raw_coordinates.csv path/to/netcdf_dir --raw-coordinates -qq        # to also hide WARNING logs
 ```
@@ -100,15 +100,16 @@ In order to execute such operation, the application requires a source of NetCDF4
 
 ```bash
 python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet
-python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --verbose    # for DEBUG logs
-python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet -q           # to hide INFO logs
-python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet -qq          # to also hide WARNING logs
-python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --keep-temp  # to keep the temporary recovery files
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --verbose      # to show DEBUG logs
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet -q             # to hide INFO logs
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet -qq            # to also hide WARNING logs
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --keep-temp    # to keep the temporary recovery files
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --no-recovery  # to skip the creation of temporary recovery files
 ```
 
 This command would use the (already validated) coordinates found in `path/to/validated_coordinates.json` and go through each NetCDF4 file in `path/to/netcdf_dir`, evaluating the climate indices for each combination of city, climate model and climate scenario, then output a consolidated Parquet file with timestamp such as `path/to/2025-01-01T09-15-consolidated.parquet`.
 
-The operation has a **recovery method** based on temporary binary files, which are written to a temporary directory created specifically for this purpose at the directory above the NetCDF4 directory. These recovery files are useful in case a previous operation could not be properly finished due to the circumstances, so that, when executed again, any results from climate models and scenarios already covered will be retrieved from these files rather than have all extraction and computation processes take place again. This also allows one to manually interrupt the operation without fear of losing much of the current progress. The maximum progress that can be lost is restricted to the operation of the latest combination of model and scenario (recovery files are saved for each such combination). The `--keep-temp` option makes it so these temporary recovery files are not deleted at the end of the operation.
+The operation has an optional **recovery method** based on temporary binary files, which are written to a temporary directory created specifically for this purpose at the directory above the NetCDF4 directory. These recovery files are useful in case a previous operation could not be properly finished due to the circumstances, so that, when executed again, any results from climate models and scenarios already covered will be retrieved from these files rather than have all extraction and computation processes take place again. This also allows one to manually interrupt the operation without fear of losing much of the current progress. The maximum progress that can be lost is restricted to the operation of the latest combination of model and scenario (recovery files are saved for each such combination). The `--keep-temp` option makes it so these temporary recovery files are not deleted at the end of the operation. The creation of new recovery files can be skipped entirely using the `--no-recovery` option, while still retrieving any data from already existing recovery files.
 
 ### Transforming to CSV
 
