@@ -29,32 +29,10 @@ ibge_code, city          , latitude, longitude
 5300108  , Brasília      , -15.78  , -47.93
 ```
 
-Output will be a JSON file of the same name containing both original and validated (nearest) coordinates found in the given NetCDF4 file. Example:
+Output will be a JSON file of the same name containing both original and validated (nearest) coordinates found in the given NetCDF4 file. The keys (which are city names) are sorted in alphabetical order (special/accented characters at the end). Example:
 
 ```json
 {
-  "São Paulo": {
-    "ibge_code": 3550308,
-    "nearest": {
-      "lat": -23.625,
-      "lon": -46.625
-    },
-    "target": {
-      "lat": -23.533,
-      "lon": -46.64
-    }
-  },
-  "Rio de Janeiro": {
-    "ibge_code": 3304557,
-    "nearest": {
-      "lat": -22.875,
-      "lon": -43.375
-    },
-    "target": {
-      "lat": -22.913,
-      "lon": -43.2
-    }
-  },
   "Brasília": {
     "ibge_code": 5300108,
     "nearest": {
@@ -64,6 +42,28 @@ Output will be a JSON file of the same name containing both original and validat
     "target": {
       "lat": -15.78,
       "lon": -47.93
+    }
+  },
+    "Rio de Janeiro": {
+      "ibge_code": 3304557,
+      "nearest": {
+        "lat": -22.875,
+        "lon": -43.375
+      },
+      "target": {
+        "lat": -22.913,
+        "lon": -43.2
+      }
+    },
+  "São Paulo": {
+    "ibge_code": 3550308,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.533,
+      "lon": -46.64
     }
   }
 }
