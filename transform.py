@@ -133,7 +133,7 @@ if __name__ == "__main__":
         "-k", "--keep-temp", action="store_true", dest="keep_temp_files", default=False,
         help=(
             "whether to keep the temporary binary recovery files created throughout the "
-            "operation. Ignored if --raw-coordinates is present "))
+            "operation. Ignored if --raw-coordinates is present"))
     parser.add_argument(
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
