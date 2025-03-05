@@ -1,0 +1,7174 @@
+{
+  "Abaetetuba": {
+    "ibge_code": 1500107,
+    "nearest": {
+      "lat": -1.625,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -1.722,
+      "lon": -48.879
+    }
+  },
+  "Abreu e Lima": {
+    "ibge_code": 2600054,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.901,
+      "lon": -34.898
+    }
+  },
+  "Acaraú": {
+    "ibge_code": 2300200,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -2.888,
+      "lon": -40.118
+    }
+  },
+  "Acará": {
+    "ibge_code": 1500206,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -1.954,
+      "lon": -48.198
+    }
+  },
+  "Alagoinhas": {
+    "ibge_code": 2900702,
+    "nearest": {
+      "lat": -12.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -12.134,
+      "lon": -38.421
+    }
+  },
+  "Alegrete": {
+    "ibge_code": 4300406,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -29.79,
+      "lon": -55.795
+    }
+  },
+  "Alenquer": {
+    "ibge_code": 1500404,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -54.625
+    },
+    "target": {
+      "lat": -1.946,
+      "lon": -54.738
+    }
+  },
+  "Alfenas": {
+    "ibge_code": 3101607,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -45.875
+    },
+    "target": {
+      "lat": -21.426,
+      "lon": -45.948
+    }
+  },
+  "Almirante Tamandaré": {
+    "ibge_code": 4100400,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -25.319,
+      "lon": -49.304
+    }
+  },
+  "Alta Floresta": {
+    "ibge_code": 5100250,
+    "nearest": {
+      "lat": -9.875,
+      "lon": -56.125
+    },
+    "target": {
+      "lat": -9.867,
+      "lon": -56.087
+    }
+  },
+  "Altamira": {
+    "ibge_code": 1500602,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -52.125
+    },
+    "target": {
+      "lat": -3.204,
+      "lon": -52.21
+    }
+  },
+  "Alvorada": {
+    "ibge_code": 4300604,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.991,
+      "lon": -51.081
+    }
+  },
+  "Americana": {
+    "ibge_code": 3501608,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.737,
+      "lon": -47.333
+    }
+  },
+  "Amparo": {
+    "ibge_code": 3501905,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.709,
+      "lon": -46.772
+    }
+  },
+  "Ananindeua": {
+    "ibge_code": 1500800,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -1.364,
+      "lon": -48.374
+    }
+  },
+  "Andradina": {
+    "ibge_code": 3502101,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -20.895,
+      "lon": -51.379
+    }
+  },
+  "Angra dos Reis": {
+    "ibge_code": 3300100,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -23.001,
+      "lon": -44.32
+    }
+  },
+  "Anápolis": {
+    "ibge_code": 5201108,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -16.328,
+      "lon": -48.953
+    }
+  },
+  "Aparecida de Goiânia": {
+    "ibge_code": 5201405,
+    "nearest": {
+      "lat": -16.875,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -16.82,
+      "lon": -49.247
+    }
+  },
+  "Apucarana": {
+    "ibge_code": 4101408,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -23.55,
+      "lon": -51.464
+    }
+  },
+  "Aquiraz": {
+    "ibge_code": 2301000,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -3.899,
+      "lon": -38.39
+    }
+  },
+  "Aracaju": {
+    "ibge_code": 2800308,
+    "nearest": {
+      "lat": -10.875,
+      "lon": -37.125
+    },
+    "target": {
+      "lat": -10.909,
+      "lon": -37.068
+    }
+  },
+  "Aracati": {
+    "ibge_code": 2301109,
+    "nearest": {
+      "lat": -4.625,
+      "lon": -37.875
+    },
+    "target": {
+      "lat": -4.558,
+      "lon": -37.768
+    }
+  },
+  "Aracruz": {
+    "ibge_code": 3200607,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -19.82,
+      "lon": -40.276
+    }
+  },
+  "Araguari": {
+    "ibge_code": 3103504,
+    "nearest": {
+      "lat": -18.625,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -18.646,
+      "lon": -48.193
+    }
+  },
+  "Araguaína": {
+    "ibge_code": 1702109,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -7.192,
+      "lon": -48.204
+    }
+  },
+  "Arapiraca": {
+    "ibge_code": 2700300,
+    "nearest": {
+      "lat": -9.875,
+      "lon": -36.625
+    },
+    "target": {
+      "lat": -9.755,
+      "lon": -36.662
+    }
+  },
+  "Arapongas": {
+    "ibge_code": 4101507,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -23.415,
+      "lon": -51.426
+    }
+  },
+  "Araranguá": {
+    "ibge_code": 4201406,
+    "nearest": {
+      "lat": -28.875,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -28.936,
+      "lon": -49.492
+    }
+  },
+  "Araraquara": {
+    "ibge_code": 3503208,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -21.784,
+      "lon": -48.178
+    }
+  },
+  "Araras": {
+    "ibge_code": 3503307,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.357,
+      "lon": -47.384
+    }
+  },
+  "Araripina": {
+    "ibge_code": 2601102,
+    "nearest": {
+      "lat": -7.625,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -7.571,
+      "lon": -40.494
+    }
+  },
+  "Araruama": {
+    "ibge_code": 3300209,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.375
+    },
+    "target": {
+      "lat": -22.87,
+      "lon": -42.333
+    }
+  },
+  "Araucária": {
+    "ibge_code": 4101804,
+    "nearest": {
+      "lat": -25.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -25.586,
+      "lon": -49.405
+    }
+  },
+  "Araxá": {
+    "ibge_code": 3104007,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -19.59,
+      "lon": -46.944
+    }
+  },
+  "Araçatuba": {
+    "ibge_code": 3502804,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -21.208,
+      "lon": -50.44
+    }
+  },
+  "Arcoverde": {
+    "ibge_code": 2601201,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -37.125
+    },
+    "target": {
+      "lat": -8.415,
+      "lon": -37.058
+    }
+  },
+  "Ariquemes": {
+    "ibge_code": 1100023,
+    "nearest": {
+      "lat": -9.875,
+      "lon": -63.125
+    },
+    "target": {
+      "lat": -9.906,
+      "lon": -63.032
+    }
+  },
+  "Artur Nogueira": {
+    "ibge_code": 3503802,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -22.573,
+      "lon": -47.173
+    }
+  },
+  "Arujá": {
+    "ibge_code": 3503901,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.396,
+      "lon": -46.32
+    }
+  },
+  "Assis": {
+    "ibge_code": 3504008,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -22.66,
+      "lon": -50.418
+    }
+  },
+  "Assu": {
+    "ibge_code": 2400208,
+    "nearest": {
+      "lat": -5.625,
+      "lon": -36.875
+    },
+    "target": {
+      "lat": -5.584,
+      "lon": -36.914
+    }
+  },
+  "Atibaia": {
+    "ibge_code": 3504107,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.117,
+      "lon": -46.556
+    }
+  },
+  "Avaré": {
+    "ibge_code": 3504503,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -23.107,
+      "lon": -48.925
+    }
+  },
+  "Açailândia": {
+    "ibge_code": 2100055,
+    "nearest": {
+      "lat": -4.875,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -4.947,
+      "lon": -47.5
+    }
+  },
+  "Bacabal": {
+    "ibge_code": 2101202,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -4.224,
+      "lon": -44.783
+    }
+  },
+  "Bagé": {
+    "ibge_code": 4301602,
+    "nearest": {
+      "lat": -31.375,
+      "lon": -54.125
+    },
+    "target": {
+      "lat": -31.33,
+      "lon": -54.1
+    }
+  },
+  "Baião": {
+    "ibge_code": 1501204,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -2.79,
+      "lon": -49.669
+    }
+  },
+  "Balneário Camboriú": {
+    "ibge_code": 4202008,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.993,
+      "lon": -48.635
+    }
+  },
+  "Balsas": {
+    "ibge_code": 2101400,
+    "nearest": {
+      "lat": -7.625,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -7.532,
+      "lon": -46.037
+    }
+  },
+  "Barbacena": {
+    "ibge_code": 3105608,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -21.221,
+      "lon": -43.77
+    }
+  },
+  "Barbalha": {
+    "ibge_code": 2301901,
+    "nearest": {
+      "lat": -7.375,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -7.298,
+      "lon": -39.302
+    }
+  },
+  "Barcarena": {
+    "ibge_code": 1501303,
+    "nearest": {
+      "lat": -1.625,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -1.512,
+      "lon": -48.62
+    }
+  },
+  "Barra": {
+    "ibge_code": 2902708,
+    "nearest": {
+      "lat": -11.125,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -11.086,
+      "lon": -43.146
+    }
+  },
+  "Barra Mansa": {
+    "ibge_code": 3300407,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -22.548,
+      "lon": -44.175
+    }
+  },
+  "Barra do Corda": {
+    "ibge_code": 2101608,
+    "nearest": {
+      "lat": -5.375,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -5.497,
+      "lon": -45.248
+    }
+  },
+  "Barra do Garças": {
+    "ibge_code": 5101803,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -15.88,
+      "lon": -52.264
+    }
+  },
+  "Barra do Piraí": {
+    "ibge_code": 3300308,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -22.472,
+      "lon": -43.827
+    }
+  },
+  "Barreiras": {
+    "ibge_code": 2903201,
+    "nearest": {
+      "lat": -12.125,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -12.144,
+      "lon": -44.997
+    }
+  },
+  "Barreirinhas": {
+    "ibge_code": 2101707,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -2.759,
+      "lon": -42.823
+    }
+  },
+  "Barretos": {
+    "ibge_code": 3505500,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -20.553,
+      "lon": -48.57
+    }
+  },
+  "Barueri": {
+    "ibge_code": 3505708,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.506,
+      "lon": -46.879
+    }
+  },
+  "Batatais": {
+    "ibge_code": 3505906,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -20.893,
+      "lon": -47.592
+    }
+  },
+  "Bauru": {
+    "ibge_code": 3506003,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -22.325,
+      "lon": -49.087
+    }
+  },
+  "Bayeux": {
+    "ibge_code": 2501807,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.124,
+      "lon": -34.929
+    }
+  },
+  "Bebedouro": {
+    "ibge_code": 3506102,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -20.949,
+      "lon": -48.479
+    }
+  },
+  "Beberibe": {
+    "ibge_code": 2302206,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -4.177,
+      "lon": -38.127
+    }
+  },
+  "Belford Roxo": {
+    "ibge_code": 3300456,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.764,
+      "lon": -43.399
+    }
+  },
+  "Belo Horizonte": {
+    "ibge_code": 3106200,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -19.91,
+      "lon": -43.927
+    }
+  },
+  "Belo Jardim": {
+    "ibge_code": 2601706,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -36.375
+    },
+    "target": {
+      "lat": -8.331,
+      "lon": -36.426
+    }
+  },
+  "Belém": {
+    "ibge_code": 1501402,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -1.455,
+      "lon": -48.49
+    }
+  },
+  "Benevides": {
+    "ibge_code": 1501501,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -1.362,
+      "lon": -48.243
+    }
+  },
+  "Bento Gonçalves": {
+    "ibge_code": 4302105,
+    "nearest": {
+      "lat": -29.125,
+      "lon": -51.625
+    },
+    "target": {
+      "lat": -29.166,
+      "lon": -51.516
+    }
+  },
+  "Bertioga": {
+    "ibge_code": 3506359,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -23.849,
+      "lon": -46.14
+    }
+  },
+  "Betim": {
+    "ibge_code": 3106705,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -19.967,
+      "lon": -44.201
+    }
+  },
+  "Bezerros": {
+    "ibge_code": 2601904,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -8.233,
+      "lon": -35.796
+    }
+  },
+  "Biguaçu": {
+    "ibge_code": 4202305,
+    "nearest": {
+      "lat": -27.375,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -27.496,
+      "lon": -48.66
+    }
+  },
+  "Birigui": {
+    "ibge_code": 3506508,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -21.291,
+      "lon": -50.343
+    }
+  },
+  "Blumenau": {
+    "ibge_code": 4202404,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -26.916,
+      "lon": -49.071
+    }
+  },
+  "Boa Viagem": {
+    "ibge_code": 2302404,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -5.113,
+      "lon": -39.734
+    }
+  },
+  "Boa Vista": {
+    "ibge_code": 1400100,
+    "nearest": {
+      "lat": 2.875,
+      "lon": -60.625
+    },
+    "target": {
+      "lat": 2.824,
+      "lon": -60.675
+    }
+  },
+  "Boituva": {
+    "ibge_code": 3507001,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -23.286,
+      "lon": -47.679
+    }
+  },
+  "Bom Despacho": {
+    "ibge_code": 3107406,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -19.739,
+      "lon": -45.262
+    }
+  },
+  "Bom Jesus da Lapa": {
+    "ibge_code": 2903904,
+    "nearest": {
+      "lat": -13.375,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -13.251,
+      "lon": -43.411
+    }
+  },
+  "Botucatu": {
+    "ibge_code": 3507506,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -22.884,
+      "lon": -48.444
+    }
+  },
+  "Bragança": {
+    "ibge_code": 1501709,
+    "nearest": {
+      "lat": -1.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -1.061,
+      "lon": -46.783
+    }
+  },
+  "Bragança Paulista": {
+    "ibge_code": 3507605,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -22.953,
+      "lon": -46.542
+    }
+  },
+  "Brasília": {
+    "ibge_code": 5300108,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -15.78,
+      "lon": -47.93
+    }
+  },
+  "Brejo Santo": {
+    "ibge_code": 2302503,
+    "nearest": {
+      "lat": -7.375,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -7.485,
+      "lon": -38.98
+    }
+  },
+  "Breves": {
+    "ibge_code": 1501808,
+    "nearest": {
+      "lat": -1.625,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -1.68,
+      "lon": -50.479
+    }
+  },
+  "Brumado": {
+    "ibge_code": 2904605,
+    "nearest": {
+      "lat": -14.125,
+      "lon": -41.625
+    },
+    "target": {
+      "lat": -14.202,
+      "lon": -41.67
+    }
+  },
+  "Brusque": {
+    "ibge_code": 4202909,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -27.098,
+      "lon": -48.911
+    }
+  },
+  "Buriticupu": {
+    "ibge_code": 2102325,
+    "nearest": {
+      "lat": -4.375,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -4.324,
+      "lon": -46.441
+    }
+  },
+  "Buíque": {
+    "ibge_code": 2602803,
+    "nearest": {
+      "lat": -8.625,
+      "lon": -37.125
+    },
+    "target": {
+      "lat": -8.62,
+      "lon": -37.161
+    }
+  },
+  "Cabedelo": {
+    "ibge_code": 2503209,
+    "nearest": {
+      "lat": -6.875,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -6.987,
+      "lon": -34.828
+    }
+  },
+  "Cabo Frio": {
+    "ibge_code": 3300704,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.125
+    },
+    "target": {
+      "lat": -22.889,
+      "lon": -42.029
+    }
+  },
+  "Cabo de Santo Agostinho": {
+    "ibge_code": 2602902,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.282,
+      "lon": -35.025
+    }
+  },
+  "Cachoeira do Sul": {
+    "ibge_code": 4303004,
+    "nearest": {
+      "lat": -30.125,
+      "lon": -52.875
+    },
+    "target": {
+      "lat": -30.033,
+      "lon": -52.893
+    }
+  },
+  "Cachoeiras de Macacu": {
+    "ibge_code": 3300803,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -22.466,
+      "lon": -42.652
+    }
+  },
+  "Cachoeirinha": {
+    "ibge_code": 4303103,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.947,
+      "lon": -51.102
+    }
+  },
+  "Cachoeiro de Itapemirim": {
+    "ibge_code": 3201209,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -41.125
+    },
+    "target": {
+      "lat": -20.846,
+      "lon": -41.12
+    }
+  },
+  "Cacoal": {
+    "ibge_code": 1100049,
+    "nearest": {
+      "lat": -11.375,
+      "lon": -61.375
+    },
+    "target": {
+      "lat": -11.434,
+      "lon": -61.456
+    }
+  },
+  "Caetité": {
+    "ibge_code": 2905206,
+    "nearest": {
+      "lat": -14.125,
+      "lon": -42.375
+    },
+    "target": {
+      "lat": -14.068,
+      "lon": -42.486
+    }
+  },
+  "Caicó": {
+    "ibge_code": 2402006,
+    "nearest": {
+      "lat": -6.375,
+      "lon": -37.125
+    },
+    "target": {
+      "lat": -6.454,
+      "lon": -37.107
+    }
+  },
+  "Caieiras": {
+    "ibge_code": 3509007,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.361,
+      "lon": -46.74
+    }
+  },
+  "Cajamar": {
+    "ibge_code": 3509205,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.355,
+      "lon": -46.878
+    }
+  },
+  "Cajazeiras": {
+    "ibge_code": 2503704,
+    "nearest": {
+      "lat": -6.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -6.88,
+      "lon": -38.558
+    }
+  },
+  "Caldas Novas": {
+    "ibge_code": 5204508,
+    "nearest": {
+      "lat": -17.625,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -17.744,
+      "lon": -48.625
+    }
+  },
+  "Camaquã": {
+    "ibge_code": 4303509,
+    "nearest": {
+      "lat": -30.875,
+      "lon": -51.875
+    },
+    "target": {
+      "lat": -30.849,
+      "lon": -51.804
+    }
+  },
+  "Camaragibe": {
+    "ibge_code": 2603454,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.024,
+      "lon": -34.978
+    }
+  },
+  "Camaçari": {
+    "ibge_code": 2905701,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -12.7,
+      "lon": -38.326
+    }
+  },
+  "Camboriú": {
+    "ibge_code": 4203204,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -27.024,
+      "lon": -48.65
+    }
+  },
+  "Cambé": {
+    "ibge_code": 4103701,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -23.277,
+      "lon": -51.28
+    }
+  },
+  "Cametá": {
+    "ibge_code": 1502103,
+    "nearest": {
+      "lat": -2.125,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -2.243,
+      "lon": -49.498
+    }
+  },
+  "Camocim": {
+    "ibge_code": 2302602,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -40.875
+    },
+    "target": {
+      "lat": -2.9,
+      "lon": -40.854
+    }
+  },
+  "Campina Grande": {
+    "ibge_code": 2504009,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -7.222,
+      "lon": -35.873
+    }
+  },
+  "Campinas": {
+    "ibge_code": 3509502,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -22.905,
+      "lon": -47.066
+    }
+  },
+  "Campo Belo": {
+    "ibge_code": 3111200,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -20.893,
+      "lon": -45.27
+    }
+  },
+  "Campo Bom": {
+    "ibge_code": 4303905,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.675,
+      "lon": -51.061
+    }
+  },
+  "Campo Formoso": {
+    "ibge_code": 2906006,
+    "nearest": {
+      "lat": -10.625,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -10.51,
+      "lon": -40.32
+    }
+  },
+  "Campo Grande": {
+    "ibge_code": 5002704,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -54.625
+    },
+    "target": {
+      "lat": -20.449,
+      "lon": -54.63
+    }
+  },
+  "Campo Largo": {
+    "ibge_code": 4104204,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -25.452,
+      "lon": -49.529
+    }
+  },
+  "Campo Limpo Paulista": {
+    "ibge_code": 3509601,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.208,
+      "lon": -46.789
+    }
+  },
+  "Campo Mourão": {
+    "ibge_code": 4104303,
+    "nearest": {
+      "lat": -24.125,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -24.046,
+      "lon": -52.378
+    }
+  },
+  "Campos dos Goytacazes": {
+    "ibge_code": 3301009,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -41.375
+    },
+    "target": {
+      "lat": -21.762,
+      "lon": -41.318
+    }
+  },
+  "Canaã dos Carajás": {
+    "ibge_code": 1502152,
+    "nearest": {
+      "lat": -6.375,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -6.497,
+      "lon": -49.878
+    }
+  },
+  "Candeias": {
+    "ibge_code": 2906501,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -12.672,
+      "lon": -38.547
+    }
+  },
+  "Canindé": {
+    "ibge_code": 2302800,
+    "nearest": {
+      "lat": -4.375,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -4.352,
+      "lon": -39.316
+    }
+  },
+  "Canoas": {
+    "ibge_code": 4304606,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.913,
+      "lon": -51.186
+    }
+  },
+  "Canoinhas": {
+    "ibge_code": 4203808,
+    "nearest": {
+      "lat": -26.125,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -26.177,
+      "lon": -50.395
+    }
+  },
+  "Capanema": {
+    "ibge_code": 1502202,
+    "nearest": {
+      "lat": -1.125,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -1.205,
+      "lon": -47.178
+    }
+  },
+  "Capitão Poço": {
+    "ibge_code": 1502301,
+    "nearest": {
+      "lat": -1.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -1.748,
+      "lon": -47.063
+    }
+  },
+  "Capivari": {
+    "ibge_code": 3510401,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -22.995,
+      "lon": -47.507
+    }
+  },
+  "Capão da Canoa": {
+    "ibge_code": 4304630,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -29.764,
+      "lon": -50.028
+    }
+  },
+  "Caraguatatuba": {
+    "ibge_code": 3510500,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -23.612,
+      "lon": -45.412
+    }
+  },
+  "Carapicuíba": {
+    "ibge_code": 3510609,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.524,
+      "lon": -46.841
+    }
+  },
+  "Caratinga": {
+    "ibge_code": 3113404,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -42.125
+    },
+    "target": {
+      "lat": -19.787,
+      "lon": -42.129
+    }
+  },
+  "Carazinho": {
+    "ibge_code": 4304705,
+    "nearest": {
+      "lat": -28.375,
+      "lon": -52.875
+    },
+    "target": {
+      "lat": -28.296,
+      "lon": -52.793
+    }
+  },
+  "Cariacica": {
+    "ibge_code": 3201308,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -20.263,
+      "lon": -40.416
+    }
+  },
+  "Carpina": {
+    "ibge_code": 2604007,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -7.846,
+      "lon": -35.251
+    }
+  },
+  "Caruaru": {
+    "ibge_code": 2604106,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -8.285,
+      "lon": -35.97
+    }
+  },
+  "Casa Nova": {
+    "ibge_code": 2907202,
+    "nearest": {
+      "lat": -9.125,
+      "lon": -40.875
+    },
+    "target": {
+      "lat": -9.164,
+      "lon": -40.974
+    }
+  },
+  "Cascavel": {
+    "ibge_code": 2303501,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -4.13,
+      "lon": -38.241
+    }
+  },
+  "Castanhal": {
+    "ibge_code": 1502400,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -1.298,
+      "lon": -47.917
+    }
+  },
+  "Castro": {
+    "ibge_code": 4104907,
+    "nearest": {
+      "lat": -24.875,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -24.789,
+      "lon": -50.011
+    }
+  },
+  "Cataguases": {
+    "ibge_code": 3115300,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -21.392,
+      "lon": -42.69
+    }
+  },
+  "Catalão": {
+    "ibge_code": 5205109,
+    "nearest": {
+      "lat": -18.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -18.166,
+      "lon": -47.944
+    }
+  },
+  "Catanduva": {
+    "ibge_code": 3511102,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -21.131,
+      "lon": -48.977
+    }
+  },
+  "Caucaia": {
+    "ibge_code": 2303709,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -3.728,
+      "lon": -38.662
+    }
+  },
+  "Caxias": {
+    "ibge_code": 2103000,
+    "nearest": {
+      "lat": -4.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -4.865,
+      "lon": -43.362
+    }
+  },
+  "Caxias do Sul": {
+    "ibge_code": 4305108,
+    "nearest": {
+      "lat": -29.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.163,
+      "lon": -51.179
+    }
+  },
+  "Caçador": {
+    "ibge_code": 4203006,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -26.776,
+      "lon": -51.012
+    }
+  },
+  "Caçapava": {
+    "ibge_code": 3508504,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -23.099,
+      "lon": -45.708
+    }
+  },
+  "Ceará-Mirim": {
+    "ibge_code": 2402600,
+    "nearest": {
+      "lat": -5.625,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -5.643,
+      "lon": -35.425
+    }
+  },
+  "Chapadinha": {
+    "ibge_code": 2103208,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -3.739,
+      "lon": -43.354
+    }
+  },
+  "Chapecó": {
+    "ibge_code": 4204202,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -52.625
+    },
+    "target": {
+      "lat": -27.1,
+      "lon": -52.615
+    }
+  },
+  "Cianorte": {
+    "ibge_code": 4105508,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -52.625
+    },
+    "target": {
+      "lat": -23.66,
+      "lon": -52.605
+    }
+  },
+  "Cidade Ocidental": {
+    "ibge_code": 5205497,
+    "nearest": {
+      "lat": -16.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -16.076,
+      "lon": -47.925
+    }
+  },
+  "Coari": {
+    "ibge_code": 1301209,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -63.125
+    },
+    "target": {
+      "lat": -4.094,
+      "lon": -63.144
+    }
+  },
+  "Codó": {
+    "ibge_code": 2103307,
+    "nearest": {
+      "lat": -4.375,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -4.456,
+      "lon": -43.892
+    }
+  },
+  "Colatina": {
+    "ibge_code": 3201506,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -19.549,
+      "lon": -40.627
+    }
+  },
+  "Colombo": {
+    "ibge_code": 4105805,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -25.292,
+      "lon": -49.226
+    }
+  },
+  "Conceição do Coité": {
+    "ibge_code": 2908408,
+    "nearest": {
+      "lat": -11.625,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -11.56,
+      "lon": -39.281
+    }
+  },
+  "Concórdia": {
+    "ibge_code": 4204301,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -52.125
+    },
+    "target": {
+      "lat": -27.234,
+      "lon": -52.026
+    }
+  },
+  "Congonhas": {
+    "ibge_code": 3118007,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -20.496,
+      "lon": -43.851
+    }
+  },
+  "Conselheiro Lafaiete": {
+    "ibge_code": 3118304,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -20.663,
+      "lon": -43.785
+    }
+  },
+  "Contagem": {
+    "ibge_code": 3118601,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -19.932,
+      "lon": -44.054
+    }
+  },
+  "Coroatá": {
+    "ibge_code": 2103604,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -4.134,
+      "lon": -44.124
+    }
+  },
+  "Coronel Fabriciano": {
+    "ibge_code": 3119401,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -19.518,
+      "lon": -42.628
+    }
+  },
+  "Corumbá": {
+    "ibge_code": 5003207,
+    "nearest": {
+      "lat": -19.125,
+      "lon": -57.625
+    },
+    "target": {
+      "lat": -19.008,
+      "lon": -57.651
+    }
+  },
+  "Coruripe": {
+    "ibge_code": 2702306,
+    "nearest": {
+      "lat": -10.125,
+      "lon": -36.125
+    },
+    "target": {
+      "lat": -10.128,
+      "lon": -36.172
+    }
+  },
+  "Cosmópolis": {
+    "ibge_code": 3512803,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -22.642,
+      "lon": -47.193
+    }
+  },
+  "Cotia": {
+    "ibge_code": 3513009,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.602,
+      "lon": -46.919
+    }
+  },
+  "Crateús": {
+    "ibge_code": 2304103,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -5.168,
+      "lon": -40.654
+    }
+  },
+  "Crato": {
+    "ibge_code": 2304202,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -7.215,
+      "lon": -39.41
+    }
+  },
+  "Criciúma": {
+    "ibge_code": 4204608,
+    "nearest": {
+      "lat": -28.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -28.672,
+      "lon": -49.373
+    }
+  },
+  "Cristalina": {
+    "ibge_code": 5206206,
+    "nearest": {
+      "lat": -16.875,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -16.768,
+      "lon": -47.613
+    }
+  },
+  "Cruz Alta": {
+    "ibge_code": 4306106,
+    "nearest": {
+      "lat": -28.625,
+      "lon": -53.625
+    },
+    "target": {
+      "lat": -28.645,
+      "lon": -53.605
+    }
+  },
+  "Cruz das Almas": {
+    "ibge_code": 2909802,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -12.668,
+      "lon": -39.101
+    }
+  },
+  "Cruzeiro": {
+    "ibge_code": 3513405,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -22.573,
+      "lon": -44.969
+    }
+  },
+  "Cruzeiro do Sul": {
+    "ibge_code": 1200203,
+    "nearest": {
+      "lat": -7.625,
+      "lon": -72.625
+    },
+    "target": {
+      "lat": -7.628,
+      "lon": -72.676
+    }
+  },
+  "Cubatão": {
+    "ibge_code": 3513504,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.891,
+      "lon": -46.424
+    }
+  },
+  "Cuiabá": {
+    "ibge_code": 5103403,
+    "nearest": {
+      "lat": -15.625,
+      "lon": -56.125
+    },
+    "target": {
+      "lat": -15.601,
+      "lon": -56.097
+    }
+  },
+  "Curitiba": {
+    "ibge_code": 4106902,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -25.42,
+      "lon": -49.265
+    }
+  },
+  "Curvelo": {
+    "ibge_code": 3120904,
+    "nearest": {
+      "lat": -18.875,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -18.753,
+      "lon": -44.43
+    }
+  },
+  "Cáceres": {
+    "ibge_code": 5102504,
+    "nearest": {
+      "lat": -16.125,
+      "lon": -57.625
+    },
+    "target": {
+      "lat": -16.076,
+      "lon": -57.682
+    }
+  },
+  "Delmiro Gouveia": {
+    "ibge_code": 2702405,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -37.875
+    },
+    "target": {
+      "lat": -9.385,
+      "lon": -37.999
+    }
+  },
+  "Diadema": {
+    "ibge_code": 3513801,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.681,
+      "lon": -46.62
+    }
+  },
+  "Dias d'Ávila": {
+    "ibge_code": 2910057,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -12.619,
+      "lon": -38.293
+    }
+  },
+  "Divinópolis": {
+    "ibge_code": 3122306,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -20.145,
+      "lon": -44.891
+    }
+  },
+  "Dom Eliseu": {
+    "ibge_code": 1502939,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -4.199,
+      "lon": -47.824
+    }
+  },
+  "Dourados": {
+    "ibge_code": 5003702,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -54.875
+    },
+    "target": {
+      "lat": -22.223,
+      "lon": -54.812
+    }
+  },
+  "Duque de Caxias": {
+    "ibge_code": 3301702,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.786,
+      "lon": -43.305
+    }
+  },
+  "Embu das Artes": {
+    "ibge_code": 3515004,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.644,
+      "lon": -46.858
+    }
+  },
+  "Embu-Guaçu": {
+    "ibge_code": 3515103,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.83,
+      "lon": -46.814
+    }
+  },
+  "Erechim": {
+    "ibge_code": 4307005,
+    "nearest": {
+      "lat": -27.625,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -27.636,
+      "lon": -52.27
+    }
+  },
+  "Escada": {
+    "ibge_code": 2605202,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.357,
+      "lon": -35.224
+    }
+  },
+  "Esmeraldas": {
+    "ibge_code": 3124104,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -19.764,
+      "lon": -44.306
+    }
+  },
+  "Esteio": {
+    "ibge_code": 4307708,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.852,
+      "lon": -51.184
+    }
+  },
+  "Estância": {
+    "ibge_code": 2802106,
+    "nearest": {
+      "lat": -11.375,
+      "lon": -37.375
+    },
+    "target": {
+      "lat": -11.266,
+      "lon": -37.448
+    }
+  },
+  "Euclides da Cunha": {
+    "ibge_code": 2910701,
+    "nearest": {
+      "lat": -10.625,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -10.508,
+      "lon": -39.015
+    }
+  },
+  "Eunápolis": {
+    "ibge_code": 2910727,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -16.372,
+      "lon": -39.582
+    }
+  },
+  "Eusébio": {
+    "ibge_code": 2304285,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -3.892,
+      "lon": -38.456
+    }
+  },
+  "Extrema": {
+    "ibge_code": 3125101,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -22.854,
+      "lon": -46.318
+    }
+  },
+  "Extremoz": {
+    "ibge_code": 2403608,
+    "nearest": {
+      "lat": -5.625,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -5.701,
+      "lon": -35.305
+    }
+  },
+  "Farroupilha": {
+    "ibge_code": 4307906,
+    "nearest": {
+      "lat": -29.125,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -29.223,
+      "lon": -51.342
+    }
+  },
+  "Fazenda Rio Grande": {
+    "ibge_code": 4107652,
+    "nearest": {
+      "lat": -25.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -25.662,
+      "lon": -49.307
+    }
+  },
+  "Feira de Santana": {
+    "ibge_code": 2910800,
+    "nearest": {
+      "lat": -12.375,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -12.266,
+      "lon": -38.966
+    }
+  },
+  "Fernandópolis": {
+    "ibge_code": 3515509,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -20.281,
+      "lon": -50.247
+    }
+  },
+  "Ferraz de Vasconcelos": {
+    "ibge_code": 3515707,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.541,
+      "lon": -46.371
+    }
+  },
+  "Floriano": {
+    "ibge_code": 2203909,
+    "nearest": {
+      "lat": -6.875,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -6.772,
+      "lon": -43.024
+    }
+  },
+  "Florianópolis": {
+    "ibge_code": 4205407,
+    "nearest": {
+      "lat": -27.625,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -27.594,
+      "lon": -48.548
+    }
+  },
+  "Formiga": {
+    "ibge_code": 3126109,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -20.462,
+      "lon": -45.427
+    }
+  },
+  "Formosa": {
+    "ibge_code": 5208004,
+    "nearest": {
+      "lat": -15.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -15.54,
+      "lon": -47.337
+    }
+  },
+  "Fortaleza": {
+    "ibge_code": 2304400,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -3.717,
+      "lon": -38.542
+    }
+  },
+  "Foz do Iguaçu": {
+    "ibge_code": 4108304,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -54.375
+    },
+    "target": {
+      "lat": -25.543,
+      "lon": -54.583
+    }
+  },
+  "Franca": {
+    "ibge_code": 3516200,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -20.535,
+      "lon": -47.404
+    }
+  },
+  "Francisco Beltrão": {
+    "ibge_code": 4108403,
+    "nearest": {
+      "lat": -26.125,
+      "lon": -53.125
+    },
+    "target": {
+      "lat": -26.082,
+      "lon": -53.054
+    }
+  },
+  "Francisco Morato": {
+    "ibge_code": 3516309,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.279,
+      "lon": -46.745
+    }
+  },
+  "Franco da Rocha": {
+    "ibge_code": 3516408,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.323,
+      "lon": -46.729
+    }
+  },
+  "Frutal": {
+    "ibge_code": 3127107,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -20.026,
+      "lon": -48.936
+    }
+  },
+  "Garanhuns": {
+    "ibge_code": 2606002,
+    "nearest": {
+      "lat": -8.875,
+      "lon": -36.375
+    },
+    "target": {
+      "lat": -8.882,
+      "lon": -36.497
+    }
+  },
+  "Gaspar": {
+    "ibge_code": 4205902,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.934,
+      "lon": -48.953
+    }
+  },
+  "Goiana": {
+    "ibge_code": 2606200,
+    "nearest": {
+      "lat": -7.625,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.561,
+      "lon": -34.996
+    }
+  },
+  "Goianira": {
+    "ibge_code": 5208806,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -16.495,
+      "lon": -49.427
+    }
+  },
+  "Goianésia": {
+    "ibge_code": 5208608,
+    "nearest": {
+      "lat": -15.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -15.312,
+      "lon": -49.116
+    }
+  },
+  "Goiânia": {
+    "ibge_code": 5208707,
+    "nearest": {
+      "lat": -16.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -16.686,
+      "lon": -49.264
+    }
+  },
+  "Governador Valadares": {
+    "ibge_code": 3127701,
+    "nearest": {
+      "lat": -18.875,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -18.854,
+      "lon": -41.956
+    }
+  },
+  "Grajaú": {
+    "ibge_code": 2104800,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -5.814,
+      "lon": -46.146
+    }
+  },
+  "Granja": {
+    "ibge_code": 2304707,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -40.875
+    },
+    "target": {
+      "lat": -3.128,
+      "lon": -40.837
+    }
+  },
+  "Gravataí": {
+    "ibge_code": 4309209,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -50.875
+    },
+    "target": {
+      "lat": -29.941,
+      "lon": -50.987
+    }
+  },
+  "Gravatá": {
+    "ibge_code": 2606408,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.625
+    },
+    "target": {
+      "lat": -8.211,
+      "lon": -35.568
+    }
+  },
+  "Guanambi": {
+    "ibge_code": 2911709,
+    "nearest": {
+      "lat": -14.125,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -14.223,
+      "lon": -42.78
+    }
+  },
+  "Guapimirim": {
+    "ibge_code": 3301850,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -22.535,
+      "lon": -42.99
+    }
+  },
+  "Guarabira": {
+    "ibge_code": 2506301,
+    "nearest": {
+      "lat": -6.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -6.851,
+      "lon": -35.485
+    }
+  },
+  "Guarapari": {
+    "ibge_code": 3202405,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -20.677,
+      "lon": -40.509
+    }
+  },
+  "Guarapuava": {
+    "ibge_code": 4109401,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -25.39,
+      "lon": -51.462
+    }
+  },
+  "Guaratinguetá": {
+    "ibge_code": 3518404,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -22.808,
+      "lon": -45.194
+    }
+  },
+  "Guarujá": {
+    "ibge_code": 3518701,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.989,
+      "lon": -46.258
+    }
+  },
+  "Guarulhos": {
+    "ibge_code": 3518800,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.454,
+      "lon": -46.533
+    }
+  },
+  "Guaxupé": {
+    "ibge_code": 3128709,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -21.305,
+      "lon": -46.708
+    }
+  },
+  "Guaíba": {
+    "ibge_code": 4309308,
+    "nearest": {
+      "lat": -30.125,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -30.109,
+      "lon": -51.323
+    }
+  },
+  "Gurupi": {
+    "ibge_code": 1709500,
+    "nearest": {
+      "lat": -11.625,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -11.728,
+      "lon": -49.068
+    }
+  },
+  "Horizonte": {
+    "ibge_code": 2305233,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -4.121,
+      "lon": -38.471
+    }
+  },
+  "Hortolândia": {
+    "ibge_code": 3519071,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -22.853,
+      "lon": -47.214
+    }
+  },
+  "Humaitá": {
+    "ibge_code": 1301704,
+    "nearest": {
+      "lat": -7.625,
+      "lon": -63.125
+    },
+    "target": {
+      "lat": -7.512,
+      "lon": -63.033
+    }
+  },
+  "Ibiporã": {
+    "ibge_code": 4109807,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -23.266,
+      "lon": -51.052
+    }
+  },
+  "Ibirité": {
+    "ibge_code": 3129806,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -20.025,
+      "lon": -44.057
+    }
+  },
+  "Ibitinga": {
+    "ibge_code": 3519600,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -21.756,
+      "lon": -48.832
+    }
+  },
+  "Ibiúna": {
+    "ibge_code": 3519709,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.66,
+      "lon": -47.223
+    }
+  },
+  "Icó": {
+    "ibge_code": 2305407,
+    "nearest": {
+      "lat": -6.375,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -6.396,
+      "lon": -38.855
+    }
+  },
+  "Igarapé-Miri": {
+    "ibge_code": 1503309,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -1.975,
+      "lon": -48.958
+    }
+  },
+  "Igarassu": {
+    "ibge_code": 2606804,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.829,
+      "lon": -34.901
+    }
+  },
+  "Iguatu": {
+    "ibge_code": 2305506,
+    "nearest": {
+      "lat": -6.375,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -6.363,
+      "lon": -39.289
+    }
+  },
+  "Ijuí": {
+    "ibge_code": 4310207,
+    "nearest": {
+      "lat": -28.375,
+      "lon": -53.875
+    },
+    "target": {
+      "lat": -28.388,
+      "lon": -53.92
+    }
+  },
+  "Ilhéus": {
+    "ibge_code": 2913606,
+    "nearest": {
+      "lat": -14.875,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -14.793,
+      "lon": -39.046
+    }
+  },
+  "Imbituba": {
+    "ibge_code": 4207304,
+    "nearest": {
+      "lat": -28.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -28.228,
+      "lon": -48.666
+    }
+  },
+  "Imperatriz": {
+    "ibge_code": 2105302,
+    "nearest": {
+      "lat": -5.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -5.518,
+      "lon": -47.478
+    }
+  },
+  "Indaial": {
+    "ibge_code": 4207502,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -26.899,
+      "lon": -49.235
+    }
+  },
+  "Indaiatuba": {
+    "ibge_code": 3520509,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.082,
+      "lon": -47.21
+    }
+  },
+  "Inhumas": {
+    "ibge_code": 5210000,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -16.361,
+      "lon": -49.5
+    }
+  },
+  "Ipatinga": {
+    "ibge_code": 3131307,
+    "nearest": {
+      "lat": -19.375,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -19.47,
+      "lon": -42.548
+    }
+  },
+  "Ipirá": {
+    "ibge_code": 2914000,
+    "nearest": {
+      "lat": -12.125,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -12.156,
+      "lon": -39.736
+    }
+  },
+  "Ipojuca": {
+    "ibge_code": 2607208,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.393,
+      "lon": -35.061
+    }
+  },
+  "Iranduba": {
+    "ibge_code": 1301852,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -60.125
+    },
+    "target": {
+      "lat": -3.275,
+      "lon": -60.19
+    }
+  },
+  "Irati": {
+    "ibge_code": 4110706,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -50.625
+    },
+    "target": {
+      "lat": -25.47,
+      "lon": -50.649
+    }
+  },
+  "Irecê": {
+    "ibge_code": 2914604,
+    "nearest": {
+      "lat": -11.375,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -11.303,
+      "lon": -41.854
+    }
+  },
+  "Itabaiana": {
+    "ibge_code": 2802908,
+    "nearest": {
+      "lat": -10.625,
+      "lon": -37.375
+    },
+    "target": {
+      "lat": -10.683,
+      "lon": -37.427
+    }
+  },
+  "Itaberaba": {
+    "ibge_code": 2914703,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -12.524,
+      "lon": -40.306
+    }
+  },
+  "Itabira": {
+    "ibge_code": 3131703,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -19.624,
+      "lon": -43.231
+    }
+  },
+  "Itabirito": {
+    "ibge_code": 3131901,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -20.25,
+      "lon": -43.804
+    }
+  },
+  "Itaboraí": {
+    "ibge_code": 3301900,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -22.756,
+      "lon": -42.864
+    }
+  },
+  "Itabuna": {
+    "ibge_code": 2914802,
+    "nearest": {
+      "lat": -14.875,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -14.788,
+      "lon": -39.278
+    }
+  },
+  "Itacoatiara": {
+    "ibge_code": 1301902,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -58.375
+    },
+    "target": {
+      "lat": -3.139,
+      "lon": -58.445
+    }
+  },
+  "Itaguaí": {
+    "ibge_code": 3302007,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -22.864,
+      "lon": -43.78
+    }
+  },
+  "Itaitinga": {
+    "ibge_code": 2306256,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -3.966,
+      "lon": -38.53
+    }
+  },
+  "Itaituba": {
+    "ibge_code": 1503606,
+    "nearest": {
+      "lat": -4.375,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -4.267,
+      "lon": -55.993
+    }
+  },
+  "Itajaí": {
+    "ibge_code": 4208203,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.91,
+      "lon": -48.67
+    }
+  },
+  "Itajubá": {
+    "ibge_code": 3132404,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -22.422,
+      "lon": -45.46
+    }
+  },
+  "Itamaraju": {
+    "ibge_code": 2915601,
+    "nearest": {
+      "lat": -17.125,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -17.038,
+      "lon": -39.539
+    }
+  },
+  "Itanhaém": {
+    "ibge_code": 3522109,
+    "nearest": {
+      "lat": -24.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -24.174,
+      "lon": -46.788
+    }
+  },
+  "Itapecerica da Serra": {
+    "ibge_code": 3522208,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.716,
+      "lon": -46.857
+    }
+  },
+  "Itapecuru-Mirim": {
+    "ibge_code": 2105401,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -3.402,
+      "lon": -44.351
+    }
+  },
+  "Itapema": {
+    "ibge_code": 4208302,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -27.086,
+      "lon": -48.616
+    }
+  },
+  "Itaperuna": {
+    "ibge_code": 3302205,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -21.2,
+      "lon": -41.88
+    }
+  },
+  "Itapetinga": {
+    "ibge_code": 2916401,
+    "nearest": {
+      "lat": -15.125,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -15.248,
+      "lon": -40.248
+    }
+  },
+  "Itapetininga": {
+    "ibge_code": 3522307,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -23.589,
+      "lon": -48.048
+    }
+  },
+  "Itapeva": {
+    "ibge_code": 3522406,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -23.979,
+      "lon": -48.876
+    }
+  },
+  "Itapevi": {
+    "ibge_code": 3522505,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.549,
+      "lon": -46.933
+    }
+  },
+  "Itapipoca": {
+    "ibge_code": 2306405,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -3.499,
+      "lon": -39.584
+    }
+  },
+  "Itapira": {
+    "ibge_code": 3522604,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.436,
+      "lon": -46.822
+    }
+  },
+  "Itaquaquecetuba": {
+    "ibge_code": 3523107,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.484,
+      "lon": -46.346
+    }
+  },
+  "Itatiba": {
+    "ibge_code": 3523404,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.004,
+      "lon": -46.846
+    }
+  },
+  "Itaúna": {
+    "ibge_code": 3133808,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -44.625
+    },
+    "target": {
+      "lat": -20.082,
+      "lon": -44.58
+    }
+  },
+  "Itu": {
+    "ibge_code": 3523909,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -23.254,
+      "lon": -47.293
+    }
+  },
+  "Ituiutaba": {
+    "ibge_code": 3134202,
+    "nearest": {
+      "lat": -18.875,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -18.977,
+      "lon": -49.464
+    }
+  },
+  "Itumbiara": {
+    "ibge_code": 5211503,
+    "nearest": {
+      "lat": -18.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -18.409,
+      "lon": -49.216
+    }
+  },
+  "Itupeva": {
+    "ibge_code": 3524006,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.153,
+      "lon": -47.059
+    }
+  },
+  "Içara": {
+    "ibge_code": 4207007,
+    "nearest": {
+      "lat": -28.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -28.713,
+      "lon": -49.309
+    }
+  },
+  "Jaboatão dos Guararapes": {
+    "ibge_code": 2607901,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.113,
+      "lon": -35.015
+    }
+  },
+  "Jaboticabal": {
+    "ibge_code": 3524303,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -21.252,
+      "lon": -48.325
+    }
+  },
+  "Jacareí": {
+    "ibge_code": 3524402,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -45.875
+    },
+    "target": {
+      "lat": -23.298,
+      "lon": -45.966
+    }
+  },
+  "Jacobina": {
+    "ibge_code": 2917508,
+    "nearest": {
+      "lat": -11.125,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -11.181,
+      "lon": -40.512
+    }
+  },
+  "Jaguariúna": {
+    "ibge_code": 3524709,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.704,
+      "lon": -46.985
+    }
+  },
+  "Janaúba": {
+    "ibge_code": 3135100,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -15.802,
+      "lon": -43.313
+    }
+  },
+  "Jandira": {
+    "ibge_code": 3525003,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.528,
+      "lon": -46.902
+    }
+  },
+  "Januária": {
+    "ibge_code": 3135209,
+    "nearest": {
+      "lat": -15.375,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -15.48,
+      "lon": -44.364
+    }
+  },
+  "Japeri": {
+    "ibge_code": 3302270,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -43.625
+    },
+    "target": {
+      "lat": -22.644,
+      "lon": -43.66
+    }
+  },
+  "Jaraguá do Sul": {
+    "ibge_code": 4208906,
+    "nearest": {
+      "lat": -26.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -26.485,
+      "lon": -49.071
+    }
+  },
+  "Jaru": {
+    "ibge_code": 1100114,
+    "nearest": {
+      "lat": -10.375,
+      "lon": -62.375
+    },
+    "target": {
+      "lat": -10.432,
+      "lon": -62.479
+    }
+  },
+  "Jataí": {
+    "ibge_code": 5211909,
+    "nearest": {
+      "lat": -17.875,
+      "lon": -51.625
+    },
+    "target": {
+      "lat": -17.878,
+      "lon": -51.72
+    }
+  },
+  "Jaú": {
+    "ibge_code": 3525300,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -22.294,
+      "lon": -48.559
+    }
+  },
+  "Jequié": {
+    "ibge_code": 2918001,
+    "nearest": {
+      "lat": -13.875,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -13.851,
+      "lon": -40.088
+    }
+  },
+  "Ji-Paraná": {
+    "ibge_code": 1100122,
+    "nearest": {
+      "lat": -10.875,
+      "lon": -61.875
+    },
+    "target": {
+      "lat": -10.878,
+      "lon": -61.932
+    }
+  },
+  "Joinville": {
+    "ibge_code": 4209102,
+    "nearest": {
+      "lat": -26.375,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.304,
+      "lon": -48.849
+    }
+  },
+  "João Monlevade": {
+    "ibge_code": 3136207,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -19.813,
+      "lon": -43.174
+    }
+  },
+  "João Pessoa": {
+    "ibge_code": 2507507,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.115,
+      "lon": -34.864
+    }
+  },
+  "Juazeiro": {
+    "ibge_code": 2918407,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -9.416,
+      "lon": -40.503
+    }
+  },
+  "Juazeiro do Norte": {
+    "ibge_code": 2307304,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -7.196,
+      "lon": -39.308
+    }
+  },
+  "Juiz de Fora": {
+    "ibge_code": 3136702,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -21.76,
+      "lon": -43.34
+    }
+  },
+  "Jundiaí": {
+    "ibge_code": 3525904,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.185,
+      "lon": -46.897
+    }
+  },
+  "Juruti": {
+    "ibge_code": 1503903,
+    "nearest": {
+      "lat": -2.125,
+      "lon": -56.125
+    },
+    "target": {
+      "lat": -2.163,
+      "lon": -56.089
+    }
+  },
+  "Lagarto": {
+    "ibge_code": 2803500,
+    "nearest": {
+      "lat": -10.875,
+      "lon": -37.625
+    },
+    "target": {
+      "lat": -10.914,
+      "lon": -37.669
+    }
+  },
+  "Lages": {
+    "ibge_code": 4209300,
+    "nearest": {
+      "lat": -27.875,
+      "lon": -50.375
+    },
+    "target": {
+      "lat": -27.815,
+      "lon": -50.326
+    }
+  },
+  "Lagoa Santa": {
+    "ibge_code": 3137601,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -19.64,
+      "lon": -43.893
+    }
+  },
+  "Lagoa da Prata": {
+    "ibge_code": 3137205,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -20.024,
+      "lon": -45.54
+    }
+  },
+  "Lajeado": {
+    "ibge_code": 4311403,
+    "nearest": {
+      "lat": -29.375,
+      "lon": -51.875
+    },
+    "target": {
+      "lat": -29.459,
+      "lon": -51.964
+    }
+  },
+  "Lauro de Freitas": {
+    "ibge_code": 2919207,
+    "nearest": {
+      "lat": -12.875,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -12.898,
+      "lon": -38.321
+    }
+  },
+  "Lavras": {
+    "ibge_code": 3138203,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -21.248,
+      "lon": -45.001
+    }
+  },
+  "Leme": {
+    "ibge_code": 3526704,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.181,
+      "lon": -47.384
+    }
+  },
+  "Lençóis Paulista": {
+    "ibge_code": 3526803,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -22.603,
+      "lon": -48.804
+    }
+  },
+  "Leopoldina": {
+    "ibge_code": 3138401,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -21.53,
+      "lon": -42.642
+    }
+  },
+  "Limeira": {
+    "ibge_code": 3526902,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.566,
+      "lon": -47.397
+    }
+  },
+  "Limoeiro": {
+    "ibge_code": 2608909,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -7.873,
+      "lon": -35.44
+    }
+  },
+  "Limoeiro do Norte": {
+    "ibge_code": 2307601,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -38.125
+    },
+    "target": {
+      "lat": -5.144,
+      "lon": -38.085
+    }
+  },
+  "Linhares": {
+    "ibge_code": 3203205,
+    "nearest": {
+      "lat": -19.375,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -19.395,
+      "lon": -40.064
+    }
+  },
+  "Lins": {
+    "ibge_code": 3527108,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -21.672,
+      "lon": -49.753
+    }
+  },
+  "Londrina": {
+    "ibge_code": 4113700,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -23.304,
+      "lon": -51.169
+    }
+  },
+  "Lorena": {
+    "ibge_code": 3527207,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -22.733,
+      "lon": -45.12
+    }
+  },
+  "Louveira": {
+    "ibge_code": 3527306,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.086,
+      "lon": -46.948
+    }
+  },
+  "Lucas do Rio Verde": {
+    "ibge_code": 5105259,
+    "nearest": {
+      "lat": -13.125,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -13.059,
+      "lon": -55.904
+    }
+  },
+  "Luziânia": {
+    "ibge_code": 5212501,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -16.253,
+      "lon": -47.95
+    }
+  },
+  "Luís Eduardo Magalhães": {
+    "ibge_code": 2919553,
+    "nearest": {
+      "lat": -12.125,
+      "lon": -45.875
+    },
+    "target": {
+      "lat": -12.096,
+      "lon": -45.787
+    }
+  },
+  "Macapá": {
+    "ibge_code": 1600303,
+    "nearest": {
+      "lat": 0.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": 0.035,
+      "lon": -51.069
+    }
+  },
+  "Macaé": {
+    "ibge_code": 3302403,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -22.377,
+      "lon": -41.785
+    }
+  },
+  "Macaíba": {
+    "ibge_code": 2407104,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -5.852,
+      "lon": -35.355
+    }
+  },
+  "Maceió": {
+    "ibge_code": 2704302,
+    "nearest": {
+      "lat": -9.625,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -9.666,
+      "lon": -35.735
+    }
+  },
+  "Mafra": {
+    "ibge_code": 4210100,
+    "nearest": {
+      "lat": -26.125,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -26.116,
+      "lon": -49.809
+    }
+  },
+  "Magé": {
+    "ibge_code": 3302502,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -22.663,
+      "lon": -43.032
+    }
+  },
+  "Mairinque": {
+    "ibge_code": 3528403,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.54,
+      "lon": -47.185
+    }
+  },
+  "Mairiporã": {
+    "ibge_code": 3528502,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.317,
+      "lon": -46.59
+    }
+  },
+  "Manacapuru": {
+    "ibge_code": 1302504,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -60.625
+    },
+    "target": {
+      "lat": -3.291,
+      "lon": -60.622
+    }
+  },
+  "Manaus": {
+    "ibge_code": 1302603,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -60.125
+    },
+    "target": {
+      "lat": -3.119,
+      "lon": -60.021
+    }
+  },
+  "Manhuaçu": {
+    "ibge_code": 3139409,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -42.125
+    },
+    "target": {
+      "lat": -20.257,
+      "lon": -42.028
+    }
+  },
+  "Manicoré": {
+    "ibge_code": 1302702,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -61.375
+    },
+    "target": {
+      "lat": -5.805,
+      "lon": -61.29
+    }
+  },
+  "Marabá": {
+    "ibge_code": 1504208,
+    "nearest": {
+      "lat": -5.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -5.381,
+      "lon": -49.133
+    }
+  },
+  "Maracanaú": {
+    "ibge_code": 2307650,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -3.867,
+      "lon": -38.626
+    }
+  },
+  "Maranguape": {
+    "ibge_code": 2307700,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -3.891,
+      "lon": -38.683
+    }
+  },
+  "Marechal Cândido Rondon": {
+    "ibge_code": 4114609,
+    "nearest": {
+      "lat": -24.625,
+      "lon": -54.125
+    },
+    "target": {
+      "lat": -24.557,
+      "lon": -54.057
+    }
+  },
+  "Marechal Deodoro": {
+    "ibge_code": 2704708,
+    "nearest": {
+      "lat": -9.625,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -9.71,
+      "lon": -35.897
+    }
+  },
+  "Mariana": {
+    "ibge_code": 3140001,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -20.376,
+      "lon": -43.414
+    }
+  },
+  "Maricá": {
+    "ibge_code": 3302700,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -22.935,
+      "lon": -42.825
+    }
+  },
+  "Maringá": {
+    "ibge_code": 4115200,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.875
+    },
+    "target": {
+      "lat": -23.42,
+      "lon": -51.933
+    }
+  },
+  "Marituba": {
+    "ibge_code": 1504422,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -1.36,
+      "lon": -48.342
+    }
+  },
+  "Marília": {
+    "ibge_code": 3529005,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -22.217,
+      "lon": -49.95
+    }
+  },
+  "Matão": {
+    "ibge_code": 3529302,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -21.602,
+      "lon": -48.364
+    }
+  },
+  "Mauá": {
+    "ibge_code": 3529401,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.668,
+      "lon": -46.461
+    }
+  },
+  "Maués": {
+    "ibge_code": 1302900,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -57.625
+    },
+    "target": {
+      "lat": -3.393,
+      "lon": -57.707
+    }
+  },
+  "Medianeira": {
+    "ibge_code": 4115804,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -54.125
+    },
+    "target": {
+      "lat": -25.298,
+      "lon": -54.094
+    }
+  },
+  "Mesquita": {
+    "ibge_code": 3302858,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.803,
+      "lon": -43.46
+    }
+  },
+  "Mineiros": {
+    "ibge_code": 5213103,
+    "nearest": {
+      "lat": -17.625,
+      "lon": -52.625
+    },
+    "target": {
+      "lat": -17.565,
+      "lon": -52.554
+    }
+  },
+  "Mirassol": {
+    "ibge_code": 3530300,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -20.817,
+      "lon": -49.521
+    }
+  },
+  "Mococa": {
+    "ibge_code": 3530508,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -21.465,
+      "lon": -47.002
+    }
+  },
+  "Mogi Guaçu": {
+    "ibge_code": 3530706,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.368,
+      "lon": -46.943
+    }
+  },
+  "Mogi Mirim": {
+    "ibge_code": 3530805,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.433,
+      "lon": -46.953
+    }
+  },
+  "Mogi das Cruzes": {
+    "ibge_code": 3530607,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -23.521,
+      "lon": -46.185
+    }
+  },
+  "Moju": {
+    "ibge_code": 1504703,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -1.89,
+      "lon": -48.767
+    }
+  },
+  "Mongaguá": {
+    "ibge_code": 3531100,
+    "nearest": {
+      "lat": -24.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -24.081,
+      "lon": -46.626
+    }
+  },
+  "Monte Alegre": {
+    "ibge_code": 1504802,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -54.125
+    },
+    "target": {
+      "lat": -1.998,
+      "lon": -54.072
+    }
+  },
+  "Monte Mor": {
+    "ibge_code": 3531803,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.945,
+      "lon": -47.312
+    }
+  },
+  "Montenegro": {
+    "ibge_code": 4312401,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -29.682,
+      "lon": -51.468
+    }
+  },
+  "Montes Claros": {
+    "ibge_code": 3143302,
+    "nearest": {
+      "lat": -16.625,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -16.728,
+      "lon": -43.858
+    }
+  },
+  "Morada Nova": {
+    "ibge_code": 2308708,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -5.097,
+      "lon": -38.37
+    }
+  },
+  "Moreno": {
+    "ibge_code": 2609402,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.109,
+      "lon": -35.084
+    }
+  },
+  "Morrinhos": {
+    "ibge_code": 5213806,
+    "nearest": {
+      "lat": -17.625,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -17.733,
+      "lon": -49.106
+    }
+  },
+  "Mossoró": {
+    "ibge_code": 2408003,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -37.375
+    },
+    "target": {
+      "lat": -5.184,
+      "lon": -37.347
+    }
+  },
+  "Muriaé": {
+    "ibge_code": 3143906,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -42.375
+    },
+    "target": {
+      "lat": -21.13,
+      "lon": -42.369
+    }
+  },
+  "Natal": {
+    "ibge_code": 2408102,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -5.794,
+      "lon": -35.199
+    }
+  },
+  "Navegantes": {
+    "ibge_code": 4211306,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.894,
+      "lon": -48.655
+    }
+  },
+  "Naviraí": {
+    "ibge_code": 5005707,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -54.125
+    },
+    "target": {
+      "lat": -23.062,
+      "lon": -54.2
+    }
+  },
+  "Nilópolis": {
+    "ibge_code": 3303203,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.806,
+      "lon": -43.423
+    }
+  },
+  "Niterói": {
+    "ibge_code": 3303302,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.883,
+      "lon": -43.103
+    }
+  },
+  "Nossa Senhora do Socorro": {
+    "ibge_code": 2804805,
+    "nearest": {
+      "lat": -10.875,
+      "lon": -37.125
+    },
+    "target": {
+      "lat": -10.847,
+      "lon": -37.123
+    }
+  },
+  "Nova Friburgo": {
+    "ibge_code": 3303401,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -22.293,
+      "lon": -42.538
+    }
+  },
+  "Nova Iguaçu": {
+    "ibge_code": 3303500,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.756,
+      "lon": -43.46
+    }
+  },
+  "Nova Lima": {
+    "ibge_code": 3144805,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -19.976,
+      "lon": -43.851
+    }
+  },
+  "Nova Mutum": {
+    "ibge_code": 5106224,
+    "nearest": {
+      "lat": -13.875,
+      "lon": -56.125
+    },
+    "target": {
+      "lat": -13.837,
+      "lon": -56.074
+    }
+  },
+  "Nova Odessa": {
+    "ibge_code": 3533403,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.783,
+      "lon": -47.294
+    }
+  },
+  "Nova Serrana": {
+    "ibge_code": 3145208,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -19.871,
+      "lon": -44.985
+    }
+  },
+  "Novo Gama": {
+    "ibge_code": 5215231,
+    "nearest": {
+      "lat": -16.125,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -16.059,
+      "lon": -48.042
+    }
+  },
+  "Novo Hamburgo": {
+    "ibge_code": 4313409,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.688,
+      "lon": -51.133
+    }
+  },
+  "Novo Repartimento": {
+    "ibge_code": 1505064,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -4.247,
+      "lon": -49.95
+    }
+  },
+  "Olinda": {
+    "ibge_code": 2609600,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.01,
+      "lon": -34.854
+    }
+  },
+  "Olímpia": {
+    "ibge_code": 3533908,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -20.737,
+      "lon": -48.911
+    }
+  },
+  "Oriximiná": {
+    "ibge_code": 1505304,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -1.76,
+      "lon": -55.858
+    }
+  },
+  "Osasco": {
+    "ibge_code": 3534401,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.532,
+      "lon": -46.792
+    }
+  },
+  "Ouricuri": {
+    "ibge_code": 2609907,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -7.879,
+      "lon": -40.08
+    }
+  },
+  "Ourinhos": {
+    "ibge_code": 3534708,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -22.98,
+      "lon": -49.87
+    }
+  },
+  "Ouro Preto": {
+    "ibge_code": 3146107,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -43.625
+    },
+    "target": {
+      "lat": -20.38,
+      "lon": -43.512
+    }
+  },
+  "Pacajus": {
+    "ibge_code": 2309607,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -4.171,
+      "lon": -38.465
+    }
+  },
+  "Pacatuba": {
+    "ibge_code": 2309706,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -3.978,
+      "lon": -38.618
+    }
+  },
+  "Palhoça": {
+    "ibge_code": 4211900,
+    "nearest": {
+      "lat": -27.625,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -27.646,
+      "lon": -48.67
+    }
+  },
+  "Palmares": {
+    "ibge_code": 2610004,
+    "nearest": {
+      "lat": -8.625,
+      "lon": -35.625
+    },
+    "target": {
+      "lat": -8.684,
+      "lon": -35.589
+    }
+  },
+  "Palmas": {
+    "ibge_code": 1721000,
+    "nearest": {
+      "lat": -10.125,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -10.24,
+      "lon": -48.356
+    }
+  },
+  "Palmeira dos Índios": {
+    "ibge_code": 2706307,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -36.625
+    },
+    "target": {
+      "lat": -9.406,
+      "lon": -36.633
+    }
+  },
+  "Paracatu": {
+    "ibge_code": 3147006,
+    "nearest": {
+      "lat": -17.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -17.225,
+      "lon": -46.871
+    }
+  },
+  "Paragominas": {
+    "ibge_code": 1505502,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -3.002,
+      "lon": -47.353
+    }
+  },
+  "Paranaguá": {
+    "ibge_code": 4118204,
+    "nearest": {
+      "lat": -25.625,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -25.516,
+      "lon": -48.522
+    }
+  },
+  "Paranavaí": {
+    "ibge_code": 4118402,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -23.082,
+      "lon": -52.462
+    }
+  },
+  "Parauapebas": {
+    "ibge_code": 1505536,
+    "nearest": {
+      "lat": -6.125,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -6.068,
+      "lon": -49.904
+    }
+  },
+  "Paraíso do Tocantins": {
+    "ibge_code": 1716109,
+    "nearest": {
+      "lat": -10.125,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -10.175,
+      "lon": -48.882
+    }
+  },
+  "Parintins": {
+    "ibge_code": 1303403,
+    "nearest": {
+      "lat": -2.625,
+      "lon": -56.625
+    },
+    "target": {
+      "lat": -2.637,
+      "lon": -56.729
+    }
+  },
+  "Parnamirim": {
+    "ibge_code": 2403251,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -5.911,
+      "lon": -35.271
+    }
+  },
+  "Parnaíba": {
+    "ibge_code": 2207702,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -2.906,
+      "lon": -41.775
+    }
+  },
+  "Parobé": {
+    "ibge_code": 4314050,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -50.875
+    },
+    "target": {
+      "lat": -29.624,
+      "lon": -50.831
+    }
+  },
+  "Pará de Minas": {
+    "ibge_code": 3147105,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.625
+    },
+    "target": {
+      "lat": -19.853,
+      "lon": -44.611
+    }
+  },
+  "Passo Fundo": {
+    "ibge_code": 4314100,
+    "nearest": {
+      "lat": -28.375,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -28.258,
+      "lon": -52.409
+    }
+  },
+  "Passos": {
+    "ibge_code": 3147907,
+    "nearest": {
+      "lat": -20.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -20.719,
+      "lon": -46.609
+    }
+  },
+  "Pato Branco": {
+    "ibge_code": 4118501,
+    "nearest": {
+      "lat": -26.125,
+      "lon": -52.625
+    },
+    "target": {
+      "lat": -26.229,
+      "lon": -52.671
+    }
+  },
+  "Patos": {
+    "ibge_code": 2510808,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -37.375
+    },
+    "target": {
+      "lat": -7.017,
+      "lon": -37.275
+    }
+  },
+  "Patos de Minas": {
+    "ibge_code": 3148004,
+    "nearest": {
+      "lat": -18.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -18.57,
+      "lon": -46.501
+    }
+  },
+  "Patrocínio": {
+    "ibge_code": 3148103,
+    "nearest": {
+      "lat": -18.875,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -18.938,
+      "lon": -46.993
+    }
+  },
+  "Paudalho": {
+    "ibge_code": 2610608,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -7.903,
+      "lon": -35.172
+    }
+  },
+  "Paulista": {
+    "ibge_code": 2610707,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.934,
+      "lon": -34.868
+    }
+  },
+  "Paulo Afonso": {
+    "ibge_code": 2924009,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -38.125
+    },
+    "target": {
+      "lat": -9.398,
+      "lon": -38.222
+    }
+  },
+  "Paulínia": {
+    "ibge_code": 3536505,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -22.754,
+      "lon": -47.149
+    }
+  },
+  "Paço do Lumiar": {
+    "ibge_code": 2107506,
+    "nearest": {
+      "lat": -2.625,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -2.517,
+      "lon": -44.102
+    }
+  },
+  "Pedro Leopoldo": {
+    "ibge_code": 3149309,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -19.631,
+      "lon": -44.038
+    }
+  },
+  "Pelotas": {
+    "ibge_code": 4314407,
+    "nearest": {
+      "lat": -31.875,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -31.765,
+      "lon": -52.337
+    }
+  },
+  "Penedo": {
+    "ibge_code": 2706703,
+    "nearest": {
+      "lat": -10.375,
+      "lon": -36.625
+    },
+    "target": {
+      "lat": -10.287,
+      "lon": -36.582
+    }
+  },
+  "Penápolis": {
+    "ibge_code": 3537305,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -21.415,
+      "lon": -50.077
+    }
+  },
+  "Peruíbe": {
+    "ibge_code": 3537602,
+    "nearest": {
+      "lat": -24.375,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -24.312,
+      "lon": -47.001
+    }
+  },
+  "Pesqueira": {
+    "ibge_code": 2610905,
+    "nearest": {
+      "lat": -8.375,
+      "lon": -36.625
+    },
+    "target": {
+      "lat": -8.358,
+      "lon": -36.698
+    }
+  },
+  "Petrolina": {
+    "ibge_code": 2611101,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -40.625
+    },
+    "target": {
+      "lat": -9.389,
+      "lon": -40.503
+    }
+  },
+  "Petrópolis": {
+    "ibge_code": 3303906,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -22.52,
+      "lon": -43.193
+    }
+  },
+  "Picos": {
+    "ibge_code": 2208007,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -41.375
+    },
+    "target": {
+      "lat": -7.077,
+      "lon": -41.467
+    }
+  },
+  "Piedade": {
+    "ibge_code": 3537800,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -23.714,
+      "lon": -47.426
+    }
+  },
+  "Pindamonhangaba": {
+    "ibge_code": 3538006,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -22.925,
+      "lon": -45.461
+    }
+  },
+  "Pinhais": {
+    "ibge_code": 4119152,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -25.443,
+      "lon": -49.193
+    }
+  },
+  "Pinheiro": {
+    "ibge_code": 2108603,
+    "nearest": {
+      "lat": -2.625,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -2.522,
+      "lon": -45.079
+    }
+  },
+  "Piracicaba": {
+    "ibge_code": 3538709,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -22.734,
+      "lon": -47.648
+    }
+  },
+  "Pirapora": {
+    "ibge_code": 3151206,
+    "nearest": {
+      "lat": -17.375,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -17.339,
+      "lon": -44.934
+    }
+  },
+  "Piraquara": {
+    "ibge_code": 4119509,
+    "nearest": {
+      "lat": -25.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -25.442,
+      "lon": -49.062
+    }
+  },
+  "Pirassununga": {
+    "ibge_code": 3539301,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -21.996,
+      "lon": -47.426
+    }
+  },
+  "Piripiri": {
+    "ibge_code": 2208403,
+    "nearest": {
+      "lat": -4.375,
+      "lon": -41.875
+    },
+    "target": {
+      "lat": -4.272,
+      "lon": -41.772
+    }
+  },
+  "Planaltina": {
+    "ibge_code": 5217609,
+    "nearest": {
+      "lat": -15.375,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -15.452,
+      "lon": -47.609
+    }
+  },
+  "Ponta Grossa": {
+    "ibge_code": 4119905,
+    "nearest": {
+      "lat": -25.125,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -25.092,
+      "lon": -50.167
+    }
+  },
+  "Ponta Porã": {
+    "ibge_code": 5006606,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -55.375
+    },
+    "target": {
+      "lat": -22.53,
+      "lon": -55.72
+    }
+  },
+  "Ponte Nova": {
+    "ibge_code": 3152105,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -20.411,
+      "lon": -42.898
+    }
+  },
+  "Pontes e Lacerda": {
+    "ibge_code": 5106752,
+    "nearest": {
+      "lat": -15.125,
+      "lon": -59.375
+    },
+    "target": {
+      "lat": -15.222,
+      "lon": -59.344
+    }
+  },
+  "Portel": {
+    "ibge_code": 1505809,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -50.625
+    },
+    "target": {
+      "lat": -1.936,
+      "lon": -50.819
+    }
+  },
+  "Porto Alegre": {
+    "ibge_code": 4314902,
+    "nearest": {
+      "lat": -30.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -30.032,
+      "lon": -51.206
+    }
+  },
+  "Porto Feliz": {
+    "ibge_code": 3540606,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -23.209,
+      "lon": -47.525
+    }
+  },
+  "Porto Ferreira": {
+    "ibge_code": 3540705,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -21.85,
+      "lon": -47.487
+    }
+  },
+  "Porto Nacional": {
+    "ibge_code": 1718204,
+    "nearest": {
+      "lat": -10.625,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -10.703,
+      "lon": -48.408
+    }
+  },
+  "Porto Seguro": {
+    "ibge_code": 2925303,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -16.444,
+      "lon": -39.064
+    }
+  },
+  "Porto Velho": {
+    "ibge_code": 1100205,
+    "nearest": {
+      "lat": -8.875,
+      "lon": -63.875
+    },
+    "target": {
+      "lat": -8.761,
+      "lon": -63.9
+    }
+  },
+  "Pouso Alegre": {
+    "ibge_code": 3152501,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -45.875
+    },
+    "target": {
+      "lat": -22.227,
+      "lon": -45.939
+    }
+  },
+  "Poá": {
+    "ibge_code": 3539806,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.533,
+      "lon": -46.347
+    }
+  },
+  "Poços de Caldas": {
+    "ibge_code": 3151800,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -21.78,
+      "lon": -46.569
+    }
+  },
+  "Praia Grande": {
+    "ibge_code": 3541000,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -24.008,
+      "lon": -46.412
+    }
+  },
+  "Presidente Prudente": {
+    "ibge_code": 3541406,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -22.121,
+      "lon": -51.392
+    }
+  },
+  "Primavera do Leste": {
+    "ibge_code": 5107040,
+    "nearest": {
+      "lat": -15.625,
+      "lon": -54.375
+    },
+    "target": {
+      "lat": -15.544,
+      "lon": -54.281
+    }
+  },
+  "Queimados": {
+    "ibge_code": 3304144,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -43.625
+    },
+    "target": {
+      "lat": -22.71,
+      "lon": -43.552
+    }
+  },
+  "Quixadá": {
+    "ibge_code": 2311306,
+    "nearest": {
+      "lat": -4.875,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -4.966,
+      "lon": -39.016
+    }
+  },
+  "Quixeramobim": {
+    "ibge_code": 2311405,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -5.191,
+      "lon": -39.289
+    }
+  },
+  "Recife": {
+    "ibge_code": 2611606,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.047,
+      "lon": -34.877
+    }
+  },
+  "Redenção": {
+    "ibge_code": 1506138,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -8.025,
+      "lon": -50.032
+    }
+  },
+  "Registro": {
+    "ibge_code": 3542602,
+    "nearest": {
+      "lat": -24.375,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -24.498,
+      "lon": -47.845
+    }
+  },
+  "Resende": {
+    "ibge_code": 3304201,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -22.47,
+      "lon": -44.451
+    }
+  },
+  "Ribeira do Pombal": {
+    "ibge_code": 2926608,
+    "nearest": {
+      "lat": -10.875,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -10.837,
+      "lon": -38.538
+    }
+  },
+  "Ribeirão Pires": {
+    "ibge_code": 3543303,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.707,
+      "lon": -46.406
+    }
+  },
+  "Ribeirão Preto": {
+    "ibge_code": 3543402,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -21.17,
+      "lon": -47.81
+    }
+  },
+  "Ribeirão das Neves": {
+    "ibge_code": 3154606,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -19.762,
+      "lon": -44.084
+    }
+  },
+  "Rio Bonito": {
+    "ibge_code": 3304300,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -22.718,
+      "lon": -42.628
+    }
+  },
+  "Rio Branco": {
+    "ibge_code": 1200401,
+    "nearest": {
+      "lat": -9.875,
+      "lon": -67.875
+    },
+    "target": {
+      "lat": -9.975,
+      "lon": -67.824
+    }
+  },
+  "Rio Claro": {
+    "ibge_code": 3543907,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -47.625
+    },
+    "target": {
+      "lat": -22.398,
+      "lon": -47.555
+    }
+  },
+  "Rio Grande": {
+    "ibge_code": 4315602,
+    "nearest": {
+      "lat": -32.125,
+      "lon": -52.125
+    },
+    "target": {
+      "lat": -32.035,
+      "lon": -52.107
+    }
+  },
+  "Rio Largo": {
+    "ibge_code": 2707701,
+    "nearest": {
+      "lat": -9.375,
+      "lon": -35.875
+    },
+    "target": {
+      "lat": -9.478,
+      "lon": -35.839
+    }
+  },
+  "Rio Verde": {
+    "ibge_code": 5218805,
+    "nearest": {
+      "lat": -17.875,
+      "lon": -50.875
+    },
+    "target": {
+      "lat": -17.792,
+      "lon": -50.919
+    }
+  },
+  "Rio das Ostras": {
+    "ibge_code": 3304524,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -42.125
+    },
+    "target": {
+      "lat": -22.517,
+      "lon": -41.948
+    }
+  },
+  "Rio de Janeiro": {
+    "ibge_code": 3304557,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.913,
+      "lon": -43.2
+    }
+  },
+  "Rio do Sul": {
+    "ibge_code": 4214805,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -27.216,
+      "lon": -49.643
+    }
+  },
+  "Rolim de Moura": {
+    "ibge_code": 1100288,
+    "nearest": {
+      "lat": -11.625,
+      "lon": -61.875
+    },
+    "target": {
+      "lat": -11.727,
+      "lon": -61.771
+    }
+  },
+  "Rolândia": {
+    "ibge_code": 4122404,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -23.31,
+      "lon": -51.366
+    }
+  },
+  "Rondon do Pará": {
+    "ibge_code": 1506187,
+    "nearest": {
+      "lat": -4.875,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -4.778,
+      "lon": -48.067
+    }
+  },
+  "Rondonópolis": {
+    "ibge_code": 5107602,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -54.625
+    },
+    "target": {
+      "lat": -16.467,
+      "lon": -54.637
+    }
+  },
+  "Russas": {
+    "ibge_code": 2311801,
+    "nearest": {
+      "lat": -4.875,
+      "lon": -37.875
+    },
+    "target": {
+      "lat": -4.927,
+      "lon": -37.972
+    }
+  },
+  "Sabará": {
+    "ibge_code": 3156700,
+    "nearest": {
+      "lat": -19.875,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -19.884,
+      "lon": -43.826
+    }
+  },
+  "Salgueiro": {
+    "ibge_code": 2612208,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -8.074,
+      "lon": -39.125
+    }
+  },
+  "Salto": {
+    "ibge_code": 3545209,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -23.2,
+      "lon": -47.293
+    }
+  },
+  "Salvador": {
+    "ibge_code": 2927408,
+    "nearest": {
+      "lat": -12.875,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -12.972,
+      "lon": -38.501
+    }
+  },
+  "Santa Bárbara d'Oeste": {
+    "ibge_code": 3545803,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.755,
+      "lon": -47.414
+    }
+  },
+  "Santa Cruz do Capibaribe": {
+    "ibge_code": 2612505,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -36.125
+    },
+    "target": {
+      "lat": -7.948,
+      "lon": -36.206
+    }
+  },
+  "Santa Cruz do Sul": {
+    "ibge_code": 4316808,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -29.722,
+      "lon": -52.434
+    }
+  },
+  "Santa Inês": {
+    "ibge_code": 2109908,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -3.651,
+      "lon": -45.377
+    }
+  },
+  "Santa Isabel": {
+    "ibge_code": 3546801,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -23.317,
+      "lon": -46.224
+    }
+  },
+  "Santa Izabel do Pará": {
+    "ibge_code": 1506500,
+    "nearest": {
+      "lat": -1.375,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -1.297,
+      "lon": -48.161
+    }
+  },
+  "Santa Luzia": {
+    "ibge_code": 2110005,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -4.069,
+      "lon": -45.69
+    }
+  },
+  "Santa Maria": {
+    "ibge_code": 4316907,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -53.875
+    },
+    "target": {
+      "lat": -29.687,
+      "lon": -53.815
+    }
+  },
+  "Santa Rita": {
+    "ibge_code": 2513703,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -34.875
+    },
+    "target": {
+      "lat": -7.117,
+      "lon": -34.975
+    }
+  },
+  "Santa Rosa": {
+    "ibge_code": 4317202,
+    "nearest": {
+      "lat": -27.875,
+      "lon": -54.375
+    },
+    "target": {
+      "lat": -27.87,
+      "lon": -54.48
+    }
+  },
+  "Santana": {
+    "ibge_code": 1600600,
+    "nearest": {
+      "lat": -0.125,
+      "lon": -51.375
+    },
+    "target": {
+      "lat": -0.045,
+      "lon": -51.173
+    }
+  },
+  "Santana de Parnaíba": {
+    "ibge_code": 3547304,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.444,
+      "lon": -46.918
+    }
+  },
+  "Santana do Livramento": {
+    "ibge_code": 4317103,
+    "nearest": {
+      "lat": -30.875,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -30.877,
+      "lon": -55.539
+    }
+  },
+  "Santarém": {
+    "ibge_code": 1506807,
+    "nearest": {
+      "lat": -2.375,
+      "lon": -54.625
+    },
+    "target": {
+      "lat": -2.438,
+      "lon": -54.7
+    }
+  },
+  "Santo Amaro": {
+    "ibge_code": 2928604,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -38.625
+    },
+    "target": {
+      "lat": -12.547,
+      "lon": -38.714
+    }
+  },
+  "Santo André": {
+    "ibge_code": 3547809,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.674,
+      "lon": -46.543
+    }
+  },
+  "Santo Antônio de Jesus": {
+    "ibge_code": 2928703,
+    "nearest": {
+      "lat": -12.875,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -12.961,
+      "lon": -39.258
+    }
+  },
+  "Santo Antônio do Descoberto": {
+    "ibge_code": 5219753,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -15.941,
+      "lon": -48.258
+    }
+  },
+  "Santo Estêvão": {
+    "ibge_code": 2928802,
+    "nearest": {
+      "lat": -12.375,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -12.428,
+      "lon": -39.25
+    }
+  },
+  "Santo Ângelo": {
+    "ibge_code": 4317509,
+    "nearest": {
+      "lat": -28.375,
+      "lon": -54.375
+    },
+    "target": {
+      "lat": -28.3,
+      "lon": -54.267
+    }
+  },
+  "Santos": {
+    "ibge_code": 3548500,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.954,
+      "lon": -46.335
+    }
+  },
+  "Sapiranga": {
+    "ibge_code": 4319901,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.635,
+      "lon": -51.006
+    }
+  },
+  "Sapucaia do Sul": {
+    "ibge_code": 4320008,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.828,
+      "lon": -51.145
+    }
+  },
+  "Sapé": {
+    "ibge_code": 2515302,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -7.094,
+      "lon": -35.228
+    }
+  },
+  "Saquarema": {
+    "ibge_code": 3305505,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -22.929,
+      "lon": -42.51
+    }
+  },
+  "Sarandi": {
+    "ibge_code": 4126256,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -51.875
+    },
+    "target": {
+      "lat": -23.444,
+      "lon": -51.876
+    }
+  },
+  "Senador Canedo": {
+    "ibge_code": 5220454,
+    "nearest": {
+      "lat": -16.625,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -16.708,
+      "lon": -49.091
+    }
+  },
+  "Senhor do Bonfim": {
+    "ibge_code": 2930105,
+    "nearest": {
+      "lat": -10.375,
+      "lon": -40.125
+    },
+    "target": {
+      "lat": -10.459,
+      "lon": -40.186
+    }
+  },
+  "Seropédica": {
+    "ibge_code": 3305554,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.625
+    },
+    "target": {
+      "lat": -22.753,
+      "lon": -43.716
+    }
+  },
+  "Serra": {
+    "ibge_code": 3205002,
+    "nearest": {
+      "lat": -20.125,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -20.121,
+      "lon": -40.307
+    }
+  },
+  "Serra Talhada": {
+    "ibge_code": 2613909,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -7.982,
+      "lon": -38.289
+    }
+  },
+  "Serrinha": {
+    "ibge_code": 2930501,
+    "nearest": {
+      "lat": -11.625,
+      "lon": -39.125
+    },
+    "target": {
+      "lat": -11.658,
+      "lon": -39.01
+    }
+  },
+  "Sertãozinho": {
+    "ibge_code": 3551702,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -21.132,
+      "lon": -47.988
+    }
+  },
+  "Sete Lagoas": {
+    "ibge_code": 3167202,
+    "nearest": {
+      "lat": -19.375,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -19.457,
+      "lon": -44.241
+    }
+  },
+  "Simões Filho": {
+    "ibge_code": 2930709,
+    "nearest": {
+      "lat": -12.875,
+      "lon": -38.375
+    },
+    "target": {
+      "lat": -12.787,
+      "lon": -38.403
+    }
+  },
+  "Sinop": {
+    "ibge_code": 5107909,
+    "nearest": {
+      "lat": -11.875,
+      "lon": -55.625
+    },
+    "target": {
+      "lat": -11.86,
+      "lon": -55.509
+    }
+  },
+  "Sobral": {
+    "ibge_code": 2312908,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -3.689,
+      "lon": -40.348
+    }
+  },
+  "Sorocaba": {
+    "ibge_code": 3552205,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -23.497,
+      "lon": -47.445
+    }
+  },
+  "Sorriso": {
+    "ibge_code": 5107925,
+    "nearest": {
+      "lat": -12.625,
+      "lon": -55.625
+    },
+    "target": {
+      "lat": -12.542,
+      "lon": -55.721
+    }
+  },
+  "Sousa": {
+    "ibge_code": 2516201,
+    "nearest": {
+      "lat": -6.875,
+      "lon": -38.125
+    },
+    "target": {
+      "lat": -6.751,
+      "lon": -38.231
+    }
+  },
+  "Sumaré": {
+    "ibge_code": 3552403,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -22.82,
+      "lon": -47.273
+    }
+  },
+  "Surubim": {
+    "ibge_code": 2614501,
+    "nearest": {
+      "lat": -7.875,
+      "lon": -35.625
+    },
+    "target": {
+      "lat": -7.847,
+      "lon": -35.748
+    }
+  },
+  "Suzano": {
+    "ibge_code": 3552502,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.375
+    },
+    "target": {
+      "lat": -23.545,
+      "lon": -46.311
+    }
+  },
+  "São Bento do Sul": {
+    "ibge_code": 4215802,
+    "nearest": {
+      "lat": -26.375,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -26.25,
+      "lon": -49.383
+    }
+  },
+  "São Bernardo do Campo": {
+    "ibge_code": 3548708,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.691,
+      "lon": -46.565
+    }
+  },
+  "São Borja": {
+    "ibge_code": 4318002,
+    "nearest": {
+      "lat": -28.625,
+      "lon": -55.875
+    },
+    "target": {
+      "lat": -28.658,
+      "lon": -56.004
+    }
+  },
+  "São Caetano do Sul": {
+    "ibge_code": 3548807,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.623,
+      "lon": -46.555
+    }
+  },
+  "São Carlos": {
+    "ibge_code": 3548906,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -22.017,
+      "lon": -47.886
+    }
+  },
+  "São Cristóvão": {
+    "ibge_code": 2806701,
+    "nearest": {
+      "lat": -11.125,
+      "lon": -37.375
+    },
+    "target": {
+      "lat": -11.008,
+      "lon": -37.204
+    }
+  },
+  "São Francisco": {
+    "ibge_code": 3161106,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -15.951,
+      "lon": -44.859
+    }
+  },
+  "São Francisco do Sul": {
+    "ibge_code": 4216206,
+    "nearest": {
+      "lat": -26.375,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -26.258,
+      "lon": -48.634
+    }
+  },
+  "São Félix do Xingu": {
+    "ibge_code": 1507300,
+    "nearest": {
+      "lat": -6.625,
+      "lon": -51.875
+    },
+    "target": {
+      "lat": -6.643,
+      "lon": -51.99
+    }
+  },
+  "São Gabriel": {
+    "ibge_code": 4318309,
+    "nearest": {
+      "lat": -30.375,
+      "lon": -54.375
+    },
+    "target": {
+      "lat": -30.334,
+      "lon": -54.322
+    }
+  },
+  "São Gabriel da Cachoeira": {
+    "ibge_code": 1303809,
+    "nearest": {
+      "lat": -0.125,
+      "lon": -67.125
+    },
+    "target": {
+      "lat": -0.119,
+      "lon": -67.084
+    }
+  },
+  "São Gonçalo": {
+    "ibge_code": 3304904,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.827,
+      "lon": -43.063
+    }
+  },
+  "São Gonçalo do Amarante": {
+    "ibge_code": 2312403,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -38.875
+    },
+    "target": {
+      "lat": -3.605,
+      "lon": -38.973
+    }
+  },
+  "São José": {
+    "ibge_code": 4216602,
+    "nearest": {
+      "lat": -27.625,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -27.614,
+      "lon": -48.637
+    }
+  },
+  "São José de Ribamar": {
+    "ibge_code": 2111201,
+    "nearest": {
+      "lat": -2.625,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -2.547,
+      "lon": -44.06
+    }
+  },
+  "São José do Rio Pardo": {
+    "ibge_code": 3549706,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -21.595,
+      "lon": -46.887
+    }
+  },
+  "São José do Rio Preto": {
+    "ibge_code": 3549805,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -20.811,
+      "lon": -49.376
+    }
+  },
+  "São José dos Campos": {
+    "ibge_code": 3549904,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -45.875
+    },
+    "target": {
+      "lat": -23.19,
+      "lon": -45.884
+    }
+  },
+  "São José dos Pinhais": {
+    "ibge_code": 4125506,
+    "nearest": {
+      "lat": -25.625,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -25.531,
+      "lon": -49.203
+    }
+  },
+  "São João da Boa Vista": {
+    "ibge_code": 3549102,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -21.971,
+      "lon": -46.794
+    }
+  },
+  "São João de Meriti": {
+    "ibge_code": 3305109,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -43.375
+    },
+    "target": {
+      "lat": -22.806,
+      "lon": -43.373
+    }
+  },
+  "São João del-Rei": {
+    "ibge_code": 3162500,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -21.131,
+      "lon": -44.253
+    }
+  },
+  "São Leopoldo": {
+    "ibge_code": 4318705,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -29.754,
+      "lon": -51.15
+    }
+  },
+  "São Lourenço da Mata": {
+    "ibge_code": 2613701,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.125
+    },
+    "target": {
+      "lat": -8.007,
+      "lon": -35.012
+    }
+  },
+  "São Luís": {
+    "ibge_code": 2111300,
+    "nearest": {
+      "lat": -2.625,
+      "lon": -44.375
+    },
+    "target": {
+      "lat": -2.539,
+      "lon": -44.282
+    }
+  },
+  "São Mateus": {
+    "ibge_code": 3204906,
+    "nearest": {
+      "lat": -18.625,
+      "lon": -39.875
+    },
+    "target": {
+      "lat": -18.721,
+      "lon": -39.858
+    }
+  },
+  "São Miguel do Guamá": {
+    "ibge_code": 1507607,
+    "nearest": {
+      "lat": -1.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -1.613,
+      "lon": -47.478
+    }
+  },
+  "São Miguel dos Campos": {
+    "ibge_code": 2708600,
+    "nearest": {
+      "lat": -9.875,
+      "lon": -36.125
+    },
+    "target": {
+      "lat": -9.783,
+      "lon": -36.097
+    }
+  },
+  "São Paulo": {
+    "ibge_code": 3550308,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.533,
+      "lon": -46.64
+    }
+  },
+  "São Pedro da Aldeia": {
+    "ibge_code": 3305208,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -42.125
+    },
+    "target": {
+      "lat": -22.843,
+      "lon": -42.103
+    }
+  },
+  "São Roque": {
+    "ibge_code": 3550605,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.523,
+      "lon": -47.136
+    }
+  },
+  "São Sebastião": {
+    "ibge_code": 3550704,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -23.795,
+      "lon": -45.414
+    }
+  },
+  "São Sebastião do Paraíso": {
+    "ibge_code": 3164704,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -20.917,
+      "lon": -46.984
+    }
+  },
+  "São Vicente": {
+    "ibge_code": 3551009,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -46.625
+    },
+    "target": {
+      "lat": -23.957,
+      "lon": -46.388
+    }
+  },
+  "Tabatinga": {
+    "ibge_code": 1304062,
+    "nearest": {
+      "lat": -4.125,
+      "lon": -69.875
+    },
+    "target": {
+      "lat": -4.242,
+      "lon": -69.938
+    }
+  },
+  "Taboão da Serra": {
+    "ibge_code": 3552809,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.602,
+      "lon": -46.753
+    }
+  },
+  "Tailândia": {
+    "ibge_code": 1507953,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -48.875
+    },
+    "target": {
+      "lat": -2.946,
+      "lon": -48.949
+    }
+  },
+  "Tangará da Serra": {
+    "ibge_code": 5107958,
+    "nearest": {
+      "lat": -14.625,
+      "lon": -57.375
+    },
+    "target": {
+      "lat": -14.623,
+      "lon": -57.493
+    }
+  },
+  "Taquara": {
+    "ibge_code": 4321204,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -50.875
+    },
+    "target": {
+      "lat": -29.65,
+      "lon": -50.775
+    }
+  },
+  "Taquaritinga": {
+    "ibge_code": 3553708,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -21.405,
+      "lon": -48.51
+    }
+  },
+  "Tatuí": {
+    "ibge_code": 3554003,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -23.349,
+      "lon": -47.846
+    }
+  },
+  "Taubaté": {
+    "ibge_code": 3554102,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -23.01,
+      "lon": -45.559
+    }
+  },
+  "Tauá": {
+    "ibge_code": 2313302,
+    "nearest": {
+      "lat": -5.875,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -5.986,
+      "lon": -40.297
+    }
+  },
+  "Tefé": {
+    "ibge_code": 1304203,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -64.625
+    },
+    "target": {
+      "lat": -3.368,
+      "lon": -64.719
+    }
+  },
+  "Teixeira de Freitas": {
+    "ibge_code": 2931350,
+    "nearest": {
+      "lat": -17.625,
+      "lon": -39.625
+    },
+    "target": {
+      "lat": -17.54,
+      "lon": -39.74
+    }
+  },
+  "Telêmaco Borba": {
+    "ibge_code": 4127106,
+    "nearest": {
+      "lat": -24.375,
+      "lon": -50.625
+    },
+    "target": {
+      "lat": -24.324,
+      "lon": -50.618
+    }
+  },
+  "Teresina": {
+    "ibge_code": 2211001,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -5.092,
+      "lon": -42.803
+    }
+  },
+  "Teresópolis": {
+    "ibge_code": 3305802,
+    "nearest": {
+      "lat": -22.375,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -22.416,
+      "lon": -42.975
+    }
+  },
+  "Teófilo Otoni": {
+    "ibge_code": 3168606,
+    "nearest": {
+      "lat": -17.875,
+      "lon": -41.625
+    },
+    "target": {
+      "lat": -17.86,
+      "lon": -41.509
+    }
+  },
+  "Tianguá": {
+    "ibge_code": 2313401,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -40.875
+    },
+    "target": {
+      "lat": -3.73,
+      "lon": -40.992
+    }
+  },
+  "Tijucas": {
+    "ibge_code": 4218004,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -48.625
+    },
+    "target": {
+      "lat": -27.235,
+      "lon": -48.632
+    }
+  },
+  "Timon": {
+    "ibge_code": 2112209,
+    "nearest": {
+      "lat": -5.125,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -5.098,
+      "lon": -42.833
+    }
+  },
+  "Timóteo": {
+    "ibge_code": 3168705,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -42.625
+    },
+    "target": {
+      "lat": -19.581,
+      "lon": -42.647
+    }
+  },
+  "Tobias Barreto": {
+    "ibge_code": 2807402,
+    "nearest": {
+      "lat": -11.125,
+      "lon": -38.125
+    },
+    "target": {
+      "lat": -11.18,
+      "lon": -38.0
+    }
+  },
+  "Toledo": {
+    "ibge_code": 4127700,
+    "nearest": {
+      "lat": -24.625,
+      "lon": -53.625
+    },
+    "target": {
+      "lat": -24.725,
+      "lon": -53.741
+    }
+  },
+  "Tomé-Açu": {
+    "ibge_code": 1508001,
+    "nearest": {
+      "lat": -2.375,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -2.413,
+      "lon": -48.142
+    }
+  },
+  "Trairi": {
+    "ibge_code": 2313500,
+    "nearest": {
+      "lat": -3.375,
+      "lon": -39.375
+    },
+    "target": {
+      "lat": -3.269,
+      "lon": -39.268
+    }
+  },
+  "Tramandaí": {
+    "ibge_code": 4321600,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -50.125
+    },
+    "target": {
+      "lat": -29.984,
+      "lon": -50.132
+    }
+  },
+  "Tremembé": {
+    "ibge_code": 3554805,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -22.957,
+      "lon": -45.548
+    }
+  },
+  "Trindade": {
+    "ibge_code": 5221403,
+    "nearest": {
+      "lat": -16.625,
+      "lon": -49.375
+    },
+    "target": {
+      "lat": -16.652,
+      "lon": -49.493
+    }
+  },
+  "Três Corações": {
+    "ibge_code": 3169307,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -21.692,
+      "lon": -45.251
+    }
+  },
+  "Três Lagoas": {
+    "ibge_code": 5008305,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -51.625
+    },
+    "target": {
+      "lat": -20.785,
+      "lon": -51.701
+    }
+  },
+  "Três Pontas": {
+    "ibge_code": 3169406,
+    "nearest": {
+      "lat": -21.375,
+      "lon": -45.625
+    },
+    "target": {
+      "lat": -21.369,
+      "lon": -45.511
+    }
+  },
+  "Três Rios": {
+    "ibge_code": 3306008,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -43.125
+    },
+    "target": {
+      "lat": -22.116,
+      "lon": -43.218
+    }
+  },
+  "Tubarão": {
+    "ibge_code": 4218707,
+    "nearest": {
+      "lat": -28.375,
+      "lon": -49.125
+    },
+    "target": {
+      "lat": -28.471,
+      "lon": -49.014
+    }
+  },
+  "Tucuruí": {
+    "ibge_code": 1508100,
+    "nearest": {
+      "lat": -3.875,
+      "lon": -49.625
+    },
+    "target": {
+      "lat": -3.766,
+      "lon": -49.677
+    }
+  },
+  "Tupã": {
+    "ibge_code": 3555000,
+    "nearest": {
+      "lat": -21.875,
+      "lon": -50.625
+    },
+    "target": {
+      "lat": -21.934,
+      "lon": -50.519
+    }
+  },
+  "Tutóia": {
+    "ibge_code": 2112506,
+    "nearest": {
+      "lat": -2.875,
+      "lon": -42.375
+    },
+    "target": {
+      "lat": -2.761,
+      "lon": -42.276
+    }
+  },
+  "Ubatuba": {
+    "ibge_code": 3555406,
+    "nearest": {
+      "lat": -23.375,
+      "lon": -45.125
+    },
+    "target": {
+      "lat": -23.433,
+      "lon": -45.083
+    }
+  },
+  "Uberaba": {
+    "ibge_code": 3170107,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -19.747,
+      "lon": -47.938
+    }
+  },
+  "Uberlândia": {
+    "ibge_code": 3170206,
+    "nearest": {
+      "lat": -18.875,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -18.914,
+      "lon": -48.275
+    }
+  },
+  "Ubá": {
+    "ibge_code": 3169901,
+    "nearest": {
+      "lat": -21.125,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -21.12,
+      "lon": -42.936
+    }
+  },
+  "Umuarama": {
+    "ibge_code": 4128104,
+    "nearest": {
+      "lat": -23.875,
+      "lon": -53.375
+    },
+    "target": {
+      "lat": -23.766,
+      "lon": -53.32
+    }
+  },
+  "Unaí": {
+    "ibge_code": 3170404,
+    "nearest": {
+      "lat": -16.375,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -16.359,
+      "lon": -46.902
+    }
+  },
+  "União da Vitória": {
+    "ibge_code": 4128203,
+    "nearest": {
+      "lat": -26.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -26.227,
+      "lon": -51.087
+    }
+  },
+  "União dos Palmares": {
+    "ibge_code": 2709301,
+    "nearest": {
+      "lat": -9.125,
+      "lon": -36.125
+    },
+    "target": {
+      "lat": -9.159,
+      "lon": -36.022
+    }
+  },
+  "Uruguaiana": {
+    "ibge_code": 4322400,
+    "nearest": {
+      "lat": -29.875,
+      "lon": -57.125
+    },
+    "target": {
+      "lat": -29.761,
+      "lon": -57.085
+    }
+  },
+  "Vacaria": {
+    "ibge_code": 4322509,
+    "nearest": {
+      "lat": -28.625,
+      "lon": -50.875
+    },
+    "target": {
+      "lat": -28.508,
+      "lon": -50.942
+    }
+  },
+  "Valença": {
+    "ibge_code": 3306107,
+    "nearest": {
+      "lat": -22.125,
+      "lon": -43.625
+    },
+    "target": {
+      "lat": -22.244,
+      "lon": -43.713
+    }
+  },
+  "Valinhos": {
+    "ibge_code": 3556206,
+    "nearest": {
+      "lat": -22.875,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -22.97,
+      "lon": -46.997
+    }
+  },
+  "Valparaíso de Goiás": {
+    "ibge_code": 5221858,
+    "nearest": {
+      "lat": -16.125,
+      "lon": -47.875
+    },
+    "target": {
+      "lat": -16.065,
+      "lon": -47.976
+    }
+  },
+  "Vargem Grande Paulista": {
+    "ibge_code": 3556453,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.125
+    },
+    "target": {
+      "lat": -23.599,
+      "lon": -47.022
+    }
+  },
+  "Varginha": {
+    "ibge_code": 3170701,
+    "nearest": {
+      "lat": -21.625,
+      "lon": -45.375
+    },
+    "target": {
+      "lat": -21.556,
+      "lon": -45.436
+    }
+  },
+  "Venâncio Aires": {
+    "ibge_code": 4322608,
+    "nearest": {
+      "lat": -29.625,
+      "lon": -52.125
+    },
+    "target": {
+      "lat": -29.614,
+      "lon": -52.193
+    }
+  },
+  "Vespasiano": {
+    "ibge_code": 3171204,
+    "nearest": {
+      "lat": -19.625,
+      "lon": -43.875
+    },
+    "target": {
+      "lat": -19.688,
+      "lon": -43.924
+    }
+  },
+  "Viamão": {
+    "ibge_code": 4323002,
+    "nearest": {
+      "lat": -30.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -30.082,
+      "lon": -51.019
+    }
+  },
+  "Viana": {
+    "ibge_code": 2112803,
+    "nearest": {
+      "lat": -3.125,
+      "lon": -44.875
+    },
+    "target": {
+      "lat": -3.205,
+      "lon": -44.991
+    }
+  },
+  "Videira": {
+    "ibge_code": 4219309,
+    "nearest": {
+      "lat": -27.125,
+      "lon": -51.125
+    },
+    "target": {
+      "lat": -27.009,
+      "lon": -51.154
+    }
+  },
+  "Vigia": {
+    "ibge_code": 1508209,
+    "nearest": {
+      "lat": -0.875,
+      "lon": -48.125
+    },
+    "target": {
+      "lat": -0.861,
+      "lon": -48.139
+    }
+  },
+  "Vila Velha": {
+    "ibge_code": 3205200,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -20.342,
+      "lon": -40.288
+    }
+  },
+  "Vilhena": {
+    "ibge_code": 1100304,
+    "nearest": {
+      "lat": -12.875,
+      "lon": -60.125
+    },
+    "target": {
+      "lat": -12.75,
+      "lon": -60.149
+    }
+  },
+  "Vinhedo": {
+    "ibge_code": 3556701,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.03,
+      "lon": -46.983
+    }
+  },
+  "Viseu": {
+    "ibge_code": 1508308,
+    "nearest": {
+      "lat": -1.125,
+      "lon": -46.125
+    },
+    "target": {
+      "lat": -1.191,
+      "lon": -46.14
+    }
+  },
+  "Vitória": {
+    "ibge_code": 3205309,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -40.375
+    },
+    "target": {
+      "lat": -20.316,
+      "lon": -40.313
+    }
+  },
+  "Vitória da Conquista": {
+    "ibge_code": 2933307,
+    "nearest": {
+      "lat": -14.875,
+      "lon": -40.875
+    },
+    "target": {
+      "lat": -14.862,
+      "lon": -40.844
+    }
+  },
+  "Vitória de Santo Antão": {
+    "ibge_code": 2616407,
+    "nearest": {
+      "lat": -8.125,
+      "lon": -35.375
+    },
+    "target": {
+      "lat": -8.128,
+      "lon": -35.298
+    }
+  },
+  "Viçosa": {
+    "ibge_code": 3171303,
+    "nearest": {
+      "lat": -20.875,
+      "lon": -42.875
+    },
+    "target": {
+      "lat": -20.756,
+      "lon": -42.874
+    }
+  },
+  "Viçosa do Ceará": {
+    "ibge_code": 2314102,
+    "nearest": {
+      "lat": -3.625,
+      "lon": -41.125
+    },
+    "target": {
+      "lat": -3.567,
+      "lon": -41.092
+    }
+  },
+  "Volta Redonda": {
+    "ibge_code": 3306305,
+    "nearest": {
+      "lat": -22.625,
+      "lon": -44.125
+    },
+    "target": {
+      "lat": -22.52,
+      "lon": -44.1
+    }
+  },
+  "Votorantim": {
+    "ibge_code": 3557006,
+    "nearest": {
+      "lat": -23.625,
+      "lon": -47.375
+    },
+    "target": {
+      "lat": -23.545,
+      "lon": -47.439
+    }
+  },
+  "Votuporanga": {
+    "ibge_code": 3557105,
+    "nearest": {
+      "lat": -20.375,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -20.424,
+      "lon": -49.978
+    }
+  },
+  "Várzea Grande": {
+    "ibge_code": 5108402,
+    "nearest": {
+      "lat": -15.625,
+      "lon": -56.125
+    },
+    "target": {
+      "lat": -15.646,
+      "lon": -56.132
+    }
+  },
+  "Várzea Paulista": {
+    "ibge_code": 3556503,
+    "nearest": {
+      "lat": -23.125,
+      "lon": -46.875
+    },
+    "target": {
+      "lat": -23.214,
+      "lon": -46.823
+    }
+  },
+  "Xanxerê": {
+    "ibge_code": 4219507,
+    "nearest": {
+      "lat": -26.875,
+      "lon": -52.375
+    },
+    "target": {
+      "lat": -26.875,
+      "lon": -52.404
+    }
+  },
+  "Xinguara": {
+    "ibge_code": 1508407,
+    "nearest": {
+      "lat": -7.125,
+      "lon": -49.875
+    },
+    "target": {
+      "lat": -7.098,
+      "lon": -49.944
+    }
+  },
+  "Águas Lindas de Goiás": {
+    "ibge_code": 5200258,
+    "nearest": {
+      "lat": -15.875,
+      "lon": -48.375
+    },
+    "target": {
+      "lat": -15.762,
+      "lon": -48.282
+    }
+  },
+  "Óbidos": {
+    "ibge_code": 1505106,
+    "nearest": {
+      "lat": -1.875,
+      "lon": -55.625
+    },
+    "target": {
+      "lat": -1.901,
+      "lon": -55.521
+    }
+  }
+}
