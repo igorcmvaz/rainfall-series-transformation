@@ -148,6 +148,7 @@ class CommandLineArgsValidator:
     netuno_required: str
     only_process_coordinates: bool
     keep_temp_files: bool
+    recovery_required: bool
     quiet: int
     verbose: bool
 
