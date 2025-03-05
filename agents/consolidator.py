@@ -33,7 +33,7 @@ class Consolidator:
             scenarios: dict[str, dict[str, str]],
             models: list[str],
             source_dir: Path,
-            recovery_required: bool,
+            recovery_required: bool = False,
             csv_generator: CSVExporter | None = None) -> None:
         self.models = models
         self.scenarios = scenarios
