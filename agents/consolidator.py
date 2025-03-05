@@ -33,6 +33,7 @@ class Consolidator:
             scenarios: dict[str, dict[str, str]],
             models: list[str],
             source_dir: Path,
+            recovery_required: bool,
             csv_generator: CSVExporter | None = None) -> None:
         self.models = models
         self.scenarios = scenarios
@@ -47,6 +48,7 @@ class Consolidator:
             "success_rate": 0,
             "process_rate": 0
         }
+        self.recovery_required = recovery_required
         self.csv_generator = csv_generator
         self.temp_dir = self._create_temp_dir()
 
@@ -271,7 +273,8 @@ class Consolidator:
                     self._count_processed(**metadata)
                     for_recovery[city_name] = {"data": data_series, "metadata": metadata}
                     yield data_series, metadata
-                self._dump_recovery_data(model, scenario, for_recovery)
+                if self.recovery_required:
+                    self._dump_recovery_data(model, scenario, for_recovery)
             logger.info(f"Completed processing of model '{model}'")
         self._set_final_state()
 
