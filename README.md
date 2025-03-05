@@ -11,7 +11,8 @@ The application is developed such that all functionality is available through a 
 ```bash
 git clone git@github.com:igorcmvaz/rainfall-series-transformation.git
 cd rainfall-series-transformation
-python3.x -m venv .venv   # use any 3.9+ Python version
+python3.x -m venv .venv     # use any 3.9+ Python version
+source .venv/bin/activate   # activate your virtual environment before installing anything
 python -m pip install -r requirements.txt
 python transform.py -h
 ```
