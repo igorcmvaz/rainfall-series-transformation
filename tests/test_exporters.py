@@ -52,8 +52,7 @@ class TestParquetExporter(unittest.TestCase):
 
     def test_log_output_from_generated_parquet(self):
         EXPECTED_LOG_MESSAGE = (
-            f"Successfully exported dataframe to file at "
-            f"'{self.expected_file_path.resolve()}'")
+            f"Successfully exported dataframe to '{self.expected_file_path.resolve()}'")
         with self.assertLogs(logger, level=logging.INFO) as log_context:
             self.exporter.generate_parquet(self.SAMPLE_DATAFRAME)
             self.assertIn(EXPECTED_LOG_MESSAGE, log_context.output[0])
@@ -104,7 +103,7 @@ class TestCSVExporter(unittest.TestCase):
 
     def test_log_output_from_generated_csv(self):
         EXPECTED_LOG_MESSAGE = (
-            f"Successfully exported precipitation data series to file at "
+            f"Successfully exported precipitation data series to "
             f"'{self.expected_file_path.resolve()}'")
         with self.assertLogs(logger, level=logging.INFO) as log_context:
             self.exporter.generate_csv(

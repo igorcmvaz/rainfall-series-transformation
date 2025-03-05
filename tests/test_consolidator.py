@@ -72,8 +72,8 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
     def test_parameters_in_logs_after_count_error(self):
         ORIGINAL_PROCESSED_COUNT = self.consolidator.state["processed"]
         EXPECTED_LOG_MESSAGE = (
-            f"[{ORIGINAL_PROCESSED_COUNT+1}/{self.expected_total}] Error during processing."
-            f" Details: test=foo, bar=zii, el=psy")
+            f"[{ORIGINAL_PROCESSED_COUNT+1}/{self.expected_total}] Error during processing "
+            f"for test=foo, bar=zii, el=psy")
 
         with self.assertLogs(logger, level=logging.ERROR) as log_context:
             self.consolidator._count_error(test="foo", bar="zii", el="psy")
@@ -88,8 +88,8 @@ class TestConsolidatorInternalFunctions(unittest.TestCase):
     def test_parameters_in_logs_after_count_processed(self):
         ORIGINAL_PROCESSED_COUNT = self.consolidator.state["processed"]
         EXPECTED_LOG_MESSAGE = (
-            f"[{ORIGINAL_PROCESSED_COUNT+1}/{self.expected_total}] Completed processing."
-            f" Details: test=foo, bar=2, el=None")
+            f"[{ORIGINAL_PROCESSED_COUNT+1}/{self.expected_total}] Completed processing for"
+            f" test=foo, bar=2, el=None")
 
         with self.assertLogs(logger, level=logging.INFO) as log_context:
             self.consolidator._count_processed(test="foo", bar=2, el=None)

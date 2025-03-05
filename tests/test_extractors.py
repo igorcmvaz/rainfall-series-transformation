@@ -31,7 +31,7 @@ class TestNetCDFExtractor(unittest.TestCase):
         extractor.variables = {}
         expected_variables = NetCDFStubGenerator.create_sample_variables()
 
-        extractor._get_dataset_variables(SAMPLE_NC_PATH)
+        extractor.variables = extractor._get_dataset_variables(SAMPLE_NC_PATH)
 
         self.assertEqual(extractor.variables.keys(), expected_variables.keys())
         for name, variable in expected_variables.items():
