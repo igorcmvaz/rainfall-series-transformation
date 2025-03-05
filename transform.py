@@ -166,7 +166,8 @@ if __name__ == "__main__":
         help=(
             "indicates the temporary recovery files should NOT be created. Recovery files "
             "aid in case the operation cannot be completed in one run, but slow the process"
-            " with extra serialization and I/O operations"))
+            " with extra serialization and I/O operations. Ignored if --raw-coordinates is "
+            "present"))
     parser.add_argument(
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
