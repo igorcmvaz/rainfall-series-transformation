@@ -139,10 +139,13 @@ class Consolidator:
         output_file_path = Path(
             self.temp_dir, RECOVERY_FILENAME_FORMAT.format(model=model, scenario=scenario))
         dirty_path = Path(self.temp_dir, TEMP_FILE_NAME)
+        start_time = time.perf_counter()
         with open(dirty_path, "wb") as temp_file:
             pickle.dump(recovery_data, temp_file, protocol=pickle.HIGHEST_PROTOCOL)
         dirty_path.replace(output_file_path)
-        logger.info(f"Successfully saved recovery file at '{output_file_path.name}'")
+        logger.info(
+            f"Successfully saved recovery file at '{output_file_path.name}' in "
+            f"{time.perf_counter() - start_time:.2f}s")
 
     def _validate_recovery_path(self, model: str, scenario: str) -> Path | None:
         """
@@ -174,9 +177,12 @@ class Consolidator:
         Returns:
             RecoveryData: Data (precipitation series and metadata) recovered from the file.
         """
-        logger.info(f"Retrieving data from recovery file '{path_to_file.name}'")
+        start_time = time.perf_counter()
         with open(path_to_file, "rb") as file:
             recovered_data = pickle.load(file)
+        logger.info(
+            f"Retrieved data from recovery file '{path_to_file.name}' in "
+            f"{time.perf_counter() - start_time:.2f}s")
         return recovered_data
 
     def clear_temp_files(self) -> None:
