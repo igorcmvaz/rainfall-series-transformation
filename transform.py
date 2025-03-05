@@ -118,7 +118,7 @@ def main(args: CommandLineArgsValidator) -> None:
         parquet_exporter.generate_parquet(consolidator.consolidate_indices_dataset())
     else:
         consolidator.generate_all_precipitation_series()
-    if not args.keep_temp_files:
+    if args.recovery_required and not args.keep_temp_files:
         consolidator.clear_temp_files()
 
 
