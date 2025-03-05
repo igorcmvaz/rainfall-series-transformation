@@ -106,7 +106,12 @@ def main(args: CommandLineArgsValidator) -> None:
     elif args.csv_required:
         csv_exporter = CSVExporter(args.input_path.parent)
     consolidator = Consolidator(
-        city_coordinates, SSP_SCENARIOS, CLIMATE_MODELS, args.input_path, csv_exporter)
+        city_coordinates,
+        SSP_SCENARIOS,
+        CLIMATE_MODELS,
+        args.input_path,
+        args.recovery_required,
+        csv_exporter)
 
     if args.parquet_required:
         parquet_exporter = ParquetExporter(args.input_path.parent)
@@ -134,28 +139,34 @@ if __name__ == "__main__":
     parser.add_argument(
         "-p", "--to-parquet", dest="parquet_required", action="store_true", default=False,
         help=(
-            "whether a consolidated Parquet file with precipitation indices should be "
+            "indicates a consolidated Parquet file with precipitation indices should be "
             "exported. Ignored if --raw-coordinates is present"))
     parser.add_argument(
         "-c", "--to-csv", dest="csv_required", action="store_true", default=False, help=(
-            "whether a CSV file with datetime and precipitation data for each city, model "
-            "and scenario should be generated. Ignored if --raw-coordinates is present"))
+            "indicates a CSV file with datetime and precipitation data for each city, model"
+            " and scenario should be generated. Ignored if --raw-coordinates is present"))
     parser.add_argument(
         "-n", "--to-netuno", dest="netuno_required", action="store_true", default=False,
         help=(
-            "whether CSV files should be exported containing only precipitation data "
+            "indicates CSV files should be exported containing only precipitation data "
             "(no headers). Overrides --to-csv. Ignored if --raw-coordinates is present"))
     parser.add_argument(
         "-r", "--raw-coordinates", action="store_true", dest="only_process_coordinates",
         default=False, help=(
-            "whether the coordinates file contains raw coordinates in CSV format, "
+            "indicates the coordinates file contains raw coordinates in CSV format, "
             "restricting the operation to their validation and creation of a formatted JSON"
             " file. Overrides --to-parquet, --to-csv- and --to-netuno"))
     parser.add_argument(
         "-k", "--keep-temp", action="store_true", dest="keep_temp_files", default=False,
         help=(
-            "whether to keep the temporary binary recovery files created throughout the "
-            "operation. Ignored if --raw-coordinates is present"))
+            "indicates the temporary binary recovery files created throughout the operation"
+            " should be kept. Ignored if --raw-coordinates is present"))
+    parser.add_argument(
+        "--no-recovery", action="store_false", dest="recovery_required", default=True,
+        help=(
+            "indicates the temporary recovery files should NOT be created. Recovery files "
+            "aid in case the operation cannot be completed in one run, but slow the process"
+            " with extra serialization and I/O operations"))
     parser.add_argument(
         "-q", "--quiet", action="count", default=0,
         help="turn on quiet mode (cumulative), which hides log entries of levels lower "
