@@ -1,11 +1,12 @@
 import logging
 from argparse import ArgumentParser
+from collections.abc import Generator
 from pathlib import Path
 
 from agents.calculator import CoordinatesFinder
 from agents.consolidator import Consolidator
 from agents.exporters import (
-    JSONCoordinatesExporter, ParquetExporter, CSVExporter, NetunoExporter)
+    CSVExporter, JSONCoordinatesExporter, NetunoExporter, ParquetExporter)
 from agents.extractors import StructuredCoordinatesExtractor
 from agents.validators import CommandLineArgsValidator
 from globals.constants import CLIMATE_MODELS, SSP_SCENARIOS
@@ -36,17 +37,38 @@ def setup_logger(quiet_count: int, verbose: bool) -> None:
     )
 
 
+def filter_by_suffix(directory_path: Path, suffix: str = ".nc") -> Generator[Path]:
+    """
+    Generates a filtered sequence of paths in a directory based on each file's suffix.
+
+    Args:
+        directory_path (Path): Path to the directory where the files are stored.
+        suffix (str): Desired suffix for the files. Any file whose last suffix is different
+        will be filtered out. Defaults to ".nc".
+
+    Yields:
+        Generator[Path]: A generator of paths that have a last suffix matching the given
+        suffix. Comparison is case insensitive.
+    """
+    yield from (
+        path for path in directory_path.iterdir()
+        if path.suffix.casefold() == suffix.casefold())
+
+
 def find_smallest_file(directory_path: Path) -> Path:
     """
-    Finds and returns the smallest file (in bytes) from a given directory.
+    Finds and returns the smallest NetCDF4 file (in bytes) from a given directory.
+
+    NetCDF4 format is assumed from the file suffix (expected ".nc"), and not validated in
+    any other way.
 
     Args:
         directory_path (Path): Path to the directory.
 
     Returns:
-        Path: Path to the smallest file (in bytes) found in the directory.
+        Path: Path to the smallest NetCDF4 file (in bytes) found in the directory.
     """
-    return min(directory_path.iterdir(), key=lambda p: p.stat().st_size)
+    return min(filter_by_suffix(directory_path), key=lambda p: p.stat().st_size)
 
 
 def process_coordinates_files(coordinates_path: Path, input_path: Path) -> None:
