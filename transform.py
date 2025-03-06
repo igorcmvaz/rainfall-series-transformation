@@ -83,7 +83,7 @@ def find_smallest_file(directory_path: Path) -> Path:
 def process_coordinates_files(coordinates_path: Path, input_path: Path) -> None:
     """
     Uses the smallest file (assuming NetCDF4 format) from a given path to validate the
-    coordinates of found in another (assumed CSV) file and exports a validated JSON file.
+    coordinates found in another (assumed CSV) file and exports a validated JSON file.
 
     The smallest file is found by querying all files for their stats and comparing their
     size in bytes. It is assumed the entire directory contains only NetCDF4 files.
@@ -143,6 +143,7 @@ def main(args: CommandLineArgsValidator) -> None:
         parquet_exporter.generate_parquet(consolidator.consolidate_indices_dataset())
     else:
         consolidator.generate_all_precipitation_series()
+
     if args.recovery_required and not args.keep_temp_files:
         consolidator.clear_temp_files()
 
