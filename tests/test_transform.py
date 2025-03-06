@@ -188,25 +188,39 @@ class TestGetCSVExporter(unittest.TestCase):
     def test_get_csv_exporter_netuno_required(self):
         self.args.netuno_required = True
         self.args.csv_required = False
+
         result = get_csv_exporter(self.args)
+
         self.assertIsInstance(result, NetunoExporter)
+
+        result.output_dir.rmdir()
 
     def test_get_csv_exporter_only_csv_required(self):
         self.args.netuno_required = False
         self.args.csv_required = True
+
         result = get_csv_exporter(self.args)
+
         self.assertIsInstance(result, CSVExporter)
+
+        result.output_dir.rmdir()
 
     def test_get_csv_exporter_both_required(self):
         self.args.netuno_required = True
         self.args.csv_required = True
+
         result = get_csv_exporter(self.args)
+
         self.assertIsInstance(result, NetunoExporter)
+
+        result.output_dir.rmdir()
 
     def test_get_csv_exporter_none_required(self):
         self.args.netuno_required = False
         self.args.csv_required = False
+
         result = get_csv_exporter(self.args)
+
         self.assertIsNone(result)
 
 
@@ -253,6 +267,8 @@ class TestMainOperation(unittest.TestCase):
                 expected_exporter)
             parquet_mock.assert_called_once_with("INDICES")
 
+        expected_exporter.output_dir.rmdir()
+
     def test_parquet_not_required(self):
         self.args.only_process_coordinates = False
         self.args.parquet_required = False
@@ -260,6 +276,7 @@ class TestMainOperation(unittest.TestCase):
                 patch(PATCH_STRINGS["Consolidator"]["__init__"]) as consolidator_mock,
                 patch(PATCH_STRINGS["Consolidator"]["all_precipitation"]) as series_mock,
                 patch(PATCH_STRINGS["Consolidator"]["consolidate_indices"]) as indices_mock,
+                patch(PATCH_STRINGS["get_csv_exporter"]),
                 patch(PATCH_STRINGS["get_coordinates"]),
                 patch(PATCH_STRINGS["generate_parquet"])):
             consolidator_mock.return_value = None
@@ -278,6 +295,7 @@ class TestMainOperation(unittest.TestCase):
                 patch(PATCH_STRINGS["Consolidator"]["__init__"]) as consolidator_mock,
                 patch(PATCH_STRINGS["Consolidator"]["clear"]) as clear_mock,
                 patch(PATCH_STRINGS["Consolidator"]["all_precipitation"]),
+                patch(PATCH_STRINGS["get_csv_exporter"]),
                 patch(PATCH_STRINGS["get_coordinates"]),
                 patch(PATCH_STRINGS["generate_parquet"])):
             consolidator_mock.return_value = None
@@ -295,6 +313,7 @@ class TestMainOperation(unittest.TestCase):
                 patch(PATCH_STRINGS["Consolidator"]["__init__"]) as consolidator_mock,
                 patch(PATCH_STRINGS["Consolidator"]["clear"]) as clear_mock,
                 patch(PATCH_STRINGS["Consolidator"]["all_precipitation"]),
+                patch(PATCH_STRINGS["get_csv_exporter"]),
                 patch(PATCH_STRINGS["get_coordinates"]),
                 patch(PATCH_STRINGS["generate_parquet"])):
             consolidator_mock.return_value = None
@@ -312,6 +331,7 @@ class TestMainOperation(unittest.TestCase):
                 patch(PATCH_STRINGS["Consolidator"]["__init__"]) as consolidator_mock,
                 patch(PATCH_STRINGS["Consolidator"]["clear"]) as clear_mock,
                 patch(PATCH_STRINGS["Consolidator"]["all_precipitation"]),
+                patch(PATCH_STRINGS["get_csv_exporter"]),
                 patch(PATCH_STRINGS["get_coordinates"]),
                 patch(PATCH_STRINGS["generate_parquet"])):
             consolidator_mock.return_value = None
@@ -319,9 +339,6 @@ class TestMainOperation(unittest.TestCase):
             main(self.args)
 
             clear_mock.assert_not_called()
-
-
-# TODO: create tag and release after coverage is done
 
 
 if __name__ == '__main__':
