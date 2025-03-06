@@ -242,9 +242,12 @@ class Consolidator:
                     for city, content in recovered_data.items():
                         if city not in cities_to_process:
                             continue
-                        self._count_processed(**content["metadata"])
+                        data_series = content["data"]
+                        metadata = content["metadata"]
+                        self._evaluate_csv_generation(data_series, metadata)
+                        self._count_processed(**metadata)
                         cities_to_process.pop(city, None)
-                        yield content["data"], content["metadata"]
+                        yield data_series, metadata
                 if not cities_to_process:
                     logger.debug(
                         f"Found recovery data for all cities under model '{model}' and "
