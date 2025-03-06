@@ -15,26 +15,35 @@ from globals.errors import InvalidCoordinatesFileError, InvalidSourceDirectoryEr
 logger = logging.getLogger("rainfall_transformation")
 
 
-def setup_logger(quiet_count: int, verbose: bool) -> None:
+def setup_logger(logger: logging.Logger, quiet_count: int, verbose: bool) -> None:
     """
-    Configure logging for the application, defining format and log level according to quiet
-    or verbose arguments.
+    Configures a logger for the application, defining output format and log level according
+    to quiet or verbose arguments.
 
     Args:
+        logger (logging.Logger): Logger channel to be configured.
         quiet_count (int): Number of times the 'quiet' flag was provided.
         verbose (bool): Whether the 'verbose' flag was provided.
     """
-    log_level = logging.DEBUG if verbose else logging.INFO
-    if quiet_count == 1:
+    if verbose:
+        log_level = logging.DEBUG
+    elif quiet_count == 1:
         log_level = logging.WARNING
     elif quiet_count >= 2:
         log_level = logging.ERROR
+    else:
+        log_level = logging.INFO
 
-    logging.basicConfig(
-        format="%(asctime)s  %(levelname)-8.8s: %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S%z",
-        level=log_level,
-    )
+    logger.propagate = True
+    logger.setLevel(log_level)
+
+    formatter = logging.Formatter(
+        fmt="%(asctime)s  %(levelname)-8.8s: %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S%z")
+    handler = logging.StreamHandler()
+    handler.setLevel(log_level)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
 
 def filter_by_suffix(directory_path: Path, suffix: str = ".nc") -> Generator[Path]:
@@ -179,7 +188,7 @@ if __name__ == "__main__":
 
     validator = CommandLineArgsValidator()
     parser.parse_args(namespace=validator)
-    setup_logger(validator.quiet, validator.verbose)
+    setup_logger(logger, validator.quiet, validator.verbose)
 
     try:
         validator.validate_arguments()
