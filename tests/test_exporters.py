@@ -159,7 +159,7 @@ class TestNetunoExporter(unittest.TestCase):
         self.exporter.generate_csv(
             self.SAMPLE_DATASERIES, "Auridon", "EC-NIRN3", "SSP245_2015_2100")
 
-        content = pd.read_csv(self.expected_file_path)
+        content = pd.read_csv(self.expected_file_path, header=None, names=["precipitation"])
 
         self.assertIn("precipitation", content.columns)
         self.assertNotIn("date", content.columns)
@@ -167,7 +167,7 @@ class TestNetunoExporter(unittest.TestCase):
         for expected_values, actual_values in zip(
                 self.SAMPLE_DATASERIES, content.itertuples()):
             with self.subTest(index=actual_values.Index):
-                self.assertEqual(expected_values[1], actual_values.precipitation)
+                self.assertEqual(expected_values[1], actual_values[1])
 
         self.expected_file_path.unlink()
 
