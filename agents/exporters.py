@@ -92,7 +92,8 @@ class CSVExporter(BasePrecipitationExporter):
             city_name: str,
             model: str,
             scenario: str,
-            schema: list[str] = ["date", "precipitation"]) -> None:
+            schema: list[str] = ["date", "precipitation"],
+            include_headers: bool = True) -> None:
         """
         Generates a CSV file from a given data series.
 
@@ -103,12 +104,16 @@ class CSVExporter(BasePrecipitationExporter):
             model (str): Climate model related to the data.
             scenario (str): Climate scenario related to the data.
             schema (list[str], optional): Output schema (columns to be exported). Must have
-            the same dimensions as the data series. Defaults to ["date", "precipitation"].
+                the same dimensions as the data series. Defaults to
+                ["date", "precipitation"].
+            include_headers (bool): Whether column headers should be included in the
+            exported file. Defaults to True.
         """
         df = pd.DataFrame(data_series, columns=schema)
         output_path = self._get_file_path(city_name, model, scenario)
         df.to_csv(
-            output_path, sep=",", index=False, encoding="utf-8", date_format="%Y-%m-%d")
+            output_path, sep=",", index=False, encoding="utf-8", date_format="%Y-%m-%d",
+            header=include_headers)
         logger.info(
             f"Successfully exported precipitation data series to '{output_path.resolve()}'")
 
@@ -154,7 +159,8 @@ class NetunoExporter(CSVExporter):
             city_name,
             model,
             scenario,
-            schema=["precipitation"])
+            schema=["precipitation"],
+            include_headers=False)
 
 
 class JSONCoordinatesExporter:
