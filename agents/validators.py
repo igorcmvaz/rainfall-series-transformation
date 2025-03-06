@@ -143,9 +143,9 @@ class PathValidator:
 class CommandLineArgsValidator:
     coordinates_path: Path
     input_path: Path
-    parquet_required: str
-    csv_required: str
-    netuno_required: str
+    parquet_required: bool
+    csv_required: bool
+    netuno_required: bool
     only_process_coordinates: bool
     keep_temp_files: bool
     recovery_required: bool
