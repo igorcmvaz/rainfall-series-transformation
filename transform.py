@@ -103,17 +103,33 @@ def process_coordinates_files(coordinates_path: Path, input_path: Path) -> None:
     JSONCoordinatesExporter.generate_json(validated_coordinates, output_path)
 
 
+def get_csv_exporter(args: CommandLineArgsValidator) -> CSVExporter | None:
+    """
+    Define the CSV exporter to be used based on the command line arguments.
+
+    Args:
+        args (CommandLineArgsValidator): Instance of validated command line arguments
+        container.
+
+    Returns:
+        CSVExporter | None: CSVExporter type (or one of its subclasses) if CSV files are
+        required, else None.
+    """
+    csv_exporter = None
+    if args.netuno_required:
+        csv_exporter = NetunoExporter(args.input_path.parent)
+    elif args.csv_required:
+        csv_exporter = CSVExporter(args.input_path.parent)
+    return csv_exporter
+
+
 def main(args: CommandLineArgsValidator) -> None:
     if args.only_process_coordinates:
         return process_coordinates_files(args.coordinates_path, args.input_path)
     city_coordinates = StructuredCoordinatesExtractor(
         args.coordinates_path).get_coordinates()
 
-    csv_exporter = None
-    if args.netuno_required:
-        csv_exporter = NetunoExporter(args.input_path.parent)
-    elif args.csv_required:
-        csv_exporter = CSVExporter(args.input_path.parent)
+    csv_exporter = get_csv_exporter(args)
     consolidator = Consolidator(
         city_coordinates,
         SSP_SCENARIOS,
