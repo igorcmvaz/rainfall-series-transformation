@@ -146,6 +146,7 @@ class CommandLineArgsValidator:
     parquet_required: bool
     csv_required: bool
     netuno_required: bool
+    gam_idf_required: bool
     only_process_coordinates: bool
     keep_temp_files: bool
     recovery_required: bool

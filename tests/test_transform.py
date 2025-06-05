@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 import time_machine
 
-from agents.exporters import CSVExporter, NetunoExporter
+from agents.exporters import CSVExporter, NetunoExporter, GamIdfExporter
 from agents.validators import CommandLineArgsValidator
 from globals.constants import CLIMATE_MODELS, SSP_SCENARIOS
 from transform import (
@@ -184,10 +184,12 @@ class TestGetCSVExporter(unittest.TestCase):
     def setUp(self):
         self.args = CommandLineArgsValidator()
         self.args.input_path = Path(__file__).parent
+        self.args.gam_idf_required = False
 
     def test_get_csv_exporter_netuno_required(self):
         self.args.netuno_required = True
         self.args.csv_required = False
+        self.args.gam_idf_required = False
 
         result = get_csv_exporter(self.args)
 
@@ -197,6 +199,7 @@ class TestGetCSVExporter(unittest.TestCase):
 
     def test_get_csv_exporter_only_csv_required(self):
         self.args.netuno_required = False
+        self.args.gam_idf_required = False
         self.args.csv_required = True
 
         result = get_csv_exporter(self.args)
@@ -208,6 +211,7 @@ class TestGetCSVExporter(unittest.TestCase):
     def test_get_csv_exporter_both_required(self):
         self.args.netuno_required = True
         self.args.csv_required = True
+        self.args.gam_idf_required = True
 
         result = get_csv_exporter(self.args)
 
@@ -218,10 +222,44 @@ class TestGetCSVExporter(unittest.TestCase):
     def test_get_csv_exporter_none_required(self):
         self.args.netuno_required = False
         self.args.csv_required = False
+        self.args.gam_idf_required = False
 
         result = get_csv_exporter(self.args)
 
         self.assertIsNone(result)
+
+    def test_get_csv_exporter_gam_idf_required(self):
+        self.args.netuno_required = False
+        self.args.csv_required = False
+        self.args.gam_idf_required = True
+
+        result = get_csv_exporter(self.args)
+
+        self.assertIsInstance(result, GamIdfExporter)
+
+        result.output_dir.rmdir()
+
+    def test_get_csv_exporter_netuno_overrides_gam_idf(self):
+        self.args.netuno_required = True
+        self.args.gam_idf_required = True
+        self.args.csv_required = True
+
+        result = get_csv_exporter(self.args)
+
+        self.assertIsInstance(result, NetunoExporter)
+
+        result.output_dir.rmdir()
+
+    def test_get_csv_exporter_gam_idf_overrides_csv(self):
+        self.args.netuno_required = False
+        self.args.gam_idf_required = True
+        self.args.csv_required = True
+
+        result = get_csv_exporter(self.args)
+
+        self.assertIsInstance(result, GamIdfExporter)
+
+        result.output_dir.rmdir()
 
 
 class TestMainOperation(unittest.TestCase):
@@ -232,6 +270,7 @@ class TestMainOperation(unittest.TestCase):
         self.args.input_path = Path(__file__).parent
         self.args.csv_required = True
         self.args.netuno_required = False
+        self.args.gam_idf_required = False
         self.args.recovery_required = False
 
     def test_only_process_coordinates(self):

@@ -10,8 +10,13 @@ import pandas as pd
 import time_machine
 
 from agents.exporters import (
-    BasePrecipitationExporter, CSVExporter, JSONCoordinatesExporter, NetunoExporter,
-    ParquetExporter, logger)
+    BasePrecipitationExporter,
+    CSVExporter,
+    JSONCoordinatesExporter,
+    NetunoExporter,
+    ParquetExporter,
+    GamIdfExporter,
+    logger)
 from tests.samples.stub_raw_coordinates import SAMPLE_RAW_COORDINATES
 
 
@@ -168,6 +173,53 @@ class TestNetunoExporter(unittest.TestCase):
                 self.SAMPLE_DATASERIES, content.itertuples()):
             with self.subTest(index=actual_values.Index):
                 self.assertEqual(expected_values[1], actual_values[1])
+
+        self.expected_file_path.unlink()
+
+    def tearDown(self):
+        self.exporter.output_dir.rmdir()
+
+
+class TestGamIdfExporter(unittest.TestCase):
+
+    SAMPLE_DATASERIES: np.ndarray[tuple[datetime, int]] = np.array([
+        (datetime(2015, 1, 1), 20),
+        (datetime(2015, 6, 1), 30),
+        (datetime(2016, 1, 1), 50),
+        (datetime(2016, 7, 1), 15)])
+
+    def setUp(self):
+        self.exporter = GamIdfExporter(Path(__file__).parent)
+        self.expected_file_path = Path(
+            self.exporter.output_dir, "(GAM-IDF)Auridon_EC-NIRN3_SSP245_2015_2100.csv")
+        for file in self.exporter.output_dir.iterdir():
+            file.unlink()
+
+    def test_get_file_path(self):
+        file_name = self.exporter._get_file_path("Auridon", "EC-NIRN3", "SSP245_2015_2100")
+        self.assertEqual(file_name, self.expected_file_path)
+
+    def test_generate_csv(self):
+        self.exporter.generate_csv(
+            self.SAMPLE_DATASERIES, "Auridon", "EC-NIRN3", "SSP245_2015_2100")
+
+        self.assertTrue(self.expected_file_path.is_file())
+
+        self.expected_file_path.unlink()
+
+    def test_generated_csv_content(self):
+        self.exporter.generate_csv(
+            self.SAMPLE_DATASERIES, "Auridon", "EC-NIRN3", "SSP245_2015_2100")
+
+        content = pd.read_csv(
+            self.expected_file_path, header=None, names=["year", "precipitation"], sep=";")
+        expected = pd.DataFrame({"year": [2015, 2016], "precipitation": [30, 50]})
+
+        for expected_values, actual_values in zip(
+                expected.itertuples(index=False), content.itertuples(index=False)):
+            with self.subTest(year=actual_values.year):
+                self.assertEqual(expected_values.year, actual_values.year)
+                self.assertEqual(expected_values.precipitation, actual_values.precipitation)
 
         self.expected_file_path.unlink()
 

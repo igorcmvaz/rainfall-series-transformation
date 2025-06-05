@@ -6,7 +6,11 @@ from pathlib import Path
 from agents.calculator import CoordinatesFinder
 from agents.consolidator import Consolidator
 from agents.exporters import (
-    CSVExporter, JSONCoordinatesExporter, NetunoExporter, ParquetExporter)
+    CSVExporter,
+    JSONCoordinatesExporter,
+    NetunoExporter,
+    ParquetExporter,
+    GamIdfExporter)
 from agents.extractors import StructuredCoordinatesExtractor
 from agents.validators import CommandLineArgsValidator
 from globals.constants import CLIMATE_MODELS, SSP_SCENARIOS
@@ -118,6 +122,8 @@ def get_csv_exporter(args: CommandLineArgsValidator) -> CSVExporter | None:
     csv_exporter = None
     if args.netuno_required:
         csv_exporter = NetunoExporter(args.input_path.parent)
+    elif args.gam_idf_required:
+        csv_exporter = GamIdfExporter(args.input_path.parent)
     elif args.csv_required:
         csv_exporter = CSVExporter(args.input_path.parent)
     return csv_exporter
@@ -176,6 +182,12 @@ if __name__ == "__main__":
         help=(
             "indicates CSV files should be exported containing only precipitation data "
             "(no headers). Overrides --to-csv. Ignored if --raw-coordinates is present"))
+    parser.add_argument(
+        "-a", "--to-gam-idf", dest="gam_idf_required", action="store_true", default=False,
+        help=(
+            "indicates CSV files should be exported containing the annual maximum "
+            "daily precipitation (GAM-IDF format). Overrides --to-csv. Ignored if "
+            "--raw-coordinates is present"))
     parser.add_argument(
         "-r", "--raw-coordinates", action="store_true", dest="only_process_coordinates",
         default=False, help=(

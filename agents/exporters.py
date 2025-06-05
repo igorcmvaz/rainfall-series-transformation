@@ -163,6 +163,29 @@ class NetunoExporter(CSVExporter):
             include_headers=False)
 
 
+class GamIdfExporter(CSVExporter):
+    """Exports annual maximum daily precipitation in GAM-IDF format."""
+
+    def _get_file_path(self, city_name: str, model: str, scenario: str) -> Path:
+        return Path(
+            self.output_dir,
+            f"(GAM-IDF){city_name}_{model}_{scenario}").with_suffix(".csv")
+
+    def generate_csv(
+            self,
+            data_series: np.ndarray[tuple[datetime, float]],
+            city_name: str,
+            model: str,
+            scenario: str) -> None:
+        df = pd.DataFrame(data_series, columns=["date", "precipitation"])
+        df["year"] = df["date"].dt.year
+        df = df.groupby("year")["precipitation"].max().reset_index()
+        output_path = self._get_file_path(city_name, model, scenario)
+        df.to_csv(output_path, sep=";", header=False, index=False, encoding="utf-8")
+        logger.info(
+            f"Successfully exported annual max precipitation series to '{output_path.resolve()}'")
+
+
 class JSONCoordinatesExporter:
 
     @staticmethod

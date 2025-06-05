@@ -121,6 +121,7 @@ The same input arguments are required to use the application in this format. Her
 ```bash
 python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-csv
 python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-netuno           # for CSV files to have only precipitation values and no header
+python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-gam-idf        # for CSV files with annual max daily precipitation
 python transform.py path/to/validated_coordinates.json path/to/netcdf_dir --to-parquet --to-csv # to export a consolidated Parquet file and the CSVs for each city/model/scenario
 ```
 
@@ -151,6 +152,9 @@ python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-
 
 # Or, generate precipitation data in Netuno format
 python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-netuno
+
+# Or, generate annual maximum daily precipitation in GAM-IDF format
+python transform.py example/brazilian_cities_over_50k.json example/CLIMBra --to-gam-idf
 ```
 
 ## Tests
